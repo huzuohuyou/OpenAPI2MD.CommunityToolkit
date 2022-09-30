@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 
 namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
 {
@@ -19,9 +20,10 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            new OpenAPIMDGenerator().ReadYaml();
+            
+            await new OpenAPIMDGenerator().ReadYaml();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
