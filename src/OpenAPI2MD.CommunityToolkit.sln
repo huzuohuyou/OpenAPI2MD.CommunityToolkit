@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkit", "OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj", "{A43E16C9-C1D4-4137-8779-EE41FD286F28}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkit.Example", "OpenAPI2MD.CommunityToolkit.Example\OpenAPI2MD.CommunityToolkit.Example.csproj", "{2AB6E479-40D4-48BA-ACFA-E8C4DBBEEB1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkitTests", "..\test\OpenAPI2MD.CommunityToolkitTests\OpenAPI2MD.CommunityToolkitTests.csproj", "{56E621EB-FDEE-4CF8-B369-9EF5346D4697}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAPI2MD.CommunityToolkitTests", "OpenAPI2MD.CommunityToolkitTests\OpenAPI2MD.CommunityToolkitTests.csproj", "{DF10ECA9-1CB8-4FE4-9B6A-D7521E7030E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkit.Example", "..\docs\samples\OpenAPI2MD.CommunityToolkit.Example\OpenAPI2MD.CommunityToolkit.Example.csproj", "{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{A43E16C9-C1D4-4137-8779-EE41FD286F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A43E16C9-C1D4-4137-8779-EE41FD286F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A43E16C9-C1D4-4137-8779-EE41FD286F28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2AB6E479-40D4-48BA-ACFA-E8C4DBBEEB1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AB6E479-40D4-48BA-ACFA-E8C4DBBEEB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AB6E479-40D4-48BA-ACFA-E8C4DBBEEB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AB6E479-40D4-48BA-ACFA-E8C4DBBEEB1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF10ECA9-1CB8-4FE4-9B6A-D7521E7030E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF10ECA9-1CB8-4FE4-9B6A-D7521E7030E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF10ECA9-1CB8-4FE4-9B6A-D7521E7030E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF10ECA9-1CB8-4FE4-9B6A-D7521E7030E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E621EB-FDEE-4CF8-B369-9EF5346D4697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E621EB-FDEE-4CF8-B369-9EF5346D4697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E621EB-FDEE-4CF8-B369-9EF5346D4697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E621EB-FDEE-4CF8-B369-9EF5346D4697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
