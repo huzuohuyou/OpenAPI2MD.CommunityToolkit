@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,12 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ApiConventions.CommunityToolkit" Version="1.0.0" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.4.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
+    <ProjectReference Include="..\..\..\src\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
   </ItemGroup>
 
 </Project>

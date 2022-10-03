@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
+    <ProjectReference Include="..\..\src\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
   </ItemGroup>
 
 </Project>
