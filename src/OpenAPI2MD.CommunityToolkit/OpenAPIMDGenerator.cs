@@ -11,18 +11,15 @@ namespace OpenAPI2MD.CommunityToolkit
         public async Task<string> ReadYaml()
         {
 
-            var httpClient = new HttpClient
+            var _client = new HttpClient
             {
-                BaseAddress = new Uri("https://raw.githubusercontent.com/OAI/OpenAPI-Specification/")
+                BaseAddress = new Uri("https://localhost:18100/")
             };
 
-            var stream = await httpClient.GetStreamAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "openapi.yaml"));
+            var stream = await _client.GetStreamAsync("/swagger/v1/swagger.json");
 
-            // Read V3 as YAML
-            var openApiDocument = new OpenApiStreamReader().Read(stream, out var diagnostic);
-
-            // Write V2 as JSON
-            var outputString = openApiDocument.Serialize(OpenApiSpecVersion.OpenApi2_0, OpenApiFormat.Json);
+            var openApiDocument = new OpenApiStreamReader(new OpenApiReaderSettings() { });
+            var temp = openApiDocument.Read(stream, out var diagnostic);
 
             var lines=File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "openapi.yaml"));
             // create the document (initially empty)
