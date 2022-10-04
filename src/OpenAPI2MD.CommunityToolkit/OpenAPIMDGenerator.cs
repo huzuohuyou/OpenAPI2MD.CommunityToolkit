@@ -1,7 +1,10 @@
 ﻿using Grynwald.MarkdownGenerator;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Readers;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace OpenAPI2MD.CommunityToolkit
 {
@@ -15,13 +18,18 @@ namespace OpenAPI2MD.CommunityToolkit
             {
                 BaseAddress = new Uri("https://localhost:18100/")
             };
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+            var json = await _client.GetStringAsync("/swagger/1.0.0/swagger.json");
+           // var doc0=System.Text.Json.JsonSerializer.Deserialize<OpenApiDocument>(json, options);
+            var stream = await _client.GetStreamAsync("/swagger/1.0.0/swagger.json");
 
-            var stream = await _client.GetStreamAsync("/swagger/v1/swagger.json");
+            var doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
 
-            var openApiDocument = new OpenApiStreamReader(new OpenApiReaderSettings() { });
-            var temp = openApiDocument.Read(stream, out var diagnostic);
-
-            var lines=File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "openapi.yaml"));
+            //var lines=File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "openapi.yaml"));
             // create the document (initially empty)
             var document = new MdDocument();
 

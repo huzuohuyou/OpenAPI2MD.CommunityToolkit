@@ -1,14 +1,19 @@
+using ApiConventions.CommunityToolKit;
 using ApiConventions.CommunityToolKit.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
 {
+    /// <summary>
+    /// 啦啦啦
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : CtkControllerBase
     {
+        private readonly JwtHelper _jwtHelper;
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -16,13 +21,40 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, JwtHelper jwtHelper)
         {
             _logger = logger;
+            _jwtHelper = jwtHelper;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<IEnumerable<WeatherForecast>> Get()
+        /// <summary>
+        /// token
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("token", Name = "GetToken")]
+        [AllowAnonymous]
+        public ActionResult<string> GetToken()
+        {
+            return _jwtHelper.CreateToken();
+        }
+
+        /// <summary>
+        /// 查天气
+        /// </summary>
+        /// <param name="token">令牌</param>
+        /// <param name="id">参数</param>
+        /// <returns>返回值</returns>
+        /// <remarks>
+        /// 这是一个测试接口
+        /// </remarks>
+        /// <example>
+        /// 这个接口这么要调用
+        /// </example>
+        [HttpGet("{id}", Name = "GetById")]
+        public async Task<IEnumerable<WeatherForecast>> Get([FromHeader(Name = "Authorization")]
+            [Required]
+            string token,
+            [FromRoute] int id)
         {
             
             await new OpenAPIMDGenerator().ReadYaml();
