@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkit.Example", "..\docs\samples\OpenAPI2MD.CommunityToolkit.Example\OpenAPI2MD.CommunityToolkit.Example.csproj", "{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1284F8CC-6DBE-4B73-9BB1-D1F3A60FCDC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F9C0539B-CE97-4C53-9455-0C5828E2448E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8511A16F-7C81-442F-A68E-784C3C6891B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +36,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A43E16C9-C1D4-4137-8779-EE41FD286F28} = {1284F8CC-6DBE-4B73-9BB1-D1F3A60FCDC2}
+		{56E621EB-FDEE-4CF8-B369-9EF5346D4697} = {F9C0539B-CE97-4C53-9455-0C5828E2448E}
+		{95A8A1B4-4AA5-4A75-882D-821CE4B7F42D} = {1284F8CC-6DBE-4B73-9BB1-D1F3A60FCDC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48CA208A-CDC4-4C9F-94B3-948D663539FF}

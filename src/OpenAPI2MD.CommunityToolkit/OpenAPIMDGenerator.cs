@@ -24,11 +24,15 @@ namespace OpenAPI2MD.CommunityToolkit
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
             var json = await _client.GetStringAsync("/swagger/1.0.0/swagger.json");
-           // var doc0=System.Text.Json.JsonSerializer.Deserialize<OpenApiDocument>(json, options);
+
+             var jsonDocument = JsonDocument.Parse(json);
+            var s = jsonDocument.Deserialize<OpenApiDocument>();
+            var paths = jsonDocument.RootElement.GetProperty("paths");
+            // var doc0=System.Text.Json.JsonSerializer.Deserialize<OpenApiDocument>(json, options);
             var stream = await _client.GetStreamAsync("/swagger/1.0.0/swagger.json");
-
             var doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
-
+            var url = "https://localhost:18100/swagger/1.0.0/swagger.json";
+            var document2 = await NSwag.OpenApiDocument.FromUrlAsync(url);
             //var lines=File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "openapi.yaml"));
             // create the document (initially empty)
             var document = new MdDocument();
