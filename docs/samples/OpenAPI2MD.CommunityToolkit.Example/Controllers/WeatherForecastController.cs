@@ -51,13 +51,13 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         /// 这个接口这么要调用
         /// </example>
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<IEnumerable<WeatherForecast>> Get([FromHeader(Name = "Authorization")]
+        public ActionResult<IEnumerable<WeatherForecast>> Get([FromHeader(Name = "Authorization")]
             [Required]
             string token,
             [FromRoute] int id)
         {
             
-            await new OpenAPIMDGenerator().ReadYaml();
+             new OpenAPIMDGenerator().ReadYaml();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
