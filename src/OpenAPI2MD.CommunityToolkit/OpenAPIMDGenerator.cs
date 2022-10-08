@@ -1,70 +1,98 @@
-﻿using Grynwald.MarkdownGenerator;
-using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
-using Newtonsoft.Json;
-using OpenAPI2MD.CommunityToolkit.Models;
-using System.Text;
-using System.Text.Json;
+﻿namespace OpenAPI2MD.CommunityToolkit;
 
-namespace OpenAPI2MD.CommunityToolkit
+public class OpenApimdGenerator
 {
-
-    public class OpenAPIMDGenerator
+    public async Task<string> ReadYaml()
     {
-        public async Task<string> ReadYaml()
+        try
         {
-
-            var _client = new HttpClient
+            var client = new HttpClient
             {
                 BaseAddress = new Uri("https://localhost:18100/")
             };
-            JsonSerializerOptions options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            };
-       
-            var stream = await _client.GetStreamAsync("/swagger/1.0.0/swagger.json");
-            var doc = new OpenApiStreamReader().Read(stream, out var diagnostic);
-            var s = doc.Paths.Last().Value.Operations.Values;
+            var stream = await client.GetStreamAsync("/swagger/1.0.0/swagger.json");
+            var doc = new OpenApiStreamReader().Read(stream, out _);
 
-
-            var document = new MdDocument();
             var sb = new StringBuilder();
-            // add a heading and a paragraph to the root block
-            document.Root.Add(new MdHeading($@"{doc.Info.Title}({doc.Info.Version})", 1));
-            sb.Append($@"# {doc.Info.Title}({doc.Info.Version}) 
-");
+            sb.Append($"# {doc.Info.Title}({doc.Info.Version}) \n");
             var tag = string.Empty;
             doc.Paths.ToList().ForEach(r => {
                 var operation = r.Value.Operations.Values.FirstOrDefault();
-                if (!tag.Equals(operation.Tags.FirstOrDefault().Name))
+                if (!tag.Equals(operation?.Tags.FirstOrDefault()?.Name))
                 {
-                    tag = operation.Tags.FirstOrDefault().Name;
-                    document.Root.Add(new MdHeading(tag, 2));
+                    tag = operation?.Tags.FirstOrDefault()?.Name;
+                    sb.Append($"## {tag} \n");
                 }
-                var s = new PathTable().ToString();
-                document.Root.Add(new MdHeading(operation.OperationId, 3));
-                document.Root.Add(new MdParagraph(s));
-                sb.Append($@"## {operation.OperationId} 
-");
-                sb.Append($@"{s} 
-");
 
+                var t = new PathTable()
+                {
+                    Summary = operation.Summary,
+                    Description = operation.Description,
+                    Name = operation.Summary,
+                    URL = r.Key,
+                    RequestMethod = r.Value.Operations.Keys.FirstOrDefault().ToString()
+                };
+                operation.Parameters.ToList().ForEach(p =>
+                {
+                    t.RequestParams.Add(new RequestParam()
+                    {
+                        Name = p.Name,
+                        Des = p.Description,
+                        ParamType = p.In.ToString(),
+                        DataType = p.Schema.Type,
+                        IsRequired = p.Required.ToString()
+                    });
+                });
+                operation.Responses.ToList().ForEach(r =>
+                {
+                    var response = new Response()
+                    {
+                        Code = r.Key,
+                        Des = r.Value.Description,
+                        ResponseType = r.Value.Content.FirstOrDefault().Key,
+                        ResponseDataType = r.Value.Content.FirstOrDefault().Value.Schema.Type
+                    };
+                    if (response.ResponseDataType.Equals("array"))
+                    {
+                        r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
+                        {
+                            response.Schemas.Add(new Schema()
+                            {
+                                PropertyName = prop.Key,
+                                PropertyType = prop.Value.Type,
+                                Remark = prop.Value.Description
+                            });
+                        });
+                    }
+                    else
+                    {
+                        r.Value.Content.FirstOrDefault().Value.Schema.Properties.ToList().ForEach(prop =>
+                        {
+                            response.Schemas.Add(new Schema()
+                            {
+                                PropertyName = prop.Key,
+                                PropertyType = prop.Value.Type,
+                                Remark = prop.Value.Description
+                            });
+                        });
+                    }
+                   
+                    
+                    t.Responses.Add(response);
+                });
+                var s =t.ToString();
+                sb.Append($"## {operation?.OperationId} \n");
+                sb.Append($"{s} \n");
             });
-            document.Root.Blocks.ToList().ForEach(r =>
-            {
-                
-            });
-            document.Root.Add(new MdParagraph("Hello world!"));
-            File.WriteAllText("dev.md", sb.ToString());
-            // save document to a file
-            document.Save("HelloWorld.md");
-
-            return string.Empty;
+            var s = sb.ToString();
+            File.WriteAllText("dev.md", s);
+            return sb.ToString();
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+           
     }
-
 }

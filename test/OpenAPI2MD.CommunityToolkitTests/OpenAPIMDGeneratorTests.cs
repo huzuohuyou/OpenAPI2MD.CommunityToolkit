@@ -15,7 +15,7 @@ namespace OpenAPI2MD.CommunityToolkit.Tests
         public void ReadYamlTest()
         {
             //Arrange 
-            var expected = new OpenAPIMDGenerator().ReadYaml();
+            var expected = new OpenApimdGenerator().ReadYaml();
 
             //Act
             var actual = "";

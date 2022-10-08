@@ -41,8 +41,8 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         /// 查天气
         /// </summary>
         /// <param name="token">令牌</param>
-        /// <param name="id">参数</param>
-        /// <returns>返回值</returns>
+        /// <param name="id" value="" example="888">参数</param>
+        /// <returns example="666">返回值</returns>
         /// <remarks>
         /// 这是一个测试接口
         /// </remarks>
@@ -55,8 +55,8 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
             string token,
             [FromRoute] int id)
         {
-            
-             new OpenAPIMDGenerator().ReadYaml();
+
+            _=new OpenApimdGenerator().ReadYaml().Result;
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
