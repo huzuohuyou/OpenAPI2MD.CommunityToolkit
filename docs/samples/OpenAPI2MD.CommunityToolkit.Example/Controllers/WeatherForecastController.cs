@@ -3,6 +3,7 @@ using ApiConventions.CommunityToolKit.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using log4net;
 
 namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
 {
@@ -19,11 +20,9 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, JwtHelper jwtHelper)
+        public WeatherForecastController(ILog logger, JwtHelper jwtHelper):base(logger)
         {
-            _logger = logger;
             _jwtHelper = jwtHelper;
         }
 

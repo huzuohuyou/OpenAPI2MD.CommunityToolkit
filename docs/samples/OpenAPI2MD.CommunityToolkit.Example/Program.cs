@@ -5,7 +5,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 // Add services to the container.
-Log4NetConfig.Init(configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -17,7 +16,7 @@ builder.Services.AddSwaggerGenSetUp(new OpenApiContact
 });
 
 builder.Services.AddFilterSetUp();
-
+builder.Services.AddLog4Net();
 builder.Services.AddAuthenticationSetUp(builder.Configuration);
 
 var app = builder.Build();
