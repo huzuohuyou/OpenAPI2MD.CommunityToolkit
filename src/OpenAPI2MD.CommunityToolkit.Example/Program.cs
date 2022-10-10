@@ -1,6 +1,7 @@
 using ApiConventions.CommunityToolKit.Extends;
 using ApiConventions.CommunityToolKit.Log4Net;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.ReDoc;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -34,5 +35,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseReDoc(c =>
+{
+    c.RoutePrefix = "api-docs";
+    c.SpecUrl = "https://localhost:18100/swagger/1.0.0/swagger.json";
+    c.ConfigObject = new ConfigObject
+    {
+        HideDownloadButton = true,
+        HideLoading = true
+    };
+});
 app.Run();

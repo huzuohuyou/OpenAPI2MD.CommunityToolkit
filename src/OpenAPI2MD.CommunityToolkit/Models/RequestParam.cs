@@ -7,15 +7,17 @@ public class RequestParam
     public string ParamType { get; set; }
     public string IsRequired { get; set; }
     public string Des { get; set; }
+    public string Example { get; set; }
     public override string ToString()
     {
-        return $@"
-<tr>
+        return 
+$@"<tr>
     <td >{Name}</td>
     <td >{DataType}</td>
     <td >{ParamType}</td>
     <td >{IsRequired}</td>
     <td >{Des}</td>
+    <td >{Example}</td>
 </tr>";
     }
 }

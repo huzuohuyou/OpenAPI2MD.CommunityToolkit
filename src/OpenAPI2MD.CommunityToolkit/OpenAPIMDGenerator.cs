@@ -1,4 +1,6 @@
-﻿namespace OpenAPI2MD.CommunityToolkit;
+﻿using Swashbuckle.AspNetCore.SwaggerGen;
+
+namespace OpenAPI2MD.CommunityToolkit;
 
 public class OpenApimdGenerator
 {
@@ -8,9 +10,9 @@ public class OpenApimdGenerator
         {
             var client = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:18100/")
+                BaseAddress = new Uri("https://localhost:18101")
             };
-            var stream = await client.GetStreamAsync("/swagger/1.0.0/swagger.json");
+            var stream = await client.GetStreamAsync("swagger/1.0.0/swagger.json");
             var doc = new OpenApiStreamReader().Read(stream, out _);
 
             var sb = new StringBuilder();
@@ -34,13 +36,19 @@ public class OpenApimdGenerator
                 };
                 operation.Parameters.ToList().ForEach(p =>
                 {
+                    if (p.Example!=null)
+                    {
+                        dynamic d = p.Example as dynamic;
+                        var v = d.Value;
+                    }
                     t.RequestParams.Add(new RequestParam()
                     {
                         Name = p.Name,
                         Des = p.Description,
                         ParamType = p.In.ToString(),
                         DataType = p.Schema.Type,
-                        IsRequired = p.Required.ToString()
+                        IsRequired = p.Required.ToString(),
+                        Example = (p.Example == null?default : (p.Example as dynamic).Value)?.ToString()
                     });
                 });
                 operation.Responses.ToList().ForEach(r =>
@@ -49,35 +57,32 @@ public class OpenApimdGenerator
                     {
                         Code = r.Key,
                         Des = r.Value.Description,
-                        ResponseType = r.Value.Content.FirstOrDefault().Key,
-                        ResponseDataType = r.Value.Content.FirstOrDefault().Value.Schema.Type
+                        ResponseType = r.Value.Content.Count>0? r.Value.Content.FirstOrDefault().Key:default,
+                        ResponseDataType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type:default,
+                        //Example = (r.Example == null ? default : (r.Example as dynamic).Value)?.ToString()
                     };
-                    if (response.ResponseDataType.Equals("array"))
-                    {
+                    if (response.ResponseDataType != null && response.ResponseDataType.Equals("array"))
                         r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
                         {
                             response.Schemas.Add(new Schema()
                             {
                                 PropertyName = prop.Key,
                                 PropertyType = prop.Value.Type,
-                                Remark = prop.Value.Description
+                                Remark = prop.Value.Description,
+                                //Example = (prop.Example == null ? default : (prop.Example as dynamic).Value)?.ToString()
                             });
                         });
-                    }
-                    else
-                    {
+                    else if (r.Value.Content.Count > 0)
                         r.Value.Content.FirstOrDefault().Value.Schema.Properties.ToList().ForEach(prop =>
                         {
                             response.Schemas.Add(new Schema()
                             {
                                 PropertyName = prop.Key,
                                 PropertyType = prop.Value.Type,
-                                Remark = prop.Value.Description
+                                Remark = prop.Value.Description,
+                                //Example = (prop.Example == null ? default : (prop.Example as dynamic).Value)?.ToString()
                             });
                         });
-                    }
-                   
-                    
                     t.Responses.Add(response);
                 });
                 var s =t.ToString();

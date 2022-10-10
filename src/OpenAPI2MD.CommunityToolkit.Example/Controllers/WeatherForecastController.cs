@@ -40,7 +40,7 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         /// <summary>
         /// 查天气
         /// </summary>
-        /// <param name="token">令牌</param>
+        /// <param name="token" example="asdfasfeadsf">令牌</param>
         /// <param name="id" value="" example="888">参数</param>
         /// <returns example="666">返回值</returns>
         /// <remarks>
@@ -50,20 +50,21 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         /// 这个接口这么要调用
         /// </example>
         [HttpGet("{id}", Name = "GetById")]
-        public ActionResult<IEnumerable<WeatherForecast>> Get([FromHeader(Name = "Authorization")]
+        public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get([FromHeader(Name = "Authorization")]
             [Required]
             string token,
             [FromRoute] int id)
         {
-
-            _=new OpenApimdGenerator().ReadYaml().Result;
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            await new ClientCodeGenerator().Excute();
+            _ = await new OpenApimdGenerator().ReadYaml();
+            return Ok();
+            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = Random.Shared.Next(-20, 55),
+            //    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            //})
+            //.ToArray();
         }
     }
 }

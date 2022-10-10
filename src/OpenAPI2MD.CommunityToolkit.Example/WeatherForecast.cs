@@ -5,11 +5,11 @@ namespace OpenAPI2MD.CommunityToolkit.Example
     /// </summary>
     public class WeatherForecast
     {
-        /// <summary>
+        /// <summary example="不对，是这样写的">
         /// 日期
         /// </summary>
         /// <example>
-        /// 是这样写的吗
+        /// 2020-02-02
         /// </example>
         public DateTime Date { get; set; }
         /// <summary>
@@ -22,7 +22,7 @@ namespace OpenAPI2MD.CommunityToolkit.Example
         /// 汇总
         /// </summary>
         /// <example>
-        /// 汇总是这样子的
+        /// 汇总是这样写的吗
         /// </example>
         public string? Summary { get; set; }
     }
