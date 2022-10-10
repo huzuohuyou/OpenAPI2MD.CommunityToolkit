@@ -12,8 +12,8 @@ public class Schema
 $@"<tr>
     <td >{PropertyName}</td>
     <td colspan=""2"">{PropertyType}</td>
-    <td colspan=""2"" >{Remark}</td>
-    <td colspan=""2"" >{Example}</td>
+    <td colspan=""3"" >{Remark}</td>
+   
 </tr>";
     }
 }

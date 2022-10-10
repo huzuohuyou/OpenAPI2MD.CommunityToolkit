@@ -46,17 +46,14 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
         /// <remarks>
         /// 这是一个测试接口
         /// </remarks>
-        /// <example>
-        /// 这个接口这么要调用
-        /// </example>
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get([FromHeader(Name = "Authorization")]
+        public  ActionResult<IEnumerable<WeatherForecast>> Get([FromHeader(Name = "Authorization")]
             [Required]
             string token,
             [FromRoute] int id)
         {
-            await new ClientCodeGenerator().Excute();
-            _ = await new OpenApimdGenerator().ReadYaml();
+             new ClientCodeGenerator().Excute();
+            _ =  new OpenApimdGenerator().ReadYaml();
             return Ok();
             //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             //{

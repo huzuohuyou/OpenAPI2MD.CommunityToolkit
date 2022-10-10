@@ -9,7 +9,7 @@ namespace OpenAPI2MD.CommunityToolkit
         {
 
             System.Net.WebClient wclient = new System.Net.WebClient();
-            var document = await OpenApiDocument.FromJsonAsync(wclient.DownloadString("http://172.26.176.171:18100/swagger/2.1.4/swagger.json"));
+            var document = await OpenApiDocument.FromJsonAsync(wclient.DownloadString("https://localhost:18101/swagger/1.0.0/swagger.json"));
             wclient.Dispose();
             var settings = new CSharpClientGeneratorSettings
             {

@@ -15,7 +15,7 @@ $@"<tr>
     <td bgcolor=""{MdColor.bgcolor}"">返回属性名</td>
     <td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">数据类型</td>
     <td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">说明</td>
-    <td colspan=""1"" bgcolor=""{MdColor.bgcolor}"">示例</td>
+    
 </tr>");
         Schemas.ForEach(r =>
         {
