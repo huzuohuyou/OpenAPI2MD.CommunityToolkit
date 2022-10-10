@@ -14,7 +14,7 @@ public class Response
 $@"<tr>
     <td bgcolor=""{MdColor.bgcolor}"">返回属性名</td>
     <td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">数据类型</td>
-    <td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">说明</td>
+    <td colspan=""3"" bgcolor=""{MdColor.bgcolor}"">说明</td>
     
 </tr>");
         Schemas.ForEach(r =>

@@ -49,8 +49,8 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr>
     
     
@@ -105,8 +105,8 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr>
     
     
@@ -161,8 +161,8 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr>
     
     
@@ -230,28 +230,28 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr><tr>
     <td >date</td>
     <td colspan="2">string</td>
-    <td colspan="2" >日期</td>
-    <td colspan="2" ></td>
+    <td colspan="3" >日期</td>
+   
 </tr><tr>
     <td >temperatureC</td>
     <td colspan="2">integer</td>
-    <td colspan="2" >温度</td>
-    <td colspan="2" ></td>
+    <td colspan="3" >温度</td>
+   
 </tr><tr>
     <td >temperatureF</td>
     <td colspan="2">integer</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >summary</td>
     <td colspan="2">string</td>
-    <td colspan="2" >汇总</td>
-    <td colspan="2" ></td>
+    <td colspan="3" >汇总</td>
+   
 </tr><tr>
     <td bgcolor="#ddd">状态码</td>
     <td colspan="1" bgcolor="#ddd">描述</td>
@@ -267,23 +267,23 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr><tr>
     <td >code</td>
     <td colspan="2">integer</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >message</td>
     <td colspan="2">string</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >details</td>
     <td colspan="2"></td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td bgcolor="#ddd">状态码</td>
     <td colspan="1" bgcolor="#ddd">描述</td>
@@ -299,23 +299,23 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr><tr>
     <td >code</td>
     <td colspan="2">integer</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >message</td>
     <td colspan="2">string</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >details</td>
     <td colspan="2"></td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td bgcolor="#ddd">状态码</td>
     <td colspan="1" bgcolor="#ddd">描述</td>
@@ -331,28 +331,28 @@
 <tr>
     <td bgcolor="#ddd">返回属性名</td>
     <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="2" bgcolor="#ddd">说明</td>
-    <td colspan="1" bgcolor="#ddd">示例</td>
+    <td colspan="3" bgcolor="#ddd">说明</td>
+    
 </tr><tr>
     <td >message</td>
     <td colspan="2">string</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >exceptionMessage</td>
     <td colspan="2">string</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >exceptionType</td>
     <td colspan="2">string</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr><tr>
     <td >stackTrace</td>
     <td colspan="2">string</td>
-    <td colspan="2" ></td>
-    <td colspan="2" ></td>
+    <td colspan="3" ></td>
+   
 </tr>
     
     
