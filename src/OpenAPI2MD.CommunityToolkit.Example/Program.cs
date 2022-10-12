@@ -35,14 +35,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseReDoc(c =>
-{
-    c.RoutePrefix = "api-docs";
-    c.SpecUrl = "https://localhost:18100/swagger/1.0.0/swagger.json";
-    c.ConfigObject = new ConfigObject
-    {
-        HideDownloadButton = true,
-        HideLoading = true
-    };
-});
+
+app.UseRedocSetUp();
+
 app.Run();

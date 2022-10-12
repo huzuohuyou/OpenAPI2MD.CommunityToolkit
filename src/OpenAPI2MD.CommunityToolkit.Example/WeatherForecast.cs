@@ -1,11 +1,8 @@
-using Swashbuckle.AspNetCore.Annotations;
-
 namespace OpenAPI2MD.CommunityToolkit.Example
 {
     /// <summary>
     /// 天气信息实体
     /// </summary>
-    [SwaggerSchemaFilter(typeof(WeatherForecastSchemaFilter))]
     public class WeatherForecast
     {
         /// <summary >
@@ -14,7 +11,6 @@ namespace OpenAPI2MD.CommunityToolkit.Example
         /// <example>
         /// 2020-02-02
         /// </example>
-        [SwaggerSchema("The date it was created", Format = "date")]
         public DateTime Date { get; set; }
         /// <summary>
         /// 温度

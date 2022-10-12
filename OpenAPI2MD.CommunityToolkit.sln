@@ -18,8 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI2MD.CommunityToolkitTests", "test\OpenAPI2MD.CommunityToolkitTests\OpenAPI2MD.CommunityToolkitTests.csproj", "{2021715A-41AF-49A9-BE62-F4E396801E23}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Swashbuckle.AspNetCore.SwaggerGen", "src\Swashbuckle.AspNetCore.SwaggerGen\Swashbuckle.AspNetCore.SwaggerGen.csproj", "{FCBE42E8-5C6F-4AB2-A281-F7116E6B2DE8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,10 +36,6 @@ Global
 		{2021715A-41AF-49A9-BE62-F4E396801E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2021715A-41AF-49A9-BE62-F4E396801E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2021715A-41AF-49A9-BE62-F4E396801E23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCBE42E8-5C6F-4AB2-A281-F7116E6B2DE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCBE42E8-5C6F-4AB2-A281-F7116E6B2DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCBE42E8-5C6F-4AB2-A281-F7116E6B2DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCBE42E8-5C6F-4AB2-A281-F7116E6B2DE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,7 +44,6 @@ Global
 		{C1967CE8-ED1B-45E9-88B8-2BC46A37D468} = {1284F8CC-6DBE-4B73-9BB1-D1F3A60FCDC2}
 		{2780D0D1-0F8C-46C9-83D4-B03524847EE6} = {1284F8CC-6DBE-4B73-9BB1-D1F3A60FCDC2}
 		{2021715A-41AF-49A9-BE62-F4E396801E23} = {F9C0539B-CE97-4C53-9455-0C5828E2448E}
-		{FCBE42E8-5C6F-4AB2-A281-F7116E6B2DE8} = {1284F8CC-6DBE-4B73-9BB1-D1F3A60FCDC2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48CA208A-CDC4-4C9F-94B3-948D663539FF}
