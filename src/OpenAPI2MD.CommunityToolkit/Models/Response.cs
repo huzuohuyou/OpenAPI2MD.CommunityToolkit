@@ -1,4 +1,7 @@
-﻿namespace OpenAPI2MD.CommunityToolkit.Models;
+﻿using Microsoft.OpenApi.Models;
+using OpenAPI2MD.CommunityToolkit.Generators;
+
+namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class Response
 {
@@ -8,6 +11,7 @@ public class Response
     public string ResponseType { get; set; }
     public string ResponseDataType { get; set; }
     public List<Schema> Schemas { get; set; } = new();
+    public OpenApiSchema OpenApiSchema { get; set; }
     public override string ToString()
     {
         var fields = new StringBuilder(
@@ -21,6 +25,18 @@ $@"<tr>
         {
             fields.Append(r.ToString());
         });
+
+        var responseExample = new StringBuilder(
+$@"<tr>
+    <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">示例</td>
+</tr>
+<tr>
+<td colspan=""6"">
+
+{new ExampleValueGenerator().Excute(OpenApiSchema)}
+</td>
+</tr>
+");
         return 
 $@"<tr>
     <td >{Code}</td>
@@ -28,6 +44,12 @@ $@"<tr>
     <td colspan=""2"" >{ResponseType}</td>
     <td colspan=""2"" >{ResponseDataType}</td>
 </tr>
-{fields.ToString()}";
+{fields.ToString()}
+
+
+{responseExample}
+
+
+";
     }
 }

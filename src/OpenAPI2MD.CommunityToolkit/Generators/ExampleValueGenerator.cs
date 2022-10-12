@@ -84,7 +84,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                 {
                     Formatting = Formatting.Indented,
                     Indentation = 4,
-                    IndentChar = ' '
+                    IndentChar = '-'
                 };
                 serializer.Serialize(jsonWriter, obj);
                 return textWriter.ToString();

@@ -52,6 +52,21 @@
     <td colspan="3" bgcolor="#ddd">说明</td>
     
 </tr>
+
+
+<tr>
+    <td colspan="6" bgcolor="#ddd">示例</td>
+</tr>
+<tr>
+<td colspan="6">
+
+
+</td>
+</tr>
+
+
+
+
     
     
 </table> 
@@ -108,6 +123,21 @@
     <td colspan="3" bgcolor="#ddd">说明</td>
     
 </tr>
+
+
+<tr>
+    <td colspan="6" bgcolor="#ddd">示例</td>
+</tr>
+<tr>
+<td colspan="6">
+
+
+</td>
+</tr>
+
+
+
+
     
     
 </table> 
@@ -206,7 +236,41 @@
     <td colspan="2">array</td>
     <td colspan="3" ></td>
    
-</tr><tr>
+</tr>
+
+
+<tr>
+    <td colspan="6" bgcolor="#ddd">示例</td>
+</tr>
+<tr>
+<td colspan="6">
+
+[
+----{
+--------"date": "2020-02-02T00:00:00+08:00",
+--------"temperatureC": 100,
+--------"temperatureF": 0,
+--------"summary": "汇总是这样写的吗",
+--------"mark": {
+------------"percent": 3.1415932,
+------------"name": "把大象装冰箱分几步？",
+------------"ok": true
+--------},
+--------"remarks": [
+------------{
+----------------"percent": 3.1415932,
+----------------"name": "把大象装冰箱分几步？",
+----------------"ok": true
+------------}
+--------]
+----}
+]
+</td>
+</tr>
+
+
+
+<tr>
     <td bgcolor="#ddd">状态码</td>
     <td colspan="1" bgcolor="#ddd">描述</td>
     <td colspan="2" bgcolor="#ddd">类型</td>
@@ -238,7 +302,26 @@
     <td colspan="2"></td>
     <td colspan="3" ></td>
    
-</tr><tr>
+</tr>
+
+
+<tr>
+    <td colspan="6" bgcolor="#ddd">示例</td>
+</tr>
+<tr>
+<td colspan="6">
+
+{
+----"code": 0,
+----"message": null,
+----"details": null
+}
+</td>
+</tr>
+
+
+
+<tr>
     <td bgcolor="#ddd">状态码</td>
     <td colspan="1" bgcolor="#ddd">描述</td>
     <td colspan="2" bgcolor="#ddd">类型</td>
@@ -270,7 +353,26 @@
     <td colspan="2"></td>
     <td colspan="3" ></td>
    
-</tr><tr>
+</tr>
+
+
+<tr>
+    <td colspan="6" bgcolor="#ddd">示例</td>
+</tr>
+<tr>
+<td colspan="6">
+
+{
+----"code": 0,
+----"message": null,
+----"details": null
+}
+</td>
+</tr>
+
+
+
+<tr>
     <td bgcolor="#ddd">状态码</td>
     <td colspan="1" bgcolor="#ddd">描述</td>
     <td colspan="2" bgcolor="#ddd">类型</td>
@@ -308,6 +410,26 @@
     <td colspan="3" ></td>
    
 </tr>
+
+
+<tr>
+    <td colspan="6" bgcolor="#ddd">示例</td>
+</tr>
+<tr>
+<td colspan="6">
+
+{
+----"message": null,
+----"exceptionMessage": null,
+----"exceptionType": null,
+----"stackTrace": null
+}
+</td>
+</tr>
+
+
+
+
     
     
 </table> 

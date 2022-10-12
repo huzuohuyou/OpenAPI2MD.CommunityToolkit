@@ -59,9 +59,9 @@ public class OpenApimdGenerator
                         Des = r.Value.Description,
                         ResponseType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Key : default,
                         ResponseDataType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type : default,
-                        //Example = (r.Example == null ? default : (r.Example as dynamic).Value)?.ToString()
-                       
-                };
+                        OpenApiSchema = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema : default
+
+                    };
                     if (response.ResponseDataType != null && response.ResponseDataType.Equals("array"))
                         r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
                         {
