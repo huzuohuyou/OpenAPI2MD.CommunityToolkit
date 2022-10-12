@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using log4net;
+using OpenAPI2MD.CommunityToolkit.Generators;
 
 namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
 {
@@ -52,6 +53,7 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
             string token,
             [FromRoute] int id)
         {
+            
              new ClientCodeGenerator().Excute();
             _ =  new OpenApimdGenerator().ReadYaml();
             return Ok();

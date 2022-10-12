@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenAPI2MD.CommunityToolkit;
+using OpenAPI2MD.CommunityToolkit.Generators;
 using System;
 using System.Collections.Generic;
 using System.Linq;

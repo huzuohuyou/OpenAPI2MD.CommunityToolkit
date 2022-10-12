@@ -55,62 +55,6 @@
     
     
 </table> 
-## OpenAPI2MD.CommunityToolkit.Example 
-##  
-<table>
-    
-<tr>
-    <td colspan="6" bgcolor="#ddd"></td>
-</tr>
-<tr>
-    <td >接口名称</td>
-    <td colspan="5"></td>
-</tr>
-<tr>
-    <td >接口描述</td>
-    <td colspan="5"></td>
-</tr>
-<tr>
-    <td >URL</td>
-    <td colspan="5">/api/auth/token</td>
-</tr>
-<tr>
-    <td >请求方式</td>
-    <td colspan="5">Get</td>
-</tr>
-<tr>
-    <td >请求类型</td>
-    <td colspan="5"></td>
-</tr>
-    <tr>
-    <td bgcolor="#ddd">参数名</td>
-    <td bgcolor="#ddd">数据类型</td>
-    <td bgcolor="#ddd">参数类型</td>
-    <td bgcolor="#ddd">是否必填</td>
-    <td bgcolor="#ddd">说明</td>
-    <td bgcolor="#ddd">示例</td>
-</tr>
-    <tr>
-    <td bgcolor="#ddd">状态码</td>
-    <td colspan="1" bgcolor="#ddd">描述</td>
-    <td colspan="2" bgcolor="#ddd">类型</td>
-    <td colspan="2" bgcolor="#ddd">数据类型</td>
-</tr>
-<tr>
-    <td >200</td>
-    <td >Success</td>
-    <td colspan="2" >text/plain</td>
-    <td colspan="2" >string</td>
-</tr>
-<tr>
-    <td bgcolor="#ddd">返回属性名</td>
-    <td colspan="2" bgcolor="#ddd">数据类型</td>
-    <td colspan="3" bgcolor="#ddd">说明</td>
-    
-</tr>
-    
-    
-</table> 
 ## WeatherForecast 
 ## GetToken 
 <table>
@@ -251,6 +195,16 @@
     <td >summary</td>
     <td colspan="2">string</td>
     <td colspan="3" >汇总</td>
+   
+</tr><tr>
+    <td >mark</td>
+    <td colspan="2">object</td>
+    <td colspan="3" ></td>
+   
+</tr><tr>
+    <td >remarks</td>
+    <td colspan="2">array</td>
+    <td colspan="3" ></td>
    
 </tr><tr>
     <td bgcolor="#ddd">状态码</td>

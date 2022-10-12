@@ -1,4 +1,4 @@
-﻿namespace OpenAPI2MD.CommunityToolkit;
+﻿namespace OpenAPI2MD.CommunityToolkit.Generators;
 
 public class OpenApimdGenerator
 {
@@ -16,7 +16,8 @@ public class OpenApimdGenerator
             var sb = new StringBuilder();
             sb.Append($"# {doc.Info.Title}({doc.Info.Version}) \n");
             var tag = string.Empty;
-            doc.Paths.ToList().ForEach(r => {
+            doc.Paths.ToList().ForEach(r =>
+            {
                 var operation = r.Value.Operations.Values.FirstOrDefault();
                 if (!tag.Equals(operation?.Tags.FirstOrDefault()?.Name))
                 {
@@ -34,7 +35,7 @@ public class OpenApimdGenerator
                 };
                 operation.Parameters.ToList().ForEach(p =>
                 {
-                    if (p.Example!=null)
+                    if (p.Example != null)
                     {
                         dynamic d = p.Example as dynamic;
                         var v = d.Value;
@@ -46,19 +47,21 @@ public class OpenApimdGenerator
                         ParamType = p.In.ToString(),
                         DataType = p.Schema.Type,
                         IsRequired = p.Required.ToString(),
-                        Example = (p.Example == null?default : (p.Example as dynamic).Value)?.ToString()
+                        Example = (p.Example == null ? default : (p.Example as dynamic).Value)?.ToString()
                     });
                 });
                 operation.Responses.ToList().ForEach(r =>
                 {
+                   var res= new ExampleValueGenerator().Excute(r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema:default);
                     var response = new Response()
                     {
                         Code = r.Key,
                         Des = r.Value.Description,
-                        ResponseType = r.Value.Content.Count>0? r.Value.Content.FirstOrDefault().Key:default,
-                        ResponseDataType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type:default,
+                        ResponseType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Key : default,
+                        ResponseDataType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type : default,
                         //Example = (r.Example == null ? default : (r.Example as dynamic).Value)?.ToString()
-                    };
+                       
+                };
                     if (response.ResponseDataType != null && response.ResponseDataType.Equals("array"))
                         r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
                         {
@@ -83,7 +86,7 @@ public class OpenApimdGenerator
                         });
                     t.Responses.Add(response);
                 });
-                var s =t.ToString();
+                var s = t.ToString();
                 sb.Append($"## {operation?.OperationId} \n");
                 sb.Append($"{s} \n");
             });
@@ -96,6 +99,6 @@ public class OpenApimdGenerator
             Console.WriteLine(e);
             throw;
         }
-           
+
     }
 }

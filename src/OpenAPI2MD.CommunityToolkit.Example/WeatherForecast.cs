@@ -15,6 +15,7 @@ namespace OpenAPI2MD.CommunityToolkit.Example
         /// <summary>
         /// 温度
         /// </summary>
+        /// <example>100</example>
         public int TemperatureC { get; set; }
        
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
@@ -25,5 +26,29 @@ namespace OpenAPI2MD.CommunityToolkit.Example
         /// 汇总是这样写的吗
         /// </example>
         public string? Summary { get; set; }
+
+        public Remark Mark { get; set; }
+
+        public List<Remark> Remarks { get; set; }
+    }
+
+    public class Remark
+    {
+        /// <summary>
+        /// idc
+        /// </summary>
+        /// <example> 3.1415932</example>
+        public float percent { get; set; }
+        /// <summary>
+        /// 标记
+        /// </summary>
+        /// <example>把大象装冰箱分几步？</example>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <example>true</example>
+        public bool OK { get; set; }
     }
 }
