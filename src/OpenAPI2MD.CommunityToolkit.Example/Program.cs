@@ -1,7 +1,6 @@
 using ApiConventions.CommunityToolKit.Extends;
 using ApiConventions.CommunityToolKit.Log4Net;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.ReDoc;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;

@@ -1,6 +1,4 @@
-﻿using Swashbuckle.AspNetCore.SwaggerGen;
-
-namespace OpenAPI2MD.CommunityToolkit;
+﻿namespace OpenAPI2MD.CommunityToolkit;
 
 public class OpenApimdGenerator
 {

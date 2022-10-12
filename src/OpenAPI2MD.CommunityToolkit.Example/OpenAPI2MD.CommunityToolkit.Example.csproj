@@ -16,12 +16,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ApiConventions.CommunityToolkit" Version="6.4.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="ApiConventions.CommunityToolkit" Version="6.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Swashbuckle.AspNetCore.SwaggerGen.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
