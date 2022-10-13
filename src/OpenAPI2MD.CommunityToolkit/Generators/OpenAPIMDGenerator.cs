@@ -42,47 +42,41 @@ public class OpenApimdGenerator
                     }
                     t.RequestParams.Add(new RequestParam()
                     {
-                        Name = p.Name,
-                        Des = p.Description,
+                        PropertyName = p.Name,
+                        Description = p.Description,
                         ParamType = p.In.ToString(),
-                        DataType = p.Schema.Type,
+                        PropertyType = p.Schema.Type,
                         IsRequired = p.Required.ToString(),
                         Example = (p.Example == null ? default : (p.Example as dynamic).Value)?.ToString()
                     });
                 });
+                if (!Equals(null, operation.RequestBody))
+                    t.RequestBodys.AddRange(new RequestProperiesGenerator().Excute(operation.RequestBody?.Content?.FirstOrDefault().Value?.Schema));
+
+
+                t.RequestBody = operation.RequestBody?.Content?.FirstOrDefault().Value?.Schema;
                 operation.Responses.ToList().ForEach(r =>
                 {
                    var res= new ExampleValueGenerator().Excute(r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema:default);
+                   var type = new StringBuilder();
+                   if (r.Value.Content.Count > 0)
+                   {
+                       type = type.Append(r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type : default);
+                       if (Equals("array",type.ToString()))
+                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema.Items.Reference.Id}");
+                       if (Equals("object", type.ToString()))
+                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema.Reference.Id}");
+                    }
                     var response = new Response()
                     {
                         Code = r.Key,
                         Des = r.Value.Description,
                         ResponseType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Key : default,
-                        ResponseDataType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type : default,
+                        ResponseDataType = type.ToString(),
                         OpenApiSchema = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema : default
 
                     };
                     response.Schemas.AddRange(new ProperiesGenerator().Excute(r.Value.Content.FirstOrDefault().Value.Schema));
-                    //if (response.ResponseDataType != null && response.ResponseDataType.Equals("array"))
-                    //    r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
-                    //    {
-                    //        response.Schemas.Add(new Schema()
-                    //        {
-                    //            PropertyName = prop.Key,
-                    //            PropertyType = prop.Value.Type,
-                    //            Remark = prop.Value.Description,
-                    //        });
-                    //    });
-                    //else if (r.Value.Content.Count > 0)
-                    //    r.Value.Content.FirstOrDefault().Value.Schema.Properties.ToList().ForEach(prop =>
-                    //    {
-                    //        response.Schemas.Add(new Schema()
-                    //        {
-                    //            PropertyName = prop.Key,
-                    //            PropertyType = prop.Value.Type,
-                    //            Remark = prop.Value.Description,
-                    //        });
-                    //    });
                     t.Responses.Add(response);
                 });
                 var s = t.ToString();

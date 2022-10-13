@@ -17,10 +17,12 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
     {
         public string Excute(OpenApiSchema schema)
         {
+            if (Equals(null, schema))
+                return default;
             var r= InitEntity(schema);
             if (r!=null)
                 return ConvertJsonString(JsonConvert.SerializeObject(r));
-            return default;
+            return schema.Type;
         }
 
         private object InitEntity(OpenApiSchema schema)

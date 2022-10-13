@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OpenAPI2MD.CommunityToolkit.Example
 {
     /// <summary>
@@ -20,6 +22,7 @@ namespace OpenAPI2MD.CommunityToolkit.Example
         /// ÎÂ¶È
         /// </summary>
         /// <example>100</example>
+        [Required]
         public int TemperatureC { get; set; }
        
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);

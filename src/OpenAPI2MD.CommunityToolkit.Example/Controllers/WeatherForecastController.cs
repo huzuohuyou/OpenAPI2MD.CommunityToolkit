@@ -65,5 +65,34 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
             //})
             //.ToArray();
         }
+
+        /// <summary>
+        /// 修改天气记录
+        /// </summary>
+        /// <remarks>
+        ///这是一个测试接口
+        /// </remarks>
+        /// <param name="token" example="3.1415926">登录i令牌</param>
+        /// <param name="entity" example="111"></param>
+        /// <returns></returns>
+        [HttpPost("Update", Name = "Update")]
+        public ActionResult<WeatherForecast> Update(
+            [FromHeader(Name = "Authorization")]
+            [Required]
+            string token,
+            [FromBody][Required] WeatherForecast entity)
+        {
+
+            new ClientCodeGenerator().Excute();
+            _ = new OpenApimdGenerator().ReadYaml();
+            return Ok();
+            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = Random.Shared.Next(-20, 55),
+            //    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            //})
+            //.ToArray();
+        }
     }
 }

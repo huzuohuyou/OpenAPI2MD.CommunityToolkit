@@ -1,25 +1,26 @@
-﻿namespace OpenAPI2MD.CommunityToolkit.Models;
+﻿using Microsoft.OpenApi.Models;
+using OpenAPI2MD.CommunityToolkit.Generators;
 
-public class RequestParam
+namespace OpenAPI2MD.CommunityToolkit.Models;
+
+public class RequestBody
 {
     public string PropertyName { get; set; }
     public string PropertyType { get; set; }
     public string ParamType { get; set; } = "Body";
     public string IsRequired { get; set; }
-    public string IsRequiredDisplay => Equals("True", IsRequired) ? "Y" : "";
     public string Description { get; set; }
-    
-    public string Example { get; set; }
+
     public override string ToString()
     {
-        return 
-$@"<tr>
+        return
+            $@"<tr>
     <td >{PropertyName}</td>
     <td >{PropertyType}</td>
     <td >{ParamType}</td>
-    <td >{IsRequiredDisplay}</td>
-    <td >{Description}</td>
-    <td >{Example}</td>
+    <td >{IsRequired}</td>
+    <td colspan=""2"">{Description}</td>
 </tr>";
     }
+
 }

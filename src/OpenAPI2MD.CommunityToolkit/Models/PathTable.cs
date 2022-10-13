@@ -1,4 +1,7 @@
-﻿namespace OpenAPI2MD.CommunityToolkit.Models;
+﻿using Microsoft.OpenApi.Models;
+using OpenAPI2MD.CommunityToolkit.Generators;
+
+namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class PathTable
 {
@@ -10,6 +13,8 @@ public class PathTable
     public string RequestType { get; set; }
     public string ResponseType { get; set; }
     public List<RequestParam> RequestParams { get; set; }=new ();
+    public List<RequestBody> RequestBodys { get; set; } = new();
+    public OpenApiSchema RequestBody { get; set; }
     public List<Response> Responses { get; set; }= new ();
     public List<Example> Examples { get; set; } = new ();
     
@@ -56,7 +61,30 @@ $@"<tr>
         {
             _params.Append(r.ToString());
         });
-        var responses = new StringBuilder();
+
+        var _paramsResult = string.Empty;
+        if (!Equals(RequestParams.Count, 0))
+            _paramsResult= _params.ToString();
+
+            var _requestBodyProperties = new StringBuilder(
+            $@"<tr>
+    <td bgcolor=""{MdColor.bgcolor}"">参数名</td>
+    <td bgcolor=""{MdColor.bgcolor}"">数据类型</td>
+    <td bgcolor=""{MdColor.bgcolor}"">参数类型</td>
+    <td bgcolor=""{MdColor.bgcolor}"">是否必填</td>
+    <td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">说明</td>
+</tr>");
+        RequestBodys.ForEach(r =>
+        {
+            _requestBodyProperties.Append(r.ToString());
+        });
+
+        var _requestBodyPropertiesResult = string.Empty;
+        if (!Equals(RequestBodys.Count, 0))
+            _requestBodyPropertiesResult = _requestBodyProperties.ToString();
+
+
+            var responses = new StringBuilder();
         Responses.ForEach(r =>
         {
             responses.Append(
@@ -69,11 +97,27 @@ $@"<tr>
 {r.ToString()}");
         });
         var examples = $@"";
+
+        var requestBody = new ExampleValueGenerator().Excute(RequestBody);
+        if (!string.IsNullOrWhiteSpace(requestBody))
+        {
+            requestBody = 
+$@"<tr>
+    <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">示例</td>
+    </tr>
+    <tr>
+    <td colspan=""6"">
+
+ {requestBody.Trim()}</td>
+</tr>";
+        }
         return 
 $@"<table>
     {info}
-    {_params.ToString()}
-    {responses.ToString()}
+    {_paramsResult}
+{_requestBodyPropertiesResult}
+    {requestBody}
+ {responses}
     {""}
     {examples}
 </table>";
