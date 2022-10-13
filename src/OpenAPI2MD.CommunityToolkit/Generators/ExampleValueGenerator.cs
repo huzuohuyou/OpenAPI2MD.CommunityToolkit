@@ -15,11 +15,6 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
     }
     public class ExampleValueGenerator
     {
-       public ResponseType ResponseType { get; set; }
-        bool ok = false;
-        public List<Dictionary<string, object>> ArraySheme { get; set; } = new();
-        public Dictionary<string, object> ObjectSheme { get; set; } = new();
-        public object BaseTypeSheme { get; set; } = new();
         public string Excute(OpenApiSchema schema)
         {
             var r= InitEntity(schema);
@@ -84,7 +79,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                 {
                     Formatting = Formatting.Indented,
                     Indentation = 4,
-                    IndentChar = '-'
+                    IndentChar = '·'
                 };
                 serializer.Serialize(jsonWriter, obj);
                 return textWriter.ToString();

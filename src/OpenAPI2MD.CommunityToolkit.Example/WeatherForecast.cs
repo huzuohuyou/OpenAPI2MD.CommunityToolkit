@@ -5,6 +5,10 @@ namespace OpenAPI2MD.CommunityToolkit.Example
     /// </summary>
     public class WeatherForecast
     {
+        /// <summary>
+        /// 备注列表
+        /// </summary>
+        public List<Remark> Remarks { get; set; }
         /// <summary >
         /// 日期
         /// </summary>
@@ -29,7 +33,7 @@ namespace OpenAPI2MD.CommunityToolkit.Example
 
         public Remark Mark { get; set; }
 
-        public List<Remark> Remarks { get; set; }
+        
     }
 
     public class Remark

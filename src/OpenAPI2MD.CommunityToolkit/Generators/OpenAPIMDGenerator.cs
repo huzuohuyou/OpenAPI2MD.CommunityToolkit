@@ -62,28 +62,27 @@ public class OpenApimdGenerator
                         OpenApiSchema = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema : default
 
                     };
-                    if (response.ResponseDataType != null && response.ResponseDataType.Equals("array"))
-                        r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
-                        {
-                            response.Schemas.Add(new Schema()
-                            {
-                                PropertyName = prop.Key,
-                                PropertyType = prop.Value.Type,
-                                Remark = prop.Value.Description,
-                                //Example = (prop.Example == null ? default : (prop.Example as dynamic).Value)?.ToString()
-                            });
-                        });
-                    else if (r.Value.Content.Count > 0)
-                        r.Value.Content.FirstOrDefault().Value.Schema.Properties.ToList().ForEach(prop =>
-                        {
-                            response.Schemas.Add(new Schema()
-                            {
-                                PropertyName = prop.Key,
-                                PropertyType = prop.Value.Type,
-                                Remark = prop.Value.Description,
-                                //Example = (prop.Example == null ? default : (prop.Example as dynamic).Value)?.ToString()
-                            });
-                        });
+                    response.Schemas.AddRange(new ProperiesGenerator().Excute(r.Value.Content.FirstOrDefault().Value.Schema));
+                    //if (response.ResponseDataType != null && response.ResponseDataType.Equals("array"))
+                    //    r.Value.Content.FirstOrDefault().Value.Schema.Items.Properties.ToList().ForEach(prop =>
+                    //    {
+                    //        response.Schemas.Add(new Schema()
+                    //        {
+                    //            PropertyName = prop.Key,
+                    //            PropertyType = prop.Value.Type,
+                    //            Remark = prop.Value.Description,
+                    //        });
+                    //    });
+                    //else if (r.Value.Content.Count > 0)
+                    //    r.Value.Content.FirstOrDefault().Value.Schema.Properties.ToList().ForEach(prop =>
+                    //    {
+                    //        response.Schemas.Add(new Schema()
+                    //        {
+                    //            PropertyName = prop.Key,
+                    //            PropertyType = prop.Value.Type,
+                    //            Remark = prop.Value.Description,
+                    //        });
+                    //    });
                     t.Responses.Add(response);
                 });
                 var s = t.ToString();

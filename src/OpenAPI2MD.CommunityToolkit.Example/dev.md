@@ -207,33 +207,68 @@
     <td colspan="3" bgcolor="#ddd">说明</td>
     
 </tr><tr>
-    <td >date</td>
+    <td >WeatherForecast</td>
+    <td colspan="2">array:WeatherForecast</td>
+    <td colspan="3" ></td>
+   
+</tr><tr>
+    <td >····remarks</td>
+    <td colspan="2">array:Remark</td>
+    <td colspan="3" >备注列表</td>
+   
+</tr><tr>
+    <td >········percent</td>
+    <td colspan="2">number</td>
+    <td colspan="3" >idc</td>
+   
+</tr><tr>
+    <td >········name</td>
+    <td colspan="2">string</td>
+    <td colspan="3" >标记</td>
+   
+</tr><tr>
+    <td >········ok</td>
+    <td colspan="2">boolean</td>
+    <td colspan="3" ></td>
+   
+</tr><tr>
+    <td >····date</td>
     <td colspan="2">string</td>
     <td colspan="3" >日期</td>
    
 </tr><tr>
-    <td >temperatureC</td>
+    <td >····temperatureC</td>
     <td colspan="2">integer</td>
     <td colspan="3" >温度</td>
    
 </tr><tr>
-    <td >temperatureF</td>
+    <td >····temperatureF</td>
     <td colspan="2">integer</td>
     <td colspan="3" ></td>
    
 </tr><tr>
-    <td >summary</td>
+    <td >····summary</td>
     <td colspan="2">string</td>
     <td colspan="3" >汇总</td>
    
 </tr><tr>
-    <td >mark</td>
-    <td colspan="2">object</td>
+    <td >····mark</td>
+    <td colspan="2">object:Remark</td>
     <td colspan="3" ></td>
    
 </tr><tr>
-    <td >remarks</td>
-    <td colspan="2">array</td>
+    <td >········percent</td>
+    <td colspan="2">number</td>
+    <td colspan="3" >idc</td>
+   
+</tr><tr>
+    <td >········name</td>
+    <td colspan="2">string</td>
+    <td colspan="3" >标记</td>
+   
+</tr><tr>
+    <td >········ok</td>
+    <td colspan="2">boolean</td>
     <td colspan="3" ></td>
    
 </tr>
@@ -246,24 +281,24 @@
 <td colspan="6">
 
 [
-----{
---------"date": "2020-02-02T00:00:00+08:00",
---------"temperatureC": 100,
---------"temperatureF": 0,
---------"summary": "汇总是这样写的吗",
---------"mark": {
-------------"percent": 3.1415932,
-------------"name": "把大象装冰箱分几步？",
-------------"ok": true
---------},
---------"remarks": [
-------------{
-----------------"percent": 3.1415932,
-----------------"name": "把大象装冰箱分几步？",
-----------------"ok": true
-------------}
---------]
-----}
+····{
+········"remarks": [
+············{
+················"percent": 3.1415932,
+················"name": "把大象装冰箱分几步？",
+················"ok": true
+············}
+········],
+········"date": "2020-02-02T00:00:00+08:00",
+········"temperatureC": 100,
+········"temperatureF": 0,
+········"summary": "汇总是这样写的吗",
+········"mark": {
+············"percent": 3.1415932,
+············"name": "把大象装冰箱分几步？",
+············"ok": true
+········}
+····}
 ]
 </td>
 </tr>
@@ -312,9 +347,9 @@
 <td colspan="6">
 
 {
-----"code": 0,
-----"message": null,
-----"details": null
+····"code": 0,
+····"message": null,
+····"details": null
 }
 </td>
 </tr>
@@ -363,9 +398,9 @@
 <td colspan="6">
 
 {
-----"code": 0,
-----"message": null,
-----"details": null
+····"code": 0,
+····"message": null,
+····"details": null
 }
 </td>
 </tr>
@@ -419,10 +454,10 @@
 <td colspan="6">
 
 {
-----"message": null,
-----"exceptionMessage": null,
-----"exceptionType": null,
-----"stackTrace": null
+····"message": null,
+····"exceptionMessage": null,
+····"exceptionType": null,
+····"stackTrace": null
 }
 </td>
 </tr>
