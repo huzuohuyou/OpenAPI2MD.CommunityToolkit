@@ -91,7 +91,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     return result;
                 }
                 else
-                    return schema.Example == null ? default : (schema.Example as dynamic).Value;
+                    return (schema.Example == null ? default : (schema.Example as dynamic).Value)??"string";
             }
         }
 

@@ -8,7 +8,17 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
         private  int times=0;
         private List<string> ReferenceIds=new List<string>();
         public List<Schema> Schemata { get; set; } = new();
+        private string GetSchemaType(OpenApiSchema schema)
+        {
+            if (schema.Type == "array" && schema.Items?.Reference != null)
+                return $@"{schema.Type}:{schema.Items?.Reference.Id}";
+            if (schema.Type == "array" && schema.Items?.Reference == null)
+                return $@"{schema.Type}:{schema.Items?.Type}";
+            if (schema.Type == "object" && schema?.Reference != null)
+                return $@"{schema.Type}:{schema?.Reference.Id}";
+            return schema.Type;
 
+        }
         public List<Schema> Excute(OpenApiSchema schema)
         {
             if (Equals(null, schema))
@@ -37,7 +47,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     schematas.Add(new Schema()
                     {
                         PropertyName = $@"{IndentStr(IndentTime)}{schema.Items.Reference?.Id}",
-                        PropertyType = $@"{schema.Type}:{schema.Items.Reference?.Id}",
+                        PropertyType = GetSchemaType(schema),
                         Description = schema.Description,
                     });
                     ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
@@ -49,11 +59,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     schematas.Add(new Schema()
                     {
                         PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
-                        PropertyType = prop.Value.Type == "array"?
-                            $@"{prop.Value.Type}:{prop.Value.Items.Reference?.Id}"
-                            :(prop.Value.Type == "object" ? 
-                                $@"{prop.Value.Type}:{prop.Value?.Reference?.Id}"
-                                : prop.Value.Type) ,
+                        PropertyType = GetSchemaType(prop.Value), 
                         Description = prop.Value.Description,
                     });
                     ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
@@ -84,9 +90,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     schematas.Add(new Schema()
                     {
                         PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
-                        PropertyType = prop.Value.Type == "object"
-                            ? $@"{prop.Value.Type}:{prop.Value?.Reference?.Id}"
-                            : prop.Value.Type,
+                        PropertyType = GetSchemaType(prop.Value),
                         Description = prop.Value.Description,
                     });
                     ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));

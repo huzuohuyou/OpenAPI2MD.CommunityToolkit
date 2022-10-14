@@ -14,6 +14,7 @@ public class Response
     public OpenApiSchema OpenApiSchema { get; set; }
     public override string ToString()
     {
+        var fieldsResult = string.Empty;
         var fields = new StringBuilder(
 $@"<tr>
     <td bgcolor=""{MdColor.bgcolor}"">返回属性名</td>
@@ -25,7 +26,14 @@ $@"<tr>
         {
             fields.Append(r.ToString());
         });
+        if (Schemas.Any())
+        {
+            fieldsResult=fields.ToString();
+        }
 
+        var responseExampleResult = string.Empty;
+        var example = new ExampleValueGenerator().Excute(OpenApiSchema);
+        
         var responseExample = new StringBuilder(
 $@"<tr>
     <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">示例</td>
@@ -33,10 +41,13 @@ $@"<tr>
 <tr>
 <td colspan=""6"">
 
-{new ExampleValueGenerator().Excute(OpenApiSchema)}
+{example}
 </td>
 </tr>
 ");
+
+        if (!string.IsNullOrWhiteSpace(example))
+            responseExampleResult=responseExample.ToString().Trim();
         return 
 $@"<tr>
     <td >{Code}</td>
@@ -44,10 +55,10 @@ $@"<tr>
     <td colspan=""2"" >{ResponseType}</td>
     <td colspan=""2"" >{ResponseDataType}</td>
 </tr>
-{fields.ToString()}
+{fieldsResult}
 
 
-{responseExample.ToString().Trim()}
+{responseExampleResult}
 
 
 ";

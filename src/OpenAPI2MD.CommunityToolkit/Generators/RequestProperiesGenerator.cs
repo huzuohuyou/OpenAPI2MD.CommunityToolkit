@@ -5,7 +5,19 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
     public class RequestProperiesGenerator
     {
         private string IndentChar = "····";
-        private  int times=0;
+        private int times = 0;
+
+        private string GetSchemaType(OpenApiSchema schema)
+        {
+            if (schema.Type == "array" && schema.Items?.Reference != null)
+                return $@"{schema.Type}:{schema.Items?.Reference.Id}";
+            if (schema.Type == "array" && schema.Items?.Reference == null)
+                return $@"{schema.Type}:{schema.Items?.Type}";
+            if (schema.Type == "object" && schema?.Reference != null)
+                return $@"{schema.Type}:{schema?.Reference.Id}";
+            return schema.Type;
+
+        }
         public List<RequestBody> Schemata { get; set; } = new();
 
         public List<RequestBody> Excute(OpenApiSchema schema)
@@ -19,45 +31,40 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
         private string IndentStr(int t)
         {
             var temp = string.Empty;
-            for (int i = 0; i < t-1 ; i++)
+            for (int i = 0; i < t - 1; i++)
             {
                 temp += IndentChar;
             }
             return temp;
         }
 
-        public void InitEntity(OpenApiSchema schema, List<RequestBody> schematas,int IndentTime)
+
+
+        public void InitEntity(OpenApiSchema schema, List<RequestBody> schematas, int IndentTime)
         {
             if (Equals(schema?.Type, "array"))
             {
                 IndentTime++;
-                if (Equals(schema.Reference, null))
-                {
+                if (!string.IsNullOrWhiteSpace(schema.Items?.Reference?.Id))
                     schematas.Add(new RequestBody()
                     {
                         PropertyName = $@"{IndentStr(IndentTime)}{schema.Items?.Reference?.Id}",
-                        PropertyType = $@"{schema.Type}:{schema.Items?.Reference?.Id}",
+                        PropertyType = GetSchemaType(schema),
                         Description = schema.Description,
-                        IsRequired = schema.Required!=null&& schema.Required.Contains(schema.Items?.Reference?.Id) ? "Y" : "",
-                        //Example = (schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString()
+                        IsRequired = schema.Required != null && schema.Required.Contains(schema.Items?.Reference?.Id) ? "Y" : "",
                     });
-                }
 
                 IndentTime++;
                 schema.Items.Properties.ToList().ForEach(prop =>
                 {
-                    schematas.Add(new RequestBody()
-                    {
-                        PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
-                        PropertyType = prop.Value.Type == "array"?
-                            $@"{prop.Value.Type}:{prop.Value.Items?.Reference.Id}"
-                            :(prop.Value.Type == "object" ? 
-                                $@"{prop.Value.Type}:{prop.Value?.Reference?.Id}"
-                                : prop.Value.Type) ,
-                        Description = prop.Value.Description,
-                        IsRequired = schema.Required.Contains(prop.Key) ? "Y" : "",
-                        //Example = (schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString()
-                    });
+                    if (!string.IsNullOrWhiteSpace(prop.Key))
+                        schematas.Add(new RequestBody()
+                        {
+                            PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
+                            PropertyType = GetSchemaType(prop.Value),
+                            Description = prop.Value.Description,
+                            IsRequired = schema.Required.Contains(prop.Key) ? "Y" : "",
+                        });
                     if (prop.Value.Type == "array")
                         InitEntity(prop.Value.Items, schematas, IndentTime);
                     else
@@ -67,43 +74,39 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
             else if (Equals(schema?.Type, "object"))
             {
                 IndentTime++;
-                schematas.Add(new RequestBody()
-                {
-                    PropertyName = $@"{IndentStr(IndentTime)}{schema.Reference.Id}",
-                    PropertyType = schema.Type == "object"
-                        ? $@"{schema.Type}:{schema?.Reference?.Id}"
-                        : schema.Type,
-                    IsRequired = schema.Required.Contains(schema.Reference.Id) ? "Y" : "",
-                    //Remark = schema.Description,
-                });
+                if (!string.IsNullOrWhiteSpace(schema.Reference.Id))
+                    schematas.Add(new RequestBody()
+                    {
+                        PropertyName = $@"{IndentStr(IndentTime)}{schema.Reference.Id}",
+                        PropertyType = GetSchemaType(schema),
+                        IsRequired = schema.Required.Contains(schema.Reference.Id) ? "Y" : "",
+                    });
                 IndentTime++;
                 schema.Properties.ToList().ForEach(prop =>
                 {
-                    schematas.Add(new RequestBody()
-                    {
-                        PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
-                        PropertyType = prop.Value.Type == "object"
-                            ? $@"{prop.Value.Type}:{prop.Value?.Reference?.Id}"
-                            : prop.Value.Type,
-                        Description = prop.Value.Description,
-                        IsRequired = schema.Required.Contains(prop.Key)?"Y":"",
-                        //Example = (prop.Value.Example == null ? default : (prop.Value.Example as dynamic).Value)?.ToString()
-                    });
+                    if (!string.IsNullOrWhiteSpace(prop.Key))
+                        schematas.Add(new RequestBody()
+                        {
+                            PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
+                            PropertyType = GetSchemaType(prop.Value),
+                            Description = prop.Value.Description,
+                            IsRequired = schema.Required.Contains(prop.Key) ? "Y" : "",
+                        });
 
                     InitEntity(prop.Value, schematas, IndentTime);
                 });
             }
             else
             {//基本类型
-                
-                    //schematas.Add(new RequestBody()
-                    //{
-                    //    PropertyName = $@"{IndentStr(IndentTime)}_",
-                    //    PropertyType = schema.Type,
-                    //    Description = schema.Description,
-                    //    //IsRequired = schema.Required ? "Y" : "",
-                    //});
-                   
+
+                //schematas.Add(new RequestBody()
+                //{
+                //    PropertyName = $@"{IndentStr(IndentTime)}_",
+                //    PropertyType = schema.Type,
+                //    Description = schema.Description,
+                //    //IsRequired = schema.Required ? "Y" : "",
+                //});
+
             }
 
         }
