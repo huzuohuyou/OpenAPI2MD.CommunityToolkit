@@ -2,7 +2,7 @@
 
 public class OpenApimdGenerator
 {
-    public async Task<string> ReadYaml(string requestUri="")
+    public async Task<string> ReadYaml(string requestUri="",string savePath="")
     {
         try
         {
@@ -91,7 +91,7 @@ public class OpenApimdGenerator
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();
-            File.WriteAllText("swagger.md", s);
+            File.WriteAllText(Path.Combine(savePath, "swagger.md"), s);
             return sb.ToString();
         }
         catch (Exception e)

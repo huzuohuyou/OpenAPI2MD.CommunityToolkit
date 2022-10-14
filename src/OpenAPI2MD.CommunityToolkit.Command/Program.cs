@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using OpenAPI2MD.CommunityToolkit.Command;
 using OpenAPI2MD.CommunityToolkit.Generators;
 
 Console.WriteLine("Hello, World!");
@@ -11,5 +12,7 @@ else
     Console.WriteLine("请输入swagger.json的url:");
     jsonPath = Console.ReadLine();
 }
-    
-_ = new OpenApimdGenerator().ReadYaml(jsonPath).Result;
+var savePath = new CmdRunner().PrintDoc("cd");
+_ = new OpenApimdGenerator().ReadYaml(jsonPath, savePath).Result;
+if (File.Exists(Path.Combine(savePath,"swagger.md")))
+    Console.WriteLine("文档生成成功!");
