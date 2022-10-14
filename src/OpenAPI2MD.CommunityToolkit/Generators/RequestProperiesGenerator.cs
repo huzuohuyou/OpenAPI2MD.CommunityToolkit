@@ -13,7 +13,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
             if (Equals(null, schema))
                 return default;
             InitEntity(schema, Schemata, times);
-            return Schemata;
+            return Schemata.Count > 0 ? Schemata : new List<RequestBody>() { new RequestBody() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } }; ;
         }
 
         private string IndentStr(int t)
@@ -35,10 +35,10 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                 {
                     schematas.Add(new RequestBody()
                     {
-                        PropertyName = $@"{IndentStr(IndentTime)}{schema.Items.Reference.Id}",
-                        PropertyType = $@"{schema.Type}:{schema.Items.Reference.Id}",
+                        PropertyName = $@"{IndentStr(IndentTime)}{schema.Items?.Reference?.Id}",
+                        PropertyType = $@"{schema.Type}:{schema.Items?.Reference?.Id}",
                         Description = schema.Description,
-                        IsRequired = schema.Required.Contains(schema.Items.Reference.Id) ? "Y" : "",
+                        IsRequired = schema.Required!=null&& schema.Required.Contains(schema.Items?.Reference?.Id) ? "Y" : "",
                         //Example = (schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString()
                     });
                 }
@@ -50,7 +50,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     {
                         PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
                         PropertyType = prop.Value.Type == "array"?
-                            $@"{prop.Value.Type}:{prop.Value.Items.Reference.Id}"
+                            $@"{prop.Value.Type}:{prop.Value.Items?.Reference.Id}"
                             :(prop.Value.Type == "object" ? 
                                 $@"{prop.Value.Type}:{prop.Value?.Reference?.Id}"
                                 : prop.Value.Type) ,
@@ -89,11 +89,23 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                         IsRequired = schema.Required.Contains(prop.Key)?"Y":"",
                         //Example = (prop.Value.Example == null ? default : (prop.Value.Example as dynamic).Value)?.ToString()
                     });
-                   
+
                     InitEntity(prop.Value, schematas, IndentTime);
                 });
             }
-            
+            else
+            {//基本类型
+                
+                    //schematas.Add(new RequestBody()
+                    //{
+                    //    PropertyName = $@"{IndentStr(IndentTime)}_",
+                    //    PropertyType = schema.Type,
+                    //    Description = schema.Description,
+                    //    //IsRequired = schema.Required ? "Y" : "",
+                    //});
+                   
+            }
+
         }
     }
 }

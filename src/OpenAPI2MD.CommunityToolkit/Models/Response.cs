@@ -47,7 +47,7 @@ $@"<tr>
 {fields.ToString()}
 
 
-{responseExample}
+{responseExample.ToString().Trim()}
 
 
 ";

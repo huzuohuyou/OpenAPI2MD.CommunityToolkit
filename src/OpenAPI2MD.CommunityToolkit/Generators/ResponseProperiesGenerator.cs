@@ -2,10 +2,11 @@
 
 namespace OpenAPI2MD.CommunityToolkit.Generators
 {
-    public class ProperiesGenerator
+    public class ResponseProperiesGenerator
     {
         private string IndentChar = "····";
         private  int times=0;
+        private List<string> ReferenceIds=new List<string>();
         public List<Schema> Schemata { get; set; } = new();
 
         public List<Schema> Excute(OpenApiSchema schema)
@@ -35,10 +36,11 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                 {
                     schematas.Add(new Schema()
                     {
-                        PropertyName = $@"{IndentStr(IndentTime)}{schema.Items.Reference.Id}",
-                        PropertyType = $@"{schema.Type}:{schema.Items.Reference.Id}",
+                        PropertyName = $@"{IndentStr(IndentTime)}{schema.Items.Reference?.Id}",
+                        PropertyType = $@"{schema.Type}:{schema.Items.Reference?.Id}",
                         Description = schema.Description,
                     });
+                    ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
                 }
 
                 IndentTime++;
@@ -48,16 +50,21 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     {
                         PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
                         PropertyType = prop.Value.Type == "array"?
-                            $@"{prop.Value.Type}:{prop.Value.Items.Reference.Id}"
+                            $@"{prop.Value.Type}:{prop.Value.Items.Reference?.Id}"
                             :(prop.Value.Type == "object" ? 
                                 $@"{prop.Value.Type}:{prop.Value?.Reference?.Id}"
                                 : prop.Value.Type) ,
                         Description = prop.Value.Description,
                     });
-                    if (prop.Value.Type == "array")
-                        InitEntity(prop.Value.Items, schematas, IndentTime);
-                    else
-                        InitEntity(prop.Value, schematas, IndentTime);
+                    ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
+                    if (ReferenceIds.Count(r=>r == schematas.Last().PropertyName.Trim('·'))<2)
+                    {
+                        if (prop.Value.Type == "array")
+                            InitEntity(prop.Value.Items, schematas, IndentTime);
+                        else
+                            InitEntity(prop.Value, schematas, IndentTime);
+                    }
+                        
                 });
             }
             else if (Equals(schema?.Type, "object"))
@@ -82,8 +89,10 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                             : prop.Value.Type,
                         Description = prop.Value.Description,
                     });
-                   
-                    InitEntity(prop.Value, schematas, IndentTime);
+                    ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
+                    if (ReferenceIds.Count(r => r == schematas.Last().PropertyName.Trim('·')) < 2)
+                        InitEntity(prop.Value, schematas, IndentTime);
+
                 });
             }
             

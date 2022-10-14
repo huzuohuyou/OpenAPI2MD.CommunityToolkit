@@ -2,15 +2,15 @@
 
 public class OpenApimdGenerator
 {
-    public async Task<string> ReadYaml()
+    public async Task<string> ReadYaml(string requestUri="")
     {
         try
         {
             var client = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:18101")
+                //BaseAddress = new Uri("https://localhost:18101")
             };
-            var stream = await client.GetStreamAsync("swagger/1.0.0/swagger.json");
+            var stream = await client.GetStreamAsync(requestUri);
             var doc = new OpenApiStreamReader().Read(stream, out _);
 
             var sb = new StringBuilder();
@@ -51,8 +51,12 @@ public class OpenApimdGenerator
                     });
                 });
                 if (!Equals(null, operation.RequestBody))
-                    t.RequestBodys.AddRange(new RequestProperiesGenerator().Excute(operation.RequestBody?.Content?.FirstOrDefault().Value?.Schema));
-
+                {
+                    var c = new RequestProperiesGenerator().Excute(operation.RequestBody?.Content?.FirstOrDefault()
+                        .Value?.Schema);
+                    if (!Equals(null, c))
+                        t.RequestBodys.AddRange(c);
+                }
 
                 t.RequestBody = operation.RequestBody?.Content?.FirstOrDefault().Value?.Schema;
                 operation.Responses.ToList().ForEach(r =>
@@ -63,9 +67,9 @@ public class OpenApimdGenerator
                    {
                        type = type.Append(r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type : default);
                        if (Equals("array",type.ToString()))
-                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema.Items.Reference.Id}");
+                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema?.Items?.Reference?.Id}");
                        if (Equals("object", type.ToString()))
-                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema.Reference.Id}");
+                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
                     }
                     var response = new Response()
                     {
@@ -76,7 +80,10 @@ public class OpenApimdGenerator
                         OpenApiSchema = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema : default
 
                     };
-                    response.Schemas.AddRange(new ProperiesGenerator().Excute(r.Value.Content.FirstOrDefault().Value.Schema));
+                    var c = new ResponseProperiesGenerator().Excute(r.Value.Content.FirstOrDefault().Value?.Schema);
+                    if (!Equals(null, c))
+                        response.Schemas.AddRange(c);
+
                     t.Responses.Add(response);
                 });
                 var s = t.ToString();
@@ -84,7 +91,7 @@ public class OpenApimdGenerator
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();
-            File.WriteAllText("dev.md", s);
+            File.WriteAllText("swagger.md", s);
             return sb.ToString();
         }
         catch (Exception e)

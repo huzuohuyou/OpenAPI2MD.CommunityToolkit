@@ -1,10 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenAPI2MD.CommunityToolkit.Generators
 {
@@ -15,6 +10,10 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
     }
     public class ExampleValueGenerator
     {
+        /// <summary>
+        /// 递归中断记录器
+        /// </summary>
+        private List<string> ReferenceIds = new ();
         public string Excute(OpenApiSchema schema)
         {
             if (Equals(null, schema))
@@ -27,18 +26,47 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
 
         private object InitEntity(OpenApiSchema schema)
         {
+            //if (!string.IsNullOrWhiteSpace(schema.Reference?.Id))
+            //    ReferenceIds.Add(schema.Reference?.Id);
+            if (ReferenceIds.Contains("HierarchyTree"))
+            {
+                var a = 1;
+            }
             if (Equals(schema.Type,"array"))
             {
                 var temp = new List<object>();
-                temp.Add(InitEntity(schema.Items));
+                
+                if (ReferenceIds.Where(id=>id==schema?.Items?.Reference?.Id).Count()<=3)
+                    temp.Add(InitEntity(schema.Items));
+                if (!string.IsNullOrWhiteSpace(schema?.Items?.Reference?.Id))
+                    ReferenceIds.Add(schema?.Items?.Reference?.Id);
                 return temp;
             }
             else if (Equals(schema.Type,"object"))
             {
+                if (!string.IsNullOrWhiteSpace(schema?.Reference?.Id))
+                    ReferenceIds.Add(schema?.Reference?.Id);
                 var temp =  new Dictionary<string, object>();
                 schema.Properties.Keys.ToList().ForEach(r =>
                 {
-                    temp.Add(r, InitEntity(schema.Properties[r]));
+                    if (schema.Properties.Keys.Contains(r))
+                    {
+                        if (!string.IsNullOrWhiteSpace(schema.Properties[r].Items?.Reference?.Id))
+                            ReferenceIds.Add(schema.Properties[r]?.Items?.Reference?.Id);
+                        try
+                        {
+                            if (ReferenceIds.Where(id => id == schema.Properties[r]?.Reference?.Id).ToList().Count() <= 3)
+                                temp.Add(r, InitEntity(schema.Properties[r]));
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        
+                    }
+                   
+                   
                 });
                 return temp;
             }
