@@ -1,29 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	  <OutputType>Exe</OutputType>
-	  <!--包名-->
-	  <PackageId>Sagger2Md</PackageId>
-	  <!--版本-->
-	  <Version>4.1.9</Version>
-	  <!--作者-->
-	  <Authors>wuhailong</Authors>
-	  <!--公司-->
-	  <Company>personal</Company>
-	  <!--生成自动构建-->
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <PackageProjectUrl>https://github.com/huzuohuyou/ChangeLog.CommunityToolkit.git</PackageProjectUrl>
-	  <Description>
-		  swagger.json生成接口markdown文档
-	  </Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+		<PublishSignleFile>True</PublishSignleFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>Exe</OutputType>
+		<!--包名-->
+		<PackageId>Sagger2Md</PackageId>
+		<!--版本-->
+		<Version>4.1.9</Version>
+		<!--作者-->
+		<Authors>wuhailong</Authors>
+		<!--公司-->
+		<Company>personal</Company>
+		<!--生成自动构建-->
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/huzuohuyou/ChangeLog.CommunityToolkit.git</PackageProjectUrl>
+		<Description>
+			swagger.json生成接口markdown文档
+		</Description>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>Swagger2Md</ToolCommandName>
+		<PackageOutputPath>./nupkg</PackageOutputPath>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 
-  <ItemGroup>
-    <ProjectReference Include="..\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
-  </ItemGroup>
+		<AssemblyName>Swagger2Md</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
+	</ItemGroup>
 
 </Project>
