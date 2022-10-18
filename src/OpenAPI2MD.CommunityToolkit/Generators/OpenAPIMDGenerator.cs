@@ -14,7 +14,11 @@ public class OpenApimdGenerator
             var doc = new OpenApiStreamReader().Read(stream, out _);
 
             var sb = new StringBuilder();
-            sb.Append($"# {doc.Info.Title}({doc.Info.Version}) \n");
+            sb.Append($"# {doc.Info.Title}({doc.Info.Version}) \n " );
+            sb.Append($"{doc.Info.Description} \n ");
+            sb.Append($"{doc.Info.Contact.Name} \n ");
+            sb.Append($"{doc.Info.Contact.Email} \n ");
+            sb.Append($"[TOC] \n");
             var tag = string.Empty;
             doc.Paths.ToList().ForEach(r =>
             {
@@ -87,7 +91,7 @@ public class OpenApimdGenerator
                     t.Responses.Add(response);
                 });
                 var s = t.ToString();
-                sb.Append($"## {operation?.OperationId} \n");
+                sb.Append($"### {operation?.OperationId} \n");
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();
