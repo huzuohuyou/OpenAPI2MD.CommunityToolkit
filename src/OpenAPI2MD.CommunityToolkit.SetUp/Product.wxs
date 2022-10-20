@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Swagger2Md" Language="1033" Version="6.4.10" Manufacturer="wuhailong" UpgradeCode="294bb15f-1eec-4879-af17-6edf8a1b85c3">
+	<Product Id="*" Name="Swagger2Md" Language="1033" Version="6.4.11" Manufacturer="wuhailong" UpgradeCode="294bb15f-1eec-4879-af17-6edf8a1b85c3">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

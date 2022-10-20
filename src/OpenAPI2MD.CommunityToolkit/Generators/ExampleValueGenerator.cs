@@ -77,7 +77,7 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                 {
                     Int64 result;
                     Int64.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
-                    return (schema.Example == null ? 0 : (schema.Example as dynamic).Value)?.ToString();
+                    return result;
                 }
                 else if (Equals(schema.Type, "number"))
                 {
