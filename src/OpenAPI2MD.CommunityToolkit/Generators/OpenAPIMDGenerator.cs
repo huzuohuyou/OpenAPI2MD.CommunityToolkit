@@ -39,10 +39,26 @@ public class OpenApimdGenerator
                 };
                 operation.Parameters.ToList().ForEach(p =>
                 {
-                    if (p.Example != null)
+                    var va = string.Empty;
+                    try
                     {
-                        dynamic d = p.Example as dynamic;
-                        var v = d.Value;
+                        if(p.Schema.Type == "array" && p.Example != null)
+                        {
+                            dynamic d = p.Example as dynamic;
+                            var v = d[0].Value;
+                            va=v.ToString();
+                        }
+                        else if( p.Example != null)
+                        {
+                            dynamic d = p.Example as dynamic;
+                            var v = d.Value;
+                            va = v.ToString();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        throw e;
                     }
                     t.RequestParams.Add(new RequestParam()
                     {
@@ -51,7 +67,7 @@ public class OpenApimdGenerator
                         ParamType = p.In.ToString(),
                         PropertyType = p.Schema.Type,
                         IsRequired = p.Required.ToString(),
-                        Example = (p.Example == null ? default : (p.Example as dynamic).Value)?.ToString()
+                        Example = va
                     });
                 });
                 if (!Equals(null, operation.RequestBody))

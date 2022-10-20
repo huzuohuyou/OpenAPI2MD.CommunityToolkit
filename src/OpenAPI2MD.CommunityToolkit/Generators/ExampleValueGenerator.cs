@@ -3,7 +3,8 @@ using Newtonsoft.Json;
 
 namespace OpenAPI2MD.CommunityToolkit.Generators
 {
-    public enum ResponseType{
+    public enum ResponseType
+    {
         array,
         obj,
         basetype
@@ -13,13 +14,13 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
         /// <summary>
         /// 递归中断记录器
         /// </summary>
-        private List<string> ReferenceIds = new ();
+        private List<string> ReferenceIds = new();
         public string Excute(OpenApiSchema schema)
         {
             if (Equals(null, schema))
                 return default;
-            var r= InitEntity(schema);
-            if (r!=null)
+            var r = InitEntity(schema);
+            if (r != null)
                 return ConvertJsonString(JsonConvert.SerializeObject(r));
             return schema.Type;
         }
@@ -32,21 +33,21 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
             {
                 var a = 1;
             }
-            if (Equals(schema.Type,"array"))
+            if (Equals(schema.Type, "array"))
             {
                 var temp = new List<object>();
-                
-                if (ReferenceIds.Where(id=>id==schema?.Items?.Reference?.Id).Count()<=3)
+
+                if (ReferenceIds.Where(id => id == schema?.Items?.Reference?.Id).Count() <= 3)
                     temp.Add(InitEntity(schema.Items));
                 if (!string.IsNullOrWhiteSpace(schema?.Items?.Reference?.Id))
                     ReferenceIds.Add(schema?.Items?.Reference?.Id);
                 return temp;
             }
-            else if (Equals(schema.Type,"object"))
+            else if (Equals(schema.Type, "object"))
             {
                 if (!string.IsNullOrWhiteSpace(schema?.Reference?.Id))
                     ReferenceIds.Add(schema?.Reference?.Id);
-                var temp =  new Dictionary<string, object>();
+                var temp = new Dictionary<string, object>();
                 schema.Properties.Keys.ToList().ForEach(r =>
                 {
                     if (schema.Properties.Keys.Contains(r))
@@ -63,10 +64,10 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                             Console.WriteLine(e);
                             throw;
                         }
-                        
+
                     }
-                   
-                   
+
+
                 });
                 return temp;
             }
@@ -74,14 +75,14 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
             {//基本类型
                 if (Equals(schema.Type, "integer"))
                 {
-                    int result;
-                    int.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
-                    return result;
+                    Int64 result;
+                    Int64.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
+                    return (schema.Example == null ? 0 : (schema.Example as dynamic).Value)?.ToString();
                 }
                 else if (Equals(schema.Type, "number"))
                 {
                     double result;
-                    double.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
+                    Double.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
                     return result;
                 }
                 else if (Equals(schema.Type, "boolean"))
@@ -90,8 +91,11 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                     bool.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
                     return result;
                 }
-                else
-                    return (schema.Example == null ? default : (schema.Example as dynamic).Value)??"string";
+                else if (schema.Enum.Any())
+                {
+                    return string.Join('|', schema.Enum.ToArray().Select(r => (r as dynamic).Value));
+                }
+                return (schema.Example == null ? default : (schema.Example as dynamic).Value) ?? "string";
             }
         }
 
