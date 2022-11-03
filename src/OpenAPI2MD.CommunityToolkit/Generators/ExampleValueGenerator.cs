@@ -3,50 +3,39 @@ using Newtonsoft.Json;
 
 namespace OpenAPI2MD.CommunityToolkit.Generators
 {
-    public enum ResponseType
-    {
-        array,
-        obj,
-        basetype
-    }
+    
     public class ExampleValueGenerator
     {
         /// <summary>
         /// 递归中断记录器
         /// </summary>
-        private List<string> ReferenceIds = new();
-        public string Excute(OpenApiSchema schema)
+        private List<string?> ReferenceIds = new();
+        public string? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
                 return default;
             var r = InitEntity(schema);
-            if (r != null)
+            if (!Equals(null,r))
                 return ConvertJsonString(JsonConvert.SerializeObject(r));
             return schema.Type;
         }
 
-        private object InitEntity(OpenApiSchema schema)
+        private object InitEntity(OpenApiSchema? schema)
         {
-            //if (!string.IsNullOrWhiteSpace(schema.Reference?.Id))
-            //    ReferenceIds.Add(schema.Reference?.Id);
-            if (ReferenceIds.Contains("HierarchyTree"))
-            {
-                var a = 1;
-            }
-            if (Equals(schema.Type, "array"))
+            if (Equals(schema?.Type, "array"))
             {
                 var temp = new List<object>();
 
-                if (ReferenceIds.Where(id => id == schema?.Items?.Reference?.Id).Count() <= 3)
+                if (ReferenceIds.Count(id => id == schema.Items?.Reference?.Id) <= 3)
                     temp.Add(InitEntity(schema.Items));
-                if (!string.IsNullOrWhiteSpace(schema?.Items?.Reference?.Id))
-                    ReferenceIds.Add(schema?.Items?.Reference?.Id);
+                if (  !string.IsNullOrWhiteSpace(schema.Items?.Reference?.Id))
+                    ReferenceIds.Add(schema.Items?.Reference?.Id);
                 return temp;
             }
-            else if (Equals(schema.Type, "object"))
+            else if (Equals(schema?.Type, "object"))
             {
-                if (!string.IsNullOrWhiteSpace(schema?.Reference?.Id))
-                    ReferenceIds.Add(schema?.Reference?.Id);
+                if (!string.IsNullOrWhiteSpace(schema.Reference?.Id))
+                    ReferenceIds.Add(schema.Reference?.Id);
                 var temp = new Dictionary<string, object>();
                 schema.Properties.Keys.ToList().ForEach(r =>
                 {
@@ -73,39 +62,40 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
             }
             else
             {//基本类型
-                if (Equals(schema.Type, "integer"))
+                if (Equals(schema?.Type, "integer"))
                 {
                     Int64 result;
                     Int64.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
                     return result;
                 }
-                else if (Equals(schema.Type, "number"))
+                else if (Equals(schema?.Type, "number"))
                 {
                     double result;
                     Double.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
                     return result;
                 }
-                else if (Equals(schema.Type, "boolean"))
+                else if (Equals(schema?.Type, "boolean"))
                 {
                     bool result;
                     bool.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
                     return result;
                 }
-                else if (schema.Enum.Any())
+                else if (schema != null && schema.Enum.Any())
                 {
                     return string.Join('|', schema.Enum.ToArray().Select(r => (r as dynamic).Value));
                 }
-                return (schema.Example == null ? default : (schema.Example as dynamic).Value) ?? "string";
+                return (schema?.Example == null ? default : (schema.Example as dynamic).Value) ?? "string";
             }
         }
 
-        private string ConvertJsonString(string str)
+        private string? ConvertJsonString(string? str)
         {
             //格式化json字符串
             JsonSerializer serializer = new JsonSerializer();
+            if (string.IsNullOrWhiteSpace(str)) return default;
             TextReader tr = new StringReader(str);
             JsonTextReader jtr = new JsonTextReader(tr);
-            object obj = serializer.Deserialize(jtr);
+            object? obj = serializer.Deserialize(jtr);
             if (obj != null)
             {
                 StringWriter textWriter = new StringWriter();

@@ -5,27 +5,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
 		<PublishSignleFile>True</PublishSignleFile>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<OutputType>Exe</OutputType>
-		<!--包名-->
-		<PackageId>Sagger2Md</PackageId>
-		<!--版本-->
-		<Version>6.4.11</Version>
-		<!--作者-->
-		<Authors>wuhailong</Authors>
-		<!--公司-->
-		<Company>personal</Company>
-		<!--生成自动构建-->
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PackageProjectUrl>https://github.com/huzuohuyou/ChangeLog.CommunityToolkit.git</PackageProjectUrl>
-		<Description>
-			swagger.json生成接口markdown文档
-		</Description>
-		<PackAsTool>true</PackAsTool>
-		<ToolCommandName>Swagger2Md</ToolCommandName>
-		<PackageOutputPath>./nupkg</PackageOutputPath>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		
 
 		<AssemblyName>Swagger2Md</AssemblyName>
 	</PropertyGroup>

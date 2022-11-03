@@ -5,13 +5,13 @@ namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class Response
 {
-    public string Code { get; set; }
-    public string Des { get; set; }
-    public string Remark { get; set; }
-    public string ResponseType { get; set; }
-    public string ResponseDataType { get; set; }
+    public string? Code { get; set; }
+    public string? Des { get; set; }
+    public string? Remark { get; set; }
+    public string? ResponseType { get; set; }
+    public string? ResponseDataType { get; set; }
     public List<Schema> Schemas { get; set; } = new();
-    public OpenApiSchema OpenApiSchema { get; set; }
+    public OpenApiSchema? OpenApiSchema { get; set; }
     public override string ToString()
     {
         var fieldsResult = string.Empty;
@@ -24,7 +24,7 @@ $@"<tr>
 </tr>");
         Schemas.ForEach(r =>
         {
-            fields.Append(r.ToString());
+            fields.Append(r);
         });
         if (Schemas.Any())
         {

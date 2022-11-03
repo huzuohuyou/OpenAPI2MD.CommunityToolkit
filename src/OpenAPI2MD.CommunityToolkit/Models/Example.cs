@@ -2,8 +2,8 @@
 
 public class Example
 {
-    public string RequestParam { get; set; }
-    public string ResponseResult { get; set; }
+    public string? RequestParam { get; set; }
+    public string? ResponseResult { get; set; }
     public override string ToString()
     {
         return $@"<tr>

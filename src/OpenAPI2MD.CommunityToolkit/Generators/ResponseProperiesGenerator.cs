@@ -6,25 +6,25 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
     {
         private string IndentChar = "····";
         private  int times=0;
-        private List<string> ReferenceIds=new List<string>();
-        public List<Schema> Schemata { get; set; } = new();
-        private string GetSchemaType(OpenApiSchema schema)
+        private List<string?> ReferenceIds=new List<string?>();
+        public List<Schema>? Schemata { get; set; } = new();
+        private string? GetSchemaType(OpenApiSchema? schema)
         {
-            if (schema.Type == "array" && schema.Items?.Reference != null)
+            if (schema?.Type == "array" && schema.Items?.Reference != null)
                 return $@"{schema.Type}:{schema.Items?.Reference.Id}";
-            if (schema.Type == "array" && schema.Items?.Reference == null)
+            if (schema?.Type == "array" && schema.Items?.Reference == null)
                 return $@"{schema.Type}:{schema.Items?.Type}";
-            if (schema.Type == "object" && schema?.Reference != null)
-                return $@"{schema.Type}:{schema?.Reference.Id}";
-            return schema.Type;
+            if (schema?.Type == "object" && schema.Reference != null)
+                return $@"{schema.Type}:{schema.Reference.Id}";
+            return schema?.Type;
 
         }
-        public List<Schema> Excute(OpenApiSchema schema)
+        public List<Schema>? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
                  return default;
             InitEntity(schema, Schemata, times);
-            return Schemata.Count>0?Schemata: new List<Schema>() { new Schema() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } };
+            return Schemata != null && Schemata.Count>0?Schemata: new List<Schema>() { new Schema() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } };
         }
 
         private string IndentStr(int t)
@@ -37,40 +37,42 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
             return temp;
         }
 
-        public void InitEntity(OpenApiSchema schema, List<Schema> schematas,int IndentTime)
+        public void InitEntity(OpenApiSchema? schema, List<Schema>? schematas,int indentTime)
         {
             if (Equals(schema?.Type, "array"))
             {
-                IndentTime++;
+                indentTime++;
                 if (Equals(schema.Reference, null))
                 {
-                    schematas.Add(new Schema()
+                    schematas?.Add(new Schema()
                     {
-                        PropertyName = $@"{IndentStr(IndentTime)}{schema.Items.Reference?.Id}",
+                        PropertyName = $@"{IndentStr(indentTime)}{schema.Items.Reference?.Id}",
                         PropertyType = GetSchemaType(schema),
                         Description = schema.Description,
                     });
-                    ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
+                    if (schematas != null) ReferenceIds.Add(schematas.Last().PropertyName?.Trim('·'));
                 }
 
-                IndentTime++;
+                indentTime++;
                 schema.Items.Properties.ToList().ForEach(prop =>
                 {
-                    schematas.Add(new Schema()
+                    schematas?.Add(new Schema()
                     {
-                        PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
+                        PropertyName = $@"{IndentStr(indentTime)}{prop.Key}",
                         PropertyType = GetSchemaType(prop.Value), 
                         Description = prop.Value.Description,
                     });
-                    ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
-                    if (ReferenceIds.Count(r=>r == schematas.Last().PropertyName.Trim('·'))<2)
+                    if (schematas != null)
                     {
-                        if (prop.Value.Type == "array")
-                            InitEntity(prop.Value.Items, schematas, IndentTime);
-                        else
-                            InitEntity(prop.Value, schematas, IndentTime);
+                        ReferenceIds.Add(schematas.Last().PropertyName?.Trim('·'));
+                        if (ReferenceIds.Count(r => r == schematas.Last().PropertyName?.Trim('·')) < 2)
+                        {
+                            if (prop.Value.Type == "array")
+                                InitEntity(prop.Value.Items, schematas, indentTime);
+                            else
+                                InitEntity(prop.Value, schematas, indentTime);
+                        }
                     }
-                        
                 });
             }
             else if (Equals(schema?.Type, "object"))
@@ -84,19 +86,21 @@ namespace OpenAPI2MD.CommunityToolkit.Generators
                 //        : schema.Type,
                 //    Remark = schema.Description,
                 //});
-                IndentTime++;
+                indentTime++;
                 schema.Properties.ToList().ForEach(prop =>
                 {
-                    schematas.Add(new Schema()
+                    schematas?.Add(new Schema()
                     {
-                        PropertyName = $@"{IndentStr(IndentTime)}{prop.Key}",
+                        PropertyName = $@"{IndentStr(indentTime)}{prop.Key}",
                         PropertyType = GetSchemaType(prop.Value),
                         Description = prop.Value.Description,
                     });
-                    ReferenceIds.Add(schematas.Last().PropertyName.Trim('·'));
-                    if (ReferenceIds.Count(r => r == schematas.Last().PropertyName.Trim('·')) < 2)
-                        InitEntity(prop.Value, schematas, IndentTime);
-
+                    if (schematas != null)
+                    {
+                        ReferenceIds.Add(schematas.Last().PropertyName?.Trim('·'));
+                        if (ReferenceIds.Count(r => r == schematas.Last().PropertyName?.Trim('·')) < 2)
+                            InitEntity(prop.Value, schematas, indentTime);
+                    }
                 });
             }
             

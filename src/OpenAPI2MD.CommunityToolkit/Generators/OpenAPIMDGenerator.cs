@@ -2,7 +2,7 @@
 
 public class OpenApimdGenerator
 {
-    public async Task<string> ReadYaml(string requestUri="",string savePath="")
+    public async Task<string> ReadYaml(string? requestUri="",string savePath="")
     {
         try
         {
@@ -16,8 +16,8 @@ public class OpenApimdGenerator
             var sb = new StringBuilder();
             sb.Append($"# {doc.Info.Title}({doc.Info.Version}) \n " );
             sb.Append($"{doc.Info.Description} \n ");
-            sb.Append($"{doc.Info.Contact.Name} \n ");
-            sb.Append($"{doc.Info.Contact.Email} \n ");
+            sb.Append($"{doc.Info?.Contact?.Name} \n ");
+            sb.Append($"{doc.Info?.Contact?.Email} \n ");
             sb.Append($"[TOC] \n");
             var tag = string.Empty;
             doc.Paths.ToList().ForEach(r =>
@@ -31,35 +31,28 @@ public class OpenApimdGenerator
 
                 var t = new PathTable()
                 {
-                    Summary = operation.Summary,
-                    Description = operation.Description,
-                    Name = operation.Summary,
-                    URL = r.Key,
+                    Summary = operation?.Summary,
+                    Description = operation?.Description,
+                    Name = operation?.Summary,
+                    Url = r.Key,
                     RequestMethod = r.Value.Operations.Keys.FirstOrDefault().ToString()
                 };
-                operation.Parameters.ToList().ForEach(p =>
+                operation?.Parameters.ToList().ForEach(p =>
                 {
                     var va = string.Empty;
-                    try
+                    if(p.Schema.Type == "array" && p.Example != null)
                     {
-                        if(p.Schema.Type == "array" && p.Example != null)
-                        {
-                            dynamic d = p.Example as dynamic;
-                            var v = d[0].Value;
-                            va=v.ToString();
-                        }
-                        else if( p.Example != null)
-                        {
-                            dynamic d = p.Example as dynamic;
-                            var v = d.Value;
-                            va = v.ToString();
-                        }
+                        dynamic d = p.Example;
+                        var v = d[0].Value;
+                        va=v.ToString();
                     }
-                    catch (Exception e)
+                    else if( p.Example != null)
                     {
+                        dynamic d = p.Example;
+                        var v = d.Value;
+                        va = v.ToString();
+                    }
 
-                        throw e;
-                    }
                     t.RequestParams.Add(new RequestParam()
                     {
                         PropertyName = p.Name,
@@ -70,7 +63,7 @@ public class OpenApimdGenerator
                         Example = va
                     });
                 });
-                if (!Equals(null, operation.RequestBody))
+                if (!Equals(null, operation?.RequestBody))
                 {
                     var c = new RequestProperiesGenerator().Excute(operation.RequestBody?.Content?.FirstOrDefault()
                         .Value?.Schema);
@@ -78,33 +71,33 @@ public class OpenApimdGenerator
                         t.RequestBodys.AddRange(c);
                 }
 
-                t.RequestBody = operation.RequestBody?.Content?.FirstOrDefault().Value?.Schema;
-                operation.Responses.ToList().ForEach(r =>
+                t.RequestBody = operation?.RequestBody?.Content?.FirstOrDefault().Value?.Schema;
+                operation?.Responses.ToList().ForEach(keyValuePair =>
                 {
-                   var res= new ExampleValueGenerator().Excute(r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema:default);
+                   new ExampleValueGenerator().Excute(keyValuePair.Value.Content.Count > 0 ? keyValuePair.Value.Content.FirstOrDefault().Value.Schema:default);
                    var type = new StringBuilder();
-                   if (r.Value.Content.Count > 0)
+                   if (keyValuePair.Value.Content.Count > 0)
                    {
-                       type = type.Append(r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema.Type : default);
+                       type = type.Append(keyValuePair.Value.Content.Count > 0 ? keyValuePair.Value.Content.FirstOrDefault().Value.Schema.Type : default);
                        if (Equals("array",type.ToString()))
-                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema?.Items?.Reference?.Id}");
+                           type.Append($@":{keyValuePair.Value.Content.FirstOrDefault().Value.Schema?.Items?.Reference?.Id}");
                        if (Equals("object", type.ToString()))
-                           type.Append($@":{r.Value.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
-                    }
-                    var response = new Response()
-                    {
-                        Code = r.Key,
-                        Des = r.Value.Description,
-                        ResponseType = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Key : default,
-                        ResponseDataType = type.ToString(),
-                        OpenApiSchema = r.Value.Content.Count > 0 ? r.Value.Content.FirstOrDefault().Value.Schema : default
+                           type.Append($@":{keyValuePair.Value.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
+                   }
+                   var response = new Response()
+                   {
+                       Code = keyValuePair.Key,
+                       Des = keyValuePair.Value.Description,
+                       ResponseType = keyValuePair.Value.Content.Count > 0 ? keyValuePair.Value.Content.FirstOrDefault().Key : default,
+                       ResponseDataType = type.ToString(),
+                       OpenApiSchema = keyValuePair.Value.Content.Count > 0 ? keyValuePair.Value.Content.FirstOrDefault().Value.Schema : default
 
-                    };
-                    var c = new ResponseProperiesGenerator().Excute(r.Value.Content.FirstOrDefault().Value?.Schema);
-                    if (!Equals(null, c))
-                        response.Schemas.AddRange(c);
+                   };
+                   var c = new ResponseProperiesGenerator().Excute(keyValuePair.Value.Content.FirstOrDefault().Value?.Schema);
+                   if (!Equals(null, c))
+                       response.Schemas.AddRange(c);
 
-                    t.Responses.Add(response);
+                   t.Responses.Add(response);
                 });
                 var s = t.ToString();
                 sb.Append($"### {operation?.OperationId} \n");

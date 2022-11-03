@@ -54,7 +54,6 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
             [FromRoute] int id)
         {
             
-             new ClientCodeGenerator().Excute();
             _ =  new OpenApimdGenerator().ReadYaml();
             return Ok();
             //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -83,7 +82,6 @@ namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
             [FromBody][Required] WeatherForecast entity)
         {
 
-            new ClientCodeGenerator().Excute();
             _ = new OpenApimdGenerator().ReadYaml();
             return Ok();
             //return Enumerable.Range(1, 5).Select(index => new WeatherForecast

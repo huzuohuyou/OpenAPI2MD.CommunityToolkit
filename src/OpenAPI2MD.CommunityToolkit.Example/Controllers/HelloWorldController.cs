@@ -1,9 +1,8 @@
 using ApiConventions.CommunityToolKit;
 using ApiConventions.CommunityToolKit.Helpers;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using log4net;
 
 namespace OpenAPI2MD.CommunityToolkit.Example.Controllers
 {

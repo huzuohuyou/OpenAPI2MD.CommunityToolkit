@@ -1,10 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System;
+using System.IO;
+using System.Linq;
 using OpenAPI2MD.CommunityToolkit.Command;
 using OpenAPI2MD.CommunityToolkit.Generators;
 
 Console.WriteLine("Hello, World!");
-var jsonPath = string.Empty;
+string? jsonPath;
 if (args.Any())//cmd传参
     jsonPath = args[0];
 else

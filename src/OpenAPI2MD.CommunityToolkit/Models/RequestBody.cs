@@ -1,15 +1,12 @@
-﻿using Microsoft.OpenApi.Models;
-using OpenAPI2MD.CommunityToolkit.Generators;
-
-namespace OpenAPI2MD.CommunityToolkit.Models;
+﻿namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class RequestBody
 {
-    public string PropertyName { get; set; }
-    public string PropertyType { get; set; }
-    public string ParamType { get; set; } = "Body";
-    public string IsRequired { get; set; }
-    public string Description { get; set; }
+    public string? PropertyName { get; set; }
+    public string? PropertyType { get; set; }
+    public string? ParamType { get; set; } = "Body";
+    public string? IsRequired { get; set; }
+    public string? Description { get; set; }
 
     public override string ToString()
     {

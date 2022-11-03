@@ -5,16 +5,16 @@ namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class PathTable
 {
-    public string Summary { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string URL { get; set; }
-    public string RequestMethod { get; set; }
-    public string RequestType { get; set; }
-    public string ResponseType { get; set; }
+    public string? Summary { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public string? Url { get; set; }
+    public string? RequestMethod { get; set; }
+    public string? RequestType { get; set; }
+    public string? ResponseType { get; set; }
     public List<RequestParam> RequestParams { get; set; }=new ();
     public List<RequestBody> RequestBodys { get; set; } = new();
-    public OpenApiSchema RequestBody { get; set; }
+    public OpenApiSchema? RequestBody { get; set; }
     public List<Response> Responses { get; set; }= new ();
     public List<Example> Examples { get; set; } = new ();
     
@@ -34,7 +34,7 @@ public class PathTable
 </tr>
 <tr>
     <td >URL</td>
-    <td colspan=""5"">{URL}</td>
+    <td colspan=""5"">{Url}</td>
 </tr>
 <tr>
     <td >请求方式</td>
@@ -48,7 +48,7 @@ public class PathTable
 //    < td > 返回类型 </ td >
 //    < td colspan = ""4"" >{ ResponseType}</ td >
 //</ tr >
-        var _params = new StringBuilder(
+        var paramHeader = new StringBuilder(
 $@"<tr>
     <td bgcolor=""{MdColor.bgcolor}"">参数名</td>
     <td bgcolor=""{MdColor.bgcolor}"">数据类型</td>
@@ -59,14 +59,14 @@ $@"<tr>
 </tr>");
         RequestParams.ForEach(r =>
         {
-            _params.Append(r.ToString());
+            paramHeader.Append(r);
         });
 
-        var _paramsResult = string.Empty;
+        var paramsResult = string.Empty;
         if (!Equals(RequestParams.Count, 0))
-            _paramsResult= _params.ToString();
+            paramsResult= paramHeader.ToString();
 
-            var _requestBodyProperties = new StringBuilder(
+        var requestBodyProperties = new StringBuilder(
             $@"<tr>
     <td bgcolor=""{MdColor.bgcolor}"">参数名</td>
     <td bgcolor=""{MdColor.bgcolor}"">数据类型</td>
@@ -76,15 +76,15 @@ $@"<tr>
 </tr>");
         RequestBodys.ForEach(r =>
         {
-            _requestBodyProperties.Append(r.ToString());
+            requestBodyProperties.Append(r);
         });
 
-        var _requestBodyPropertiesResult = string.Empty;
+        var requestBodyPropertiesResult = string.Empty;
         if (!Equals(RequestBodys.Count, 0))
-            _requestBodyPropertiesResult = _requestBodyProperties.ToString();
+            requestBodyPropertiesResult = requestBodyProperties.ToString();
 
 
-            var responses = new StringBuilder();
+        var responses = new StringBuilder();
         Responses.ForEach(r =>
         {
             responses.Append(
@@ -114,8 +114,8 @@ $@"<tr>
         return 
 $@"<table>
     {info}
-    {_paramsResult}
-{_requestBodyPropertiesResult}
+    {paramsResult}
+{requestBodyPropertiesResult}
     {requestBody}
  {responses}
     {""}
