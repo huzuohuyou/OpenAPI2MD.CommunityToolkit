@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Swagger2Md" Language="1033" Version="6.4.11" Manufacturer="wuhailong" UpgradeCode="294bb15f-1eec-4879-af17-6edf8a1b85c3">
+	<Product Id="*" Name="Swagger2Md" Language="1033" Version="7.4.12" Manufacturer="wuhailong" UpgradeCode="294bb15f-1eec-4879-af17-6edf8a1b85c3">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -18,7 +18,6 @@
 			<ComponentRef Id="cmpFE249C214E7357C03A02925815EC78B4" />
 			<ComponentRef Id="cmp56AC60E357B6297E33A3C4D87D1570ED" />
 			<ComponentRef Id="cmpFE83E8108E7CDA99B3C910712A62BC96" />
-			<ComponentRef Id="cmpD0D2B748E31EBF07DC180DEE3C712CA6" />
 			<ComponentRef Id="Component1" />
 		</Feature>
 		
@@ -83,9 +82,7 @@
 			<Component Id="cmpFE83E8108E7CDA99B3C910712A62BC96" Guid="{8EFAD4B0-47EF-4D20-9E9F-9594C4824E5F}">
 				<File Id="filAC67BFC05F5C8E69212D244A85FF2D2A" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir)bin\Release\net6.0\publish\Swagger2Md.runtimeconfig.json" />
 			</Component>
-			<Component Id="cmpD0D2B748E31EBF07DC180DEE3C712CA6" Guid="{89BD5810-44D7-4C4F-8B68-013E66F9E258}">
-				<File Id="filE5FC0015104B82F8953DA9A30C050A9E" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir)bin\Release\net6.0\publish\Swagger2Md.xml" />
-			</Component>
+			
 		</ComponentGroup>
 	</Fragment>
 </Wix>
