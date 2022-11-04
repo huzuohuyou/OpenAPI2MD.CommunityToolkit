@@ -1,3 +1,7 @@
+## 感谢JetBrains 支持
+![](/docs/jb_beam.png)
+
+[OpenSourceSupport](https://jb.gg/OpenSourceSupport)
 ## 安装
 双击运行Swagger2Md.msi
 ## 调用
