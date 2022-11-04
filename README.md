@@ -77,5 +77,5 @@ maybe next is you
 <!-- 可以列出使用本项目的其他有影响力的项目，算是给项目打个广告吧 -->
 
 ## 许可证
-MIT
+[MIT](https://gitee.com/galacode/OpenAPI2MD.CommunityToolkit/blob/main/LICENSE)
 <!-- 这里链接上该项目的开源许可证 -->
