@@ -14,7 +14,7 @@ public class OpenApimdGenerator
             var doc = new OpenApiStreamReader().Read(stream, out _);
 
             var sb = new StringBuilder();
-            sb.Append($"# {doc.Info.Title}({doc.Info.Version}) \n " );
+            sb.Append($" # {doc.Info.Title}({doc.Info.Version}) \n " );
             sb.Append($"{doc.Info.Description} \n ");
             sb.Append($"{doc.Info?.Contact?.Name} \n ");
             sb.Append($"{doc.Info?.Contact?.Email} \n ");
@@ -26,7 +26,7 @@ public class OpenApimdGenerator
                 if (!tag.Equals(operation?.Tags.FirstOrDefault()?.Name))
                 {
                     tag = operation?.Tags.FirstOrDefault()?.Name;
-                    sb.Append($"## {tag} \n");
+                    sb.Append($" \n## {tag} \n");
                 }
 
                 var t = new PathTable()
@@ -100,7 +100,7 @@ public class OpenApimdGenerator
                    t.Responses.Add(response);
                 });
                 var s = t.ToString();
-                sb.Append($"### {operation?.OperationId} \n");
+                sb.Append($"\n#### {operation?.OperationId} \n");
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();
