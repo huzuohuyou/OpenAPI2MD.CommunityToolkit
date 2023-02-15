@@ -6,7 +6,7 @@ public class RequestParam
     public string? PropertyType { get; set; }
     public string? ParamType { get; set; } = "Body";
     public string? IsRequired { get; set; }
-    public string IsRequiredDisplay => Equals("True", IsRequired) ? "Y" : "";
+    public string IsRequiredDisplay => Equals("True", IsRequired) ? "Y" : "N";
     public string? Description { get; set; }
     
     public string? Example { get; set; }

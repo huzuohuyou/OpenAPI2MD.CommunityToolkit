@@ -35,6 +35,7 @@ public class OpenApimdGenerator
                     Description = operation?.Description,
                     Name = operation?.Summary,
                     Url = r.Key,
+                    Deprecated = operation.Deprecated,
                     RequestMethod = r.Value.Operations.Keys.FirstOrDefault().ToString()
                 };
                 operation?.Parameters.ToList().ForEach(p =>
@@ -100,7 +101,8 @@ public class OpenApimdGenerator
                    t.Responses.Add(response);
                 });
                 var s = t.ToString();
-                sb.Append($"\n#### {operation?.OperationId} \n");
+                var displayDeprecated = operation.Deprecated ? "【已过时】" : "";
+                sb.Append($"\n#### {operation?.OperationId}{displayDeprecated} \n");
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();

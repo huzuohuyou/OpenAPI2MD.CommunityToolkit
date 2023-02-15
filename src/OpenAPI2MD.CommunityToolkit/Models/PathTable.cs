@@ -1,16 +1,41 @@
 ﻿using Microsoft.OpenApi.Models;
 using OpenAPI2MD.CommunityToolkit.Generators;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class PathTable
 {
-    public string? Summary { get; set; }
-    public string? Name { get; set; }
+    public string Summary { get; set; }
+    public string Name { get; set; }
+
+    private string DisplayDeprecated
+    {
+        get
+        {
+            if (Deprecated)
+                return $@"<tr>
+    <td >方法过时</td>
+    <td colspan=""5"" >此方法以后不再维护,或在后续更新中移除；</td>
+</tr>";
+            return string.Empty;
+        }
+    }
+
+    private string DeprecatedStyle
+    {
+        get
+        {
+            if(Deprecated)
+                return @"style=""text-decoration:line-through;""";
+            return string.Empty;
+        }
+    }
     public string? Description { get; set; }
-    public string? Url { get; set; }
+    public string Url { get; set; }
     public string? RequestMethod { get; set; }
     public string? RequestType { get; set; }
+    public bool Deprecated { get; set; }
     public string? ResponseType { get; set; }
     public List<RequestParam> RequestParams { get; set; }=new ();
     public List<RequestBody> RequestBodys { get; set; } = new();
@@ -25,20 +50,21 @@ public class PathTable
     <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">{Summary}</td>
 </tr>
 <tr>
-    <td >接口名称</td>
-    <td colspan=""5"">{Name}</td>
+    <td {DeprecatedStyle}>接口名称</td>
+    <td colspan=""5"" {DeprecatedStyle}>{Name}</td>
+</tr>
+{DisplayDeprecated}
+<tr>
+    <td  {DeprecatedStyle}>接口描述</td>
+    <td colspan=""5""  {DeprecatedStyle}>{Description}</td>
 </tr>
 <tr>
-    <td >接口描述</td>
-    <td colspan=""5"">{Description}</td>
+    <td {DeprecatedStyle}>URL</td>
+    <td colspan=""5"" {DeprecatedStyle}>{Url}</td>
 </tr>
 <tr>
-    <td >URL</td>
-    <td colspan=""5"">{Url}</td>
-</tr>
-<tr>
-    <td >请求方式</td>
-    <td colspan=""5"">{RequestMethod}</td>
+    <td  {DeprecatedStyle}>请求方式</td>
+    <td colspan=""5""  {DeprecatedStyle}>{RequestMethod}</td>
 </tr>
 <tr>
     <td >请求类型</td>
