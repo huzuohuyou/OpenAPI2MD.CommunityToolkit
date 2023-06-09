@@ -14,11 +14,11 @@ public class OpenApimdGenerator
             var doc = new OpenApiStreamReader().Read(stream, out _);
 
             var sb = new StringBuilder();
-            sb.Append($" # {doc.Info.Title}({doc.Info.Version}) \n " );
-            sb.Append($"{doc.Info.Description} \n ");
-            sb.Append($"{doc.Info?.Contact?.Name} \n ");
-            sb.Append($"{doc.Info?.Contact?.Email} \n ");
-            sb.Append($"[TOC] \n");
+            sb.Append($" # {doc.Info.Title}({doc.Info.Version}) \n" );
+            sb.Append($"{doc.Info.Description} \n");
+            sb.Append($"{doc.Info?.Contact?.Name} \n");
+            sb.Append($"{doc.Info?.Contact?.Email} \n");
+            sb.Append($"<!-- @import \"[TOC]\" {{cmd=\"toc\" depthFrom=2 depthTo=3 orderedList=false}} -->\n");
             var tag = string.Empty;
             doc.Paths.ToList().ForEach(r =>
             {
@@ -102,7 +102,7 @@ public class OpenApimdGenerator
                 });
                 var s = t.ToString();
                 var displayDeprecated = operation.Deprecated ? "【已过时】" : "";
-                sb.Append($"\n#### {operation?.OperationId}{displayDeprecated} \n");
+                sb.Append($"\n### {operation?.OperationId}{displayDeprecated} \n");
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();
