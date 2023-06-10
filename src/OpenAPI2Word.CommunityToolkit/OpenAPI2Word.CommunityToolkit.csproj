@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Generators\ClientCodeGenerator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.3" />
+    <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.4" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>

@@ -16,6 +16,7 @@ else
     jsonPath = Console.ReadLine();
 }
 var savePath = new CmdRunner().PrintDoc("cd");
-_ = new OpenApimdGenerator().ReadYaml(jsonPath, savePath).Result;
+
+await new OpenAPI2Word.CommunityToolkit.Generators.OpenApimdGenerator().ReadYaml(jsonPath, savePath);
 if (File.Exists(Path.Combine(savePath,"swagger.md")))
     Console.WriteLine("文档生成成功!");

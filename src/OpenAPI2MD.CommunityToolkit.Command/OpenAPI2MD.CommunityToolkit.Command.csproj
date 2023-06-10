@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\OpenAPI2MD.CommunityToolkit\OpenAPI2MD.CommunityToolkit.csproj" />
+		<ProjectReference Include="..\OpenAPI2Word.CommunityToolkit\OpenAPI2Word.CommunityToolkit.csproj" />
 	</ItemGroup>
 
 </Project>
