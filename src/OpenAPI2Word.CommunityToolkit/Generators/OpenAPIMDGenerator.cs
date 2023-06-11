@@ -1,6 +1,4 @@
-﻿using NPOI.OpenXmlFormats.Wordprocessing;
-
-namespace OpenAPI2Word.CommunityToolkit.Generators;
+﻿namespace OpenAPI2Word.CommunityToolkit.Generators;
 
 public class OpenApimdGenerator
 {
@@ -8,9 +6,23 @@ public class OpenApimdGenerator
     {
         try
         {
+            Found:
+            {
+                Console.WriteLine("请输入swagger.json的url:");
+                requestUri = Console.ReadLine();
+            }
+            Stream stream;
             var client = new HttpClient();
-            var stream = await client.GetStreamAsync(requestUri);
-            var doc = new OpenApiStreamReader().Read(stream, out _);
+            try
+            {
+                stream = await client.GetStreamAsync(requestUri);
+            }
+            catch (Exception e)
+            {
+                goto Found;
+            }
+
+            var openApiDocument = new OpenApiStreamReader().Read(stream, out _);
             var newFile2 = $@"swagger_{DateTime.Now.Ticks}.docx";
             if (File.Exists($"{AppDomain.CurrentDomain.BaseDirectory}/swagger.docx"))
             {
@@ -18,28 +30,24 @@ public class OpenApimdGenerator
             }
            
             await using var fs = new FileStream(newFile2, FileMode.Create, FileAccess.Write);
-            XWPFDocument swaggerDoc = new XWPFDocument();
-            XWPFStyles styles = swaggerDoc.CreateStyles();
-            styles.SetEastAsia("Chinese");
-            styles.SetSpellingLanguage("English");
-            CT_Fonts def = new CT_Fonts();
-            styles.SetDefaultFonts(def);
+            XWPFDocument doc = new XWPFDocument();
+   
 
             //基本信息
-            new TitileAndVersionGenerator().Generate(swaggerDoc, $"  {doc.Info.Title}({doc.Info.Version}) ");
-            new DescriptionGenerator().Generate(swaggerDoc, $"  {doc.Info.Description}  ");
-            new ContactNameGenerator().Generate(swaggerDoc, $" {doc.Info?.Contact?.Name}  ");
-            new ContactEmailGenerator().Generate(swaggerDoc, $" {doc.Info?.Contact?.Email}  ");
+            new TitileAndVersionGenerator().Generate(doc, $"  {openApiDocument.Info.Title}({openApiDocument.Info.Version}) ");
+            new DescriptionGenerator().Generate(doc, $"  {openApiDocument.Info.Description}  ");
+            new ContactNameGenerator().Generate(doc, $" {openApiDocument.Info?.Contact?.Name}  ");
+            new ContactEmailGenerator().Generate(doc, $" {openApiDocument.Info?.Contact?.Email}  ");
             var tag = string.Empty;
-            doc.Paths.ToList().ForEach(r =>
+            openApiDocument.Paths.ToList().ForEach(r =>
             {
                 var operation = r.Value.Operations.Values.FirstOrDefault();
                 if (!tag.Equals(operation?.Tags.FirstOrDefault()?.Name))
                 {
                     tag = operation?.Tags.FirstOrDefault()?.Name;
-                    new Header2Generator().Generate(swaggerDoc, $" {tag}  ");
+                    new Header2Generator().Generate(doc, $" {tag}  ");
                 }
-
+                new Header3Generator().Generate(doc, $"{operation.OperationId}  ");
                 var path = new PathTable()
                 {
                     Summary = operation?.Summary,
@@ -49,8 +57,7 @@ public class OpenApimdGenerator
                     Deprecated = operation.Deprecated,
                     RequestMethod = r.Value.Operations.Keys.FirstOrDefault().ToString()
                 };
-               
-             
+
                 operation?.Parameters.ToList().ForEach(p =>
                 {
                     var va = string.Empty;
@@ -115,14 +122,10 @@ public class OpenApimdGenerator
 
                     path.Responses.Add(response);
                 });
-                path.Generate(swaggerDoc);
-                //var s = t.ToString();
-                //var displayDeprecated = operation.Deprecated ? "【已过时】" : "";
-                //sb.Append($"\n### {operation?.OperationId}{displayDeprecated} \n");
-                //sb.Append($"{s} \n");
+                path.Generate(doc);
             });
 
-            swaggerDoc.Write(fs);
+            doc.Write(fs);
         }
         catch (Exception e)
         {

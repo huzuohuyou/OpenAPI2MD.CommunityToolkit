@@ -8,6 +8,16 @@
             {
                 c.SetColor(rgbStr);
             });
+            
+        }
+
+        public static void SetBorderBottom(this XWPFTableRow row)
+        {
+            row.GetTableCells().ForEach(c =>
+            {
+                c.SetBorderBottom(XWPFTable.XWPFBorderType.NONE,0,0,"#ffffff");
+            });
+
         }
     }
 }

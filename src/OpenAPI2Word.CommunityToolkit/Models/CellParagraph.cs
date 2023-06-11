@@ -1,6 +1,4 @@
-﻿using NPOI.OpenXmlFormats.Wordprocessing;
-
-namespace OpenAPI2Word.CommunityToolkit.Models
+﻿namespace OpenAPI2Word.CommunityToolkit.Models
 {
     internal class CellParagraph
     {

@@ -1,6 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
-
-namespace OpenAPI2Word.CommunityToolkit.Generators
+﻿namespace OpenAPI2Word.CommunityToolkit.Generators
 {
     public class ResponseProperiesGenerator
     {

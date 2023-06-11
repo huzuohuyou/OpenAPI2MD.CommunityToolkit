@@ -6,12 +6,22 @@ public class Schema
     public string? PropertyType { get; set; }
     public string? Description { get; set; }
     public string? Example { get; set; }
-    public void Generate(XWPFTable table)
+    public void Generate(XWPFTable table,int index)
     {
         var fieldsHeaderRow = table.CreateRow();
-        fieldsHeaderRow.GetCell(0).SetText(PropertyName ?? "");
-        fieldsHeaderRow.GetCell(1).SetText(PropertyType ?? "");
-        fieldsHeaderRow.GetCell(2).SetText(Description ?? "");
-        fieldsHeaderRow.MergeCells(2,5);
+        if (index%2==1)
+        {
+            fieldsHeaderRow.SetColor("#DCDCDC");
+        }
+        fieldsHeaderRow.MergeCells(0, 1);
+        fieldsHeaderRow.GetCell(0).SetColumCellText(PropertyName ?? "",25);
+
+        fieldsHeaderRow.MergeCells(1, 2);
+
+        fieldsHeaderRow.GetCell(1).SetColumCellText(PropertyType ?? "",25);
+        fieldsHeaderRow.MergeCells(2, 3);
+        fieldsHeaderRow.GetCell(2).SetText3(Description ?? "");
+     
+
     }
 }

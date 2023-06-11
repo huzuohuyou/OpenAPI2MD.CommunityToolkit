@@ -8,14 +8,18 @@ public class RequestBody
     public string? IsRequired { get; set; }
     public string? Description { get; set; }
 
-    public void Generate(XWPFTable table)
+    public void Generate(XWPFTable table,int index=0)
     {
         var propertyRow = table.CreateRow();
-        propertyRow.GetCell(0).SetText(PropertyName ?? "");
-        propertyRow.GetCell(1).SetText(PropertyType ?? "");
-        propertyRow.GetCell(2).SetText(ParamType ?? "");
-        propertyRow.GetCell(3).SetText(IsRequired ?? "");
-        propertyRow.GetCell(4).SetText(Description ?? "");
+        if (index%2==1)
+        {
+            propertyRow.SetColor("#dcdcdc");
+        }
+        propertyRow.GetCell(0).SetColumCellText(PropertyName ?? "", 12);
+        propertyRow.GetCell(1).SetColumCellText(PropertyType ?? "",10);
+        propertyRow.GetCell(2).SetColumCellText(ParamType ?? "", 10);
+        propertyRow.GetCell(3).SetColumCellText(IsRequired ?? "");
+        propertyRow.GetCell(4).SetColumCellText(Description ?? "", 20);
         propertyRow.MergeCells(4,5);
     }
 }
