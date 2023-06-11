@@ -1,4 +1,8 @@
-﻿namespace OpenAPI2Word.CommunityToolkit.Generators;
+﻿using NPOI.OpenXml4Net.OPC;
+using NPOI.OpenXmlFormats.Wordprocessing;
+using NPOI.XWPF.Model;
+
+namespace OpenAPI2Word.CommunityToolkit.Generators;
 
 public class OpenApimdGenerator
 {
@@ -31,8 +35,8 @@ public class OpenApimdGenerator
            
             await using var fs = new FileStream(newFile2, FileMode.Create, FileAccess.Write);
             XWPFDocument doc = new XWPFDocument();
-   
 
+           
             //基本信息
             new TitileAndVersionGenerator().Generate(doc, $"  {openApiDocument.Info.Title}({openApiDocument.Info.Version}) ");
             new DescriptionGenerator().Generate(doc, $"  {openApiDocument.Info.Description}  ");
@@ -124,6 +128,16 @@ public class OpenApimdGenerator
                 });
                 path.Generate(doc);
             });
+
+
+           
+
+           
+            //doc.AddHeader("那个概述111");
+
+            doc.AddHeader("那个概述1");
+
+            //doc.AddFooter("那个概述111112");
 
             doc.Write(fs);
         }

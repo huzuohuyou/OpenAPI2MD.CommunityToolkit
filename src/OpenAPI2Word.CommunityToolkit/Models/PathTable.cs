@@ -58,7 +58,7 @@ public class PathTable
         //描述
         var descriptionRow = p0.CreateRow();
         descriptionRow.GetCell(0).SetText3("接口描述");
-        descriptionRow.GetCell(1).SetJsonOrBrText(Description ?? "");
+        descriptionRow.GetCell(1).SetDescription(Description ?? "");
         //URL
         var urlRow = p0.CreateRow();
         urlRow.GetCell(0).SetText3("URL");
