@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.Office.Interop.Word;
 using OpenAPI2MD.CommunityToolkit.Command;
 using OpenAPI2MD.CommunityToolkit.Generators;
 

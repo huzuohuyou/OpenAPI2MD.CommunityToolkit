@@ -26,17 +26,16 @@ public class OpenApimdGenerator
                 goto Found;
             }
 
+
             var openApiDocument = new OpenApiStreamReader().Read(stream, out _);
             var newFile2 = $@"swagger_{DateTime.Now.Ticks}.docx";
-            if (File.Exists($"{AppDomain.CurrentDomain.BaseDirectory}/swagger.docx"))
-            {
-                File.Delete($"{AppDomain.CurrentDomain.BaseDirectory}/swagger.docx");
-            }
+            
            
             await using var fs = new FileStream(newFile2, FileMode.Create, FileAccess.Write);
-            XWPFDocument doc = new XWPFDocument();
+            //XWPFDocument doc = new XWPFDocument();
+            Stream rStream = File.OpenRead($@"{AppDomain.CurrentDomain.BaseDirectory}\Northbound Application Programming Interface V2.4 系统手册 (2).docx");
+            XWPFDocument doc = new XWPFDocument(rStream);
 
-           
             //基本信息
             new TitileAndVersionGenerator().Generate(doc, $"  {openApiDocument.Info.Title}({openApiDocument.Info.Version}) ");
             new DescriptionGenerator().Generate(doc, $"  {openApiDocument.Info.Description}  ");
@@ -128,18 +127,9 @@ public class OpenApimdGenerator
                 });
                 path.Generate(doc);
             });
-
-
-           
-
-           
-            //doc.AddHeader("那个概述111");
-
-            doc.AddHeader("那个概述1");
-
-            //doc.AddFooter("那个概述111112");
-
+            doc.AddHeader("系统手册                                   \t                                                                                                        功能概述", "NBAPI01-0519-0204");
             doc.Write(fs);
+
         }
         catch (Exception e)
         {
