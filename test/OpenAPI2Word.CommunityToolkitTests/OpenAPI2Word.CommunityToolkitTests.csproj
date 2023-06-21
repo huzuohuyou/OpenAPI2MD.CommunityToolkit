@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpenAPI2Word.CommunityToolkit\OpenAPI2Word.CommunityToolkit.csproj" />
+    <ProjectReference Include="..\..\src\OpenAPI2Word.CommunityToolkit\OpenApi2Word.CommunityToolkit.csproj" />
     <!--<ProjectReference Include="..\OpenAPI2Word.CommunityToolkit\OpenAPI2Word.CommunityToolkit.csproj" />-->
   </ItemGroup>
 

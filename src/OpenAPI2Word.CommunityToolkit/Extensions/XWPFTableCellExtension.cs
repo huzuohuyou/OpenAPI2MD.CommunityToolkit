@@ -1,7 +1,4 @@
-﻿
-
-using System.Text.RegularExpressions;
-using Microsoft.Office.Interop.Word;
+﻿using System.Text.RegularExpressions;
 
 namespace OpenAPI2Word.CommunityToolkit.Extensions
 {
@@ -126,6 +123,14 @@ namespace OpenAPI2Word.CommunityToolkit.Extensions
 
         public static void SetColumCellText(this XWPFTableCell cell, string content, int length = 12)
         {
+            for (int i = 0; i < cell.Paragraphs.Count; i++)
+            {
+                var h = cell.GetTableRow().Height;
+                if (i>0)
+                {
+                    cell.Paragraphs.RemoveAt(i);
+                }
+            }
             cell.SetVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
             for (int i = 0; i < content.Length; i += length)
             {
@@ -137,11 +142,11 @@ namespace OpenAPI2Word.CommunityToolkit.Extensions
 
                 XWPFRun r1 = p1.CreateRun();
                 p1.VerticalAlignment = TextAlignment.CENTER;
-                p1.FirstLineIndent = 40;
+                p1.FirstLineIndent = 20;
                 r1.FontFamily = "microsoft yahei";
                 r1.FontSize = 10;
-                p1.IndentFromLeft = 50 * (content.LastIndexOf('·') + 1);
-                var s = content.Contains('·') ? content.Replace("·", "") : content;
+                //p1.IndentFromLeft = 50 * (content.LastIndexOf('·') + 1);
+                var s = (content.Contains('·') ? content.Replace("·", "") : content).Trim();
                 r1.SetText(new string(s.Skip(i).Take(length).ToArray()));
             }
 
@@ -163,7 +168,7 @@ namespace OpenAPI2Word.CommunityToolkit.Extensions
             r1.FontSize = 10;
             r1.IsBold = true;
             r1.SetColor("#ffffff");
-            r1.SetText(content);
+            r1.SetText(content.Trim());
         }
 
         public static XWPFTableCell SetTableColumnWidth(this XWPFTableCell cell, int width)

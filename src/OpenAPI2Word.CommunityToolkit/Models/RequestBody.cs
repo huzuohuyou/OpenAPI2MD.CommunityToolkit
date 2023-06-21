@@ -15,8 +15,8 @@ public class RequestBody
         {
             propertyRow.SetColor("#dcdcdc");
         }
-        propertyRow.GetCell(0).SetColumCellText(PropertyName ?? "", 12);
-        propertyRow.GetCell(1).SetColumCellText(PropertyType ?? "",10);
+        propertyRow.GetCell(0).SetColumCellText(index == 0 && (PropertyType ?? "").Contains(":") ? "" : PropertyName ?? "" ?? "", 13);
+        propertyRow.GetCell(1).SetColumCellText(PropertyType.Contains(":") ? PropertyType.Substring(0, PropertyType.IndexOf(":")) : PropertyType ?? "" ?? "",10);
         propertyRow.GetCell(2).SetColumCellText(ParamType ?? "", 10);
         propertyRow.GetCell(3).SetColumCellText(IsRequired ?? "");
         propertyRow.GetCell(4).SetColumCellText(Description ?? "", 20);

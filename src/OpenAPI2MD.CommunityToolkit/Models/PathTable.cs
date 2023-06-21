@@ -6,6 +6,8 @@ namespace OpenAPI2MD.CommunityToolkit.Models;
 
 public class PathTable
 {
+    public string OperationId { get; set; }
+    
     public string Summary { get; set; }
     public string Name { get; set; }
 
@@ -50,8 +52,8 @@ public class PathTable
     <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">{Summary}</td>
 </tr>
 <tr>
-    <td {DeprecatedStyle}>接口名称</td>
-    <td colspan=""5"" {DeprecatedStyle}>{Name}</td>
+    <td {DeprecatedStyle}>OperationId</td>
+    <td colspan=""5"" {DeprecatedStyle}>{OperationId}</td>
 </tr>
 {DisplayDeprecated}
 <tr>

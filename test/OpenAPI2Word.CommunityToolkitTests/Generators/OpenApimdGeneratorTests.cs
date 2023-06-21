@@ -17,7 +17,7 @@ namespace OpenAPI2Word.CommunityToolkit.Generators.Tests
             var expected = "";
 
             //Act
-            new OpenApimdGenerator().ReadYaml();
+            new OpenApiWordGenerator().ReadSwagger();
 
             //Assert
             //Assert.AreEqual(expected, actual, "You are wrong!!!");

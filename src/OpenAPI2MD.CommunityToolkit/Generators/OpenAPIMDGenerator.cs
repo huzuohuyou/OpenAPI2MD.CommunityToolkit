@@ -1,8 +1,8 @@
 ﻿namespace OpenAPI2MD.CommunityToolkit.Generators;
 
-public class OpenApimdGenerator
+public class OpenApiMdGenerator
 {
-    public async Task<string> ReadYaml(string? requestUri="",string savePath="")
+    public async Task<string> Generate(string? requestUri, string savePath="")
     {
         try
         {
@@ -31,6 +31,7 @@ public class OpenApimdGenerator
 
                 var t = new PathTable()
                 {
+                    OperationId = operation.OperationId,
                     Summary = operation?.Summary,
                     Description = operation?.Description,
                     Name = operation?.Summary,
@@ -102,11 +103,12 @@ public class OpenApimdGenerator
                 });
                 var s = t.ToString();
                 var displayDeprecated = operation.Deprecated ? "【已过时】" : "";
-                sb.Append($"\n### {operation?.OperationId}{displayDeprecated} \n");
+                sb.Append($"\n### {operation?.Summary}{displayDeprecated} \n");
                 sb.Append($"{s} \n");
             });
             var s = sb.ToString();
             File.WriteAllText(Path.Combine(savePath, "swagger.md"), s);
+            Console.WriteLine(savePath);
             return sb.ToString();
         }
         catch (Exception e)

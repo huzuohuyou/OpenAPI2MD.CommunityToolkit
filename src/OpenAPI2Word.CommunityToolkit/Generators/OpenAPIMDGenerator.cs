@@ -1,12 +1,8 @@
-﻿using NPOI.OpenXml4Net.OPC;
-using NPOI.OpenXmlFormats.Wordprocessing;
-using NPOI.XWPF.Model;
+﻿namespace OpenAPI2Word.CommunityToolkit.Generators;
 
-namespace OpenAPI2Word.CommunityToolkit.Generators;
-
-public class OpenApimdGenerator
+public class OpenApiWordGenerator
 {
-    public async Task ReadYaml(string? requestUri= "http://172.26.172.122:18100/swagger/2.3.0/swagger.json", string savePath="")
+    public async Task ReadSwagger(string? requestUri= "http://172.26.172.122:18100/swagger/2.3.0/swagger.json", string savePath="")
     {
         try
         {
@@ -35,7 +31,6 @@ public class OpenApimdGenerator
             //XWPFDocument doc = new XWPFDocument();
             Stream rStream = File.OpenRead($@"{AppDomain.CurrentDomain.BaseDirectory}\Northbound Application Programming Interface V2.4 系统手册 (2).docx");
             XWPFDocument doc = new XWPFDocument(rStream);
-
             //基本信息
             new TitileAndVersionGenerator().Generate(doc, $"  {openApiDocument.Info.Title}({openApiDocument.Info.Version}) ");
             new DescriptionGenerator().Generate(doc, $"  {openApiDocument.Info.Description}  ");
@@ -50,9 +45,10 @@ public class OpenApimdGenerator
                     tag = operation?.Tags.FirstOrDefault()?.Name;
                     new Header2Generator().Generate(doc, $" {tag}  ");
                 }
-                new Header3Generator().Generate(doc, $"{operation.OperationId}  ");
+                new Header3Generator().Generate(doc, $"{operation.Summary}  ");
                 var path = new PathTable()
                 {
+                    OperationId= operation.OperationId,
                     Summary = operation?.Summary,
                     Description = operation?.Description,
                     Name = operation?.Summary,

@@ -2,43 +2,43 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLLOCATION">
-            <Component Id="cmp6EF627293EF4AF636DEC5CDAA99F1004" Guid="{D9773E46-4622-41F1-A609-B30127FE34B6}">
+            <Component Id="cmp6EF627293EF4AF636DEC5CDAA99F1004" Guid="{52D799FA-F001-4256-8E91-6B51D733AF70}">
                 <File Id="fil7BE686589A4DB8BED32829E2DE983A32" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Microsoft.OpenApi.dll" />
             </Component>
-            <Component Id="cmp2ECFFF70FD04C46A49C0C77DC9AA17FB" Guid="{22577881-3A3B-4649-9138-AF63B811950A}">
+            <Component Id="cmp2ECFFF70FD04C46A49C0C77DC9AA17FB" Guid="{BADA212D-A66F-4E04-A1E9-7F6FB2023C2C}">
                 <File Id="fil9FE6B61AC774BD403C574D7A51731DAD" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Microsoft.OpenApi.Readers.dll" />
             </Component>
-            <Component Id="cmpE48528C4F5932A4EFD89F7331108F45D" Guid="{79FE33CD-B9A2-44D1-A833-4349EEC7B79A}">
+            <Component Id="cmpE48528C4F5932A4EFD89F7331108F45D" Guid="{CE325BC5-B1B3-4B6E-8EC7-3264875BAFEE}">
                 <File Id="filF1B84C2C6BCC693224B7A7959445B74F" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Newtonsoft.Json.dll" />
             </Component>
-            <Component Id="cmp5E2F500CE4D980711BC80539A8005361" Guid="{5FCFF6CB-F625-4DC8-A564-FDB318D83AFB}">
+            <Component Id="cmp5E2F500CE4D980711BC80539A8005361" Guid="{8149A6F7-9DFB-4AE2-8308-C3B8657C1065}">
                 <File Id="fil7C8CFBB633046AD495BF0C15656BD21E" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\openapi.yaml" />
             </Component>
-            <Component Id="cmp2D85EEC37A78CF50E91271C3FDBF7E58" Guid="{4053E09C-A279-4FAC-A1F5-C2883C08C398}">
+            <Component Id="cmp2D85EEC37A78CF50E91271C3FDBF7E58" Guid="{813BDD84-C33E-419E-86B2-04A85B89DEB1}">
                 <File Id="fil34151EC9430ED9F71B3EFB921310C7F3" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\OpenAPI2MD.CommunityToolkit.dll" />
             </Component>
-            <Component Id="cmpA5DB0D8D0BA44EB9A59F99DBA123F0F7" Guid="{5F263E76-2523-4BCF-A65B-7784EDE0DE1F}">
+            <Component Id="cmpA5DB0D8D0BA44EB9A59F99DBA123F0F7" Guid="{1174BC6E-D7CE-48EC-8CFC-B6D9344014BC}">
                 <File Id="fil9EB972BD5379D2F368E298EFD27D44F9" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\OpenAPI2MD.CommunityToolkit.pdb" />
             </Component>
-            <Component Id="cmp77BC5666FFE61DAD1EF8782A4C7A1705" Guid="{B6E570AC-1007-406D-B74E-4BF539F3838D}">
+            <Component Id="cmp77BC5666FFE61DAD1EF8782A4C7A1705" Guid="{D05003E0-CC67-4664-A522-E6C087A6B1C1}">
                 <File Id="filB9EED0C60C0A149CE4BDB671899ECF49" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\SharpYaml.dll" />
             </Component>
-            <Component Id="cmp0B02B62C4A871BD8AC214A457F7EA4E6" Guid="{084F8BD4-6EF7-4977-B759-63162CFD5374}">
+            <Component Id="cmp0B02B62C4A871BD8AC214A457F7EA4E6" Guid="{4AD76E5B-D056-4218-8973-6E866DF8923D}">
                 <File Id="fil4B6FF4F039A77CF3C267A16F34130C86" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\swagger.md" />
             </Component>
-            <Component Id="cmp2EEC8D8B544299EF0750BD02B3035B7A" Guid="{2587B287-A79A-4BDA-8456-A64A44F89662}">
+            <Component Id="cmp2EEC8D8B544299EF0750BD02B3035B7A" Guid="{8792FC4F-BF6A-441C-85D7-F43C4FE787D6}">
                 <File Id="fil8F480440EDFB3B4181CC71CB00A1296A" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Swagger2Md.deps.json" />
             </Component>
-            <Component Id="cmp3EF4A6AAA3F93104BED32932271CEE33" Guid="{0F7E2FC6-B77B-4E1B-9CC6-B6FA347DF36F}">
+            <Component Id="cmp3EF4A6AAA3F93104BED32932271CEE33" Guid="{C3BD93EE-53AC-4007-B8B9-EF27EE25AFA2}">
                 <File Id="filF63E254F06A2EA6F433341284B41DB1B" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Swagger2Md.dll" />
             </Component>
-            <Component Id="cmpFE249C214E7357C03A02925815EC78B4" Guid="{A7E926DB-1B8E-4307-B489-56C71349BECE}">
+            <Component Id="cmpFE249C214E7357C03A02925815EC78B4" Guid="{618283FE-3511-4F4F-85D8-6D82393B97E6}">
                 <File Id="fil862B9C1673BC68CDC3EA721EBC124F7D" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Swagger2Md.exe" />
             </Component>
-            <Component Id="cmp56AC60E357B6297E33A3C4D87D1570ED" Guid="{3D2FA292-8FB2-44CC-97F4-E12EC6BE02FB}">
+            <Component Id="cmp56AC60E357B6297E33A3C4D87D1570ED" Guid="{6E733DFD-A0EB-4D7B-8BB9-D913CBFE360F}">
                 <File Id="fil701F40FD4B261C9D9AEAF0ECE37F579C" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Swagger2Md.pdb" />
             </Component>
-            <Component Id="cmpFE83E8108E7CDA99B3C910712A62BC96" Guid="{BB63F900-D25E-4876-BF67-9BDE97FE3408}">
+            <Component Id="cmpFE83E8108E7CDA99B3C910712A62BC96" Guid="{9EC25BAF-B8F5-4AAD-B158-04B207BF9598}">
                 <File Id="filAC67BFC05F5C8E69212D244A85FF2D2A" KeyPath="yes" Source="$(var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish)\Swagger2Md.runtimeconfig.json" />
             </Component>
         </DirectoryRef>

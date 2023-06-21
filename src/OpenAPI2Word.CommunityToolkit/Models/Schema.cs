@@ -14,11 +14,11 @@ public class Schema
             fieldsHeaderRow.SetColor("#DCDCDC");
         }
         fieldsHeaderRow.MergeCells(0, 1);
-        fieldsHeaderRow.GetCell(0).SetColumCellText(PropertyName ?? "",25);
+        fieldsHeaderRow.GetCell(0).SetColumCellText(index==0&& (PropertyType??"").Contains(":")? "": PropertyName??"", 25);
 
         fieldsHeaderRow.MergeCells(1, 2);
 
-        fieldsHeaderRow.GetCell(1).SetColumCellText(PropertyType ?? "",25);
+        fieldsHeaderRow.GetCell(1).SetColumCellText(PropertyType.Contains(":")? PropertyType.Substring(0,PropertyType.IndexOf(":")): PropertyType ?? "",25);
         fieldsHeaderRow.MergeCells(2, 3);
         fieldsHeaderRow.GetCell(2).SetText3(Description ?? "");
      
