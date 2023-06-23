@@ -6,10 +6,7 @@ public class OpenApiMdGenerator
     {
         try
         {
-            var client = new HttpClient
-            {
-                //BaseAddress = new Uri("https://localhost:18101")
-            };
+            var client = new HttpClient();
             var stream = await client.GetStreamAsync(requestUri);
             var doc = new OpenApiStreamReader().Read(stream, out _);
 
