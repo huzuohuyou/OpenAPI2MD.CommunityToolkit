@@ -2,22 +2,22 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLLOCATION">
-            <Component Id="cmpA7918991BF6A797AC1AC8E244B90EF6B" Guid="{DD0845F6-D4DA-47E3-A4C7-28E9713B8B99}">
+            <Component Id="cmpA7918991BF6A797AC1AC8E244B90EF6B" Guid="{7D9D3B0E-CCA3-4985-BD32-E89FC87B8470}">
                 <File Id="filB04CEAAEC4818948A7EEC9C226427F54" KeyPath="yes" Source="$(var.BasePath)\NOTICE.TXT" />
             </Component>
-            <Component Id="cmp5E2F500CE4D980711BC80539A8005361" Guid="{34128829-CD5A-41DA-9FA6-207AA59906F2}">
+            <Component Id="cmp5E2F500CE4D980711BC80539A8005361" Guid="{C6CAD85E-FEA1-4268-B530-0F3C885A2F72}">
                 <File Id="fil7C8CFBB633046AD495BF0C15656BD21E" KeyPath="yes" Source="$(var.BasePath)\openapi.yaml" />
             </Component>
-            <Component Id="cmpA5DB0D8D0BA44EB9A59F99DBA123F0F7" Guid="{7A799075-296C-46D1-BA78-892DAB5D542F}">
+            <Component Id="cmpA5DB0D8D0BA44EB9A59F99DBA123F0F7" Guid="{F192D28F-D121-431A-8F45-4CE3D90A92BC}">
                 <File Id="fil9EB972BD5379D2F368E298EFD27D44F9" KeyPath="yes" Source="$(var.BasePath)\OpenAPI2MD.CommunityToolkit.pdb" />
             </Component>
-            <Component Id="cmp48708862DE6E456AA582CC86EE7E243C" Guid="{ABFF14A4-AE2E-45C0-9B41-14555B081362}">
+            <Component Id="cmp48708862DE6E456AA582CC86EE7E243C" Guid="{70345CF8-FF15-4A9B-9E60-435E3FF2FBFD}">
                 <File Id="filD8DF58010A7EB68DE090A61785DE0CDF" KeyPath="yes" Source="$(var.BasePath)\OpenApi2Word.CommunityToolkit.pdb" />
             </Component>
-            <Component Id="cmp90CAF8F8DB86C449775E400D409E45B7" Guid="{3099D9F2-549A-4738-A797-BCACE0871E82}">
+            <Component Id="cmp90CAF8F8DB86C449775E400D409E45B7" Guid="{4EF88806-1661-4F47-9747-7729501645FB}">
                 <File Id="filE217E3D2661BD59EDC56EF4E9C13EB8E" KeyPath="yes" Source="$(var.BasePath)\Swagger2Doc.exe" />
             </Component>
-            <Component Id="cmpC7CA17EEED32BAB3E6E6730040F28F9C" Guid="{BE281EAD-A28D-4C8B-8344-B8C02342A539}">
+            <Component Id="cmpC7CA17EEED32BAB3E6E6730040F28F9C" Guid="{95A19024-8341-46A8-9B46-7F4D6F96B6DF}">
                 <File Id="fil83CFAB5714B84CE9EBE16313EB494C16" KeyPath="yes" Source="$(var.BasePath)\Swagger2Doc.pdb" />
             </Component>
         </DirectoryRef>

@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>deede6c1-0c83-420f-8066-43b7d4611ede</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Swagger2Md</OutputName>
+    <OutputName>Swagger2Doc</OutputName>
     <OutputType>Package</OutputType>
     <Name>OpenApi2Doc.CommunityToolkit.SetUp</Name>
   </PropertyGroup>
