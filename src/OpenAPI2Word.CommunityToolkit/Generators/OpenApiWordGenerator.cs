@@ -2,14 +2,18 @@
 
 public class OpenApiWordGenerator
 {
-    public async Task ReadSwagger(string? requestUri= "http://172.26.172.122:18100/swagger/2.3.0/swagger.json", string savePath="")
+    public async Task<string> Generate(string? requestUri, string savePath="")
     {
         try
         {
             Found:
             {
-                Console.WriteLine("请输入swagger.json的url:");
-                requestUri = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(requestUri))
+                {
+                    Console.WriteLine("请输入swagger.json的url:");
+                    requestUri = Console.ReadLine();
+                }
+                
             }
             Stream stream;
             var client = new HttpClient();
@@ -24,7 +28,7 @@ public class OpenApiWordGenerator
 
 
             var openApiDocument = new OpenApiStreamReader().Read(stream, out _);
-            var newFile2 = $@"swagger_{DateTime.Now.Ticks}.docx";
+            var newFile2 = $@"{savePath}swagger_{DateTime.Now.Ticks}.docx";
             
            
             await using var fs = new FileStream(newFile2, FileMode.Create, FileAccess.Write);
@@ -125,6 +129,11 @@ public class OpenApiWordGenerator
             });
             doc.AddHeader("系统手册                                   \t                                                                                                        功能概述", "NBAPI01-0519-0204");
             doc.Write(fs);
+            if (File.Exists(Path.Combine(newFile2)))
+            {
+                return Path.Combine(newFile2);
+            }
+            return "文档生成失败";
 
         }
         catch (Exception e)

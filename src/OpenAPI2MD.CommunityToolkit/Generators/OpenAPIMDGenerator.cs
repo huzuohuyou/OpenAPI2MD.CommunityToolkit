@@ -108,8 +108,11 @@ public class OpenApiMdGenerator
             });
             var s = sb.ToString();
             File.WriteAllText(Path.Combine(savePath, "swagger.md"), s);
-            Console.WriteLine(savePath);
-            return sb.ToString();
+            if (File.Exists(Path.Combine(savePath, "swagger.md")))
+            {
+                return Path.Combine(savePath, "swagger.md");
+            }
+            return "文档生成失败";
         }
         catch (Exception e)
         {
