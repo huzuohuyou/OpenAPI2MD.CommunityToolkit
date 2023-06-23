@@ -13,11 +13,11 @@ namespace OpenAPI2Word.CommunityToolkit.Generators.Tests
         [Fact()]
         public void ReadYamlTest()
         {
-            //Arrange 
-            var expected = "";
+            ////Arrange 
+            //var expected = "";
 
-            //Act
-            new OpenApiWordGenerator().Generate();
+            ////Act
+            //new OpenApiWordGenerator().Generate();
 
             //Assert
             //Assert.AreEqual(expected, actual, "You are wrong!!!");

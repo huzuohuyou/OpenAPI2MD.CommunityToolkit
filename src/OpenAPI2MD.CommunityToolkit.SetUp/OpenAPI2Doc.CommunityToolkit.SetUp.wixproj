@@ -38,8 +38,11 @@
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
   <Target Name="BeforeBuild">
-    <Exec Command="dotnet build ..\OpenAPI2MD.CommunityToolkit.Command\OpenAPI2MD.CommunityToolkit.Command.csproj" />
-    <Exec Command="heat.exe dir ..\OpenAPI2MD.CommunityToolkit.Command\bin\Release\net6.0\publish -cg ScanAppFiles -gg -scom -sreg -sfrag -srd -dr INSTALLLOCATION -var var.OpenAPI2MD.CommunityToolkit.Command.ProjectDir\bin\Release\net6.0\publish -out file.wxs" />
+    <Exec Command="dotnet publish -c Release ..\OpenAPI2MD.CommunityToolkit.Command\OpenApi2Doc.CommunityToolkit.Command.csproj" />
+    <Exec Command="heat.exe dir ..\OpenAPI2MD.CommunityToolkit.Command\bin\Release\net6.0\win-x64\publish\ -cg ScanAppFiles -gg -scom -sreg -sfrag -srd -dr INSTALLLOCATION -var var.BasePath -out file.wxs" />
+    <PropertyGroup>
+      <DefineConstants>BasePath=..\OpenAPI2MD.CommunityToolkit.Command\bin\Release\net6.0\win-x64\publish\</DefineConstants>
+    </PropertyGroup>
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
