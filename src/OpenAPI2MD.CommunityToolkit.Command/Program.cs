@@ -21,15 +21,15 @@ Console.WriteLine("Hello, World!");
 #endif
 
 var fileOption = new Option<string>(
-    name: "--type",
+    aliases:new[] {"-t", "--type" },
     description: "The file type to generate from swagger.json .");
 
 var swaggerOption = new Option<string>(
-    name: "--swagger",
+    aliases: new[] { "-s", "--swagger" },
     description: "The swagger json string path or url");
 
 var outputOption = new Option<string>(
-    name: "--output",
+    aliases: new[] { "-o", "--output" },
     description: "The doc output path");
 
 var rootCommand = new RootCommand("Sample app for Generate Markdown，Word from swagger.json")
