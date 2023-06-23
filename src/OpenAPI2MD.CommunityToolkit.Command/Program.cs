@@ -1,14 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System;
-using System.CommandLine;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using NPOI.OpenXmlFormats;
-using OpenAPI2MD.CommunityToolkit.Command;
-
-Console.WriteLine("Hello, World!");
+﻿Console.WriteLine("Hello, World!");
 
 
 #if DEBUG
