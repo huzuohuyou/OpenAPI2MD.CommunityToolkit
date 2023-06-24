@@ -22,4 +22,8 @@
     <Folder Include="Generators\Imps\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OpenApi2Doc.CommunityToolkit\OpenApi2Doc.CommunityToolkit.csproj" />
+  </ItemGroup>
+
 </Project>

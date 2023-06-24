@@ -2,7 +2,7 @@
 
 namespace OpenApi2Doc.CommunityToolkit.Directors
 {
-    internal class DocumentDirecotr
+    public class DocumentDirecotr
     {
         private  DocumentBuilder _builder;
 
@@ -16,8 +16,15 @@ namespace OpenApi2Doc.CommunityToolkit.Directors
             _builder = builder;
         }
 
-        public void Make()
+        public void Make(string type)
         {
+            if (Equals(type,"default"))
+            {
+                _builder.BuildTitle();
+                _builder.BuildToc();
+                _builder.BuildToc();
+                _builder.BuildServices();
+            }
 
         }
     }

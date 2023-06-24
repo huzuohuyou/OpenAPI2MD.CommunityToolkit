@@ -1,6 +1,8 @@
-﻿namespace OpenAPI2MD.CommunityToolkit.Generators;
+﻿using OpenApi2Doc.CommunityToolkit.Builders;
 
-public class OpenApiMdGenerator
+namespace OpenAPI2MD.CommunityToolkit.Generators;
+
+public class OpenApiMdGenerator: DocumentBuilder
 {
     public async Task<string> Generate(string? requestUri, string savePath="")
     {

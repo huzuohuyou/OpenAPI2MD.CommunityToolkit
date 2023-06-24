@@ -14,7 +14,10 @@
 
         public abstract Toc BuildToc();
 
-        public abstract T GetResult();
+        public async Task GetResult(string? requestUri, string savePath = "")
+        {
+          await  BuildApiDocument(requestUri, savePath);
+        }
 
         private async Task BuildApiDocument(string? requestUri, string savePath = "")
         {
