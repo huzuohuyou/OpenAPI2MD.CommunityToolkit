@@ -1,16 +1,11 @@
 ﻿using Microsoft.OpenApi.Models;
-using OpenAPI2MD.CommunityToolkit.Generators;
-using static System.Net.Mime.MediaTypeNames;
+using OpenApi2Doc.CommunityToolkit.Builders;
+using SharpYaml.Tokens;
 
-namespace OpenAPI2MD.CommunityToolkit.Models;
+namespace OpenApi2Md.CommunityToolkit.Builders;
 
-public class PathTable
+public class PathTableBuilder : PathBuilder<StringBuilder>
 {
-    public string OperationId { get; set; }
-    
-    public string Summary { get; set; }
-    public string Name { get; set; }
-
     private string DisplayDeprecated
     {
         get
@@ -28,23 +23,13 @@ public class PathTable
     {
         get
         {
-            if(Deprecated)
+            if (Deprecated)
                 return @"style=""text-decoration:line-through;""";
             return string.Empty;
         }
     }
-    public string? Description { get; set; }
-    public string Url { get; set; }
-    public string? RequestMethod { get; set; }
-    public string? RequestType { get; set; }
-    public bool Deprecated { get; set; }
-    public string? ResponseType { get; set; }
-    public List<RequestParam> RequestParams { get; set; }=new ();
-    public List<RequestBody> RequestBodys { get; set; } = new();
-    public OpenApiSchema? RequestBody { get; set; }
-    public List<Response> Responses { get; set; }= new ();
-    public List<Example> Examples { get; set; } = new ();
-    
+ 
+
     public override string ToString()
     {
         var info = $@"
@@ -72,10 +57,10 @@ public class PathTable
     <td >请求类型</td>
     <td colspan=""5"">{RequestType}</td>
 </tr>";
-//        < tr >
-//    < td > 返回类型 </ td >
-//    < td colspan = ""4"" >{ ResponseType}</ td >
-//</ tr >
+        //        < tr >
+        //    < td > 返回类型 </ td >
+        //    < td colspan = ""4"" >{ ResponseType}</ td >
+        //</ tr >
         var paramHeader = new StringBuilder(
 $@"<tr>
     <td bgcolor=""{MdColor.bgcolor}"">参数名</td>
@@ -92,7 +77,7 @@ $@"<tr>
 
         var paramsResult = string.Empty;
         if (!Equals(RequestParams.Count, 0))
-            paramsResult= paramHeader.ToString();
+            paramsResult = paramHeader.ToString();
 
         var requestBodyProperties = new StringBuilder(
             $@"<tr>
@@ -129,7 +114,7 @@ $@"<tr>
         var requestBody = new ExampleValueGenerator().Excute(RequestBody);
         if (!string.IsNullOrWhiteSpace(requestBody))
         {
-            requestBody = 
+            requestBody =
 $@"<tr>
     <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">示例</td>
     </tr>
@@ -139,7 +124,7 @@ $@"<tr>
  {requestBody.Trim()}</td>
 </tr>";
         }
-        return 
+        return
 $@"<table>
     {info}
     {paramsResult}
@@ -149,5 +134,69 @@ $@"<table>
     {""}
     {examples}
 </table>";
+    }
+
+    
+ 
+
+    protected override void BuildTag(OpenApiOperation operation, ref string tag)
+    {
+
+        if (!tag.Equals(operation?.Tags.FirstOrDefault()?.Name))
+        {
+            tag = operation?.Tags.FirstOrDefault()?.Name;
+            doc.Append($" \n## {tag} \n");
+        }
+
+    }
+
+    protected override void BuildSummary(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildOperationId(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildDescription(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildRequestMethod(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildRequestType(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildRequestParams(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildRequestBodies(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildRequestBodyExample(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildResponses(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void BuildResponsesExample(OpenApiOperation operation)
+    {
+        throw new NotImplementedException();
     }
 }

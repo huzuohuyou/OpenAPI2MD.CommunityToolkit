@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
-namespace OpenAPI2MD.CommunityToolkit.Generators
+namespace OpenApi2Md.CommunityToolkit.Builders
 {
     
     public class ExampleValueGenerator

@@ -1,29 +1,48 @@
 ﻿namespace OpenApi2Doc.CommunityToolkit.Builders
 {
-    public abstract class DocumentBuilder
+    public abstract class DocumentBuilder<T>
     {
-        protected OpenApiDocument ApiDocument;
+        protected T doc;
+
+        protected OpenApiDocument ApiDocument { get; set; }
+
+        protected PathBuilder<T> pathBuilder { get; set; }
 
         public abstract void Reset();
 
-        public abstract Info BuildInfo();
+        protected abstract void InitDoc();
 
-        public abstract Services BuildServices();
+        protected abstract void BuildInfo();
 
-        public abstract Title BuildTitle();
-
-        public abstract Toc BuildToc();
-
-        public async Task GetResult(string? requestUri, string savePath = "")
+        private void BuildPaths()
         {
-          await  BuildApiDocument(requestUri, savePath);
+            pathBuilder.InitDoc(doc);
+            pathBuilder.IniApiDocument(ApiDocument);
+            pathBuilder.Build();
         }
+
+        protected abstract void BuildTitle();
+
+        protected abstract void BuildToc();
+
+        protected abstract T OutputDoc(string savePath = "");
 
         private async Task BuildApiDocument(string? requestUri, string savePath = "")
         {
             var client = new HttpClient();
             var stream = await client.GetStreamAsync(requestUri);
             ApiDocument = new OpenApiStreamReader().Read(stream, out _);
+        }
+
+        public async Task<T> Build(string? requestUri, string savePath = "")
+        {
+            await BuildApiDocument(requestUri, savePath);
+            InitDoc();
+            BuildTitle();
+            BuildToc();
+            BuildInfo();
+            BuildPaths();
+            return OutputDoc(savePath);
         }
     }
 }

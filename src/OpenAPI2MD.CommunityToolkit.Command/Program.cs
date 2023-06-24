@@ -1,4 +1,7 @@
-﻿Console.WriteLine("Hello, World!");
+﻿using System.Text;
+using OpenApi2Md.CommunityToolkit.Builders;
+
+Console.WriteLine("Hello, World!");
 
 
 #if DEBUG
@@ -61,7 +64,7 @@ static async Task GenerateDoc(string fileType,string swagger,string output)
     var outputFile = "";
     if (Equals(fileType, "md"))
     {
-        outputFile = await new OpenAPI2MD.CommunityToolkit.Generators.OpenApiMdGenerator().Generate(swagger, output);
+        var result = await new OpenApiMdGenerator().Build(swagger, output);
     }
     else if (Equals(fileType, "word"))
     {

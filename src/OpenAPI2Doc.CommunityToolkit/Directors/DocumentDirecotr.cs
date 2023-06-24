@@ -2,11 +2,11 @@
 
 namespace OpenApi2Doc.CommunityToolkit.Directors
 {
-    public class DocumentDirecotr
+    public class DocumentDirector
     {
         private  DocumentBuilder _builder;
 
-        public DocumentDirecotr(DocumentBuilder builder)
+        public DocumentDirector(DocumentBuilder builder)
         {
           _builder = builder;
         }
