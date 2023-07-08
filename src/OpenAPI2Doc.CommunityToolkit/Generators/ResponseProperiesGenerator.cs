@@ -1,4 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
+using OpenAPI2MD.CommunityToolkit.Models;
 
 namespace OpenApi2Md.CommunityToolkit.Builders
 {
@@ -10,19 +11,19 @@ namespace OpenApi2Md.CommunityToolkit.Builders
         public List<Schema>? Schemata { get; set; } = new();
         private string? GetSchemaType(OpenApiSchema? schema)
         {
-            if (schema?.Type == "array" && schema.Items?.Reference != null)
-                return $@"{schema.Type}:{schema.Items?.Reference.Id}";
-            if (schema?.Type == "array" && schema.Items?.Reference == null)
-                return $@"{schema.Type}:{schema.Items?.Type}";
-            if (schema?.Type == "object" && schema.Reference != null)
-                return $@"{schema.Type}:{schema.Reference.Id}";
+            //if (schema?.Type == "array" && schema.Items?.Reference != null)
+            //    return $@"{schema.Type}:{schema.Items?.Reference.Id}";
+            //if (schema?.Type == "array" && schema.Items?.Reference == null)
+            //    return $@"{schema.Type}:{schema.Items?.Type}";
+            //if (schema?.Type == "object" && schema.Reference != null)
+            //    return $@"{schema.Type}:{schema.Reference.Id}";
             return schema?.Type;
 
         }
         public List<Schema>? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
-                 return default;
+                 return new List<Schema>();
             InitEntity(schema, Schemata, times);
             return Schemata != null && Schemata.Count>0?Schemata: new List<Schema>() { new Schema() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } };
         }
@@ -44,10 +45,14 @@ namespace OpenApi2Md.CommunityToolkit.Builders
                 indentTime++;
                 if (Equals(schema.Reference, null))
                 {
+                    var t = GetSchemaType(schema);
+                    var p = schema.Items?.Reference?.Id;
+                    if (!"string|number|integer|array".Contains(p??""))
+                        p = "";
                     schematas?.Add(new Schema()
                     {
-                        PropertyName = $@"{IndentStr(indentTime)}{schema.Items.Reference?.Id}",
-                        PropertyType = GetSchemaType(schema),
+                        PropertyName =p,// $@"{IndentStr(indentTime)}{schema.Items.Reference?.Id}",
+                        PropertyType =t,// GetSchemaType(schema),
                         Description = schema.Description,
                     });
                     if (schematas != null) ReferenceIds.Add(schematas.Last().PropertyName?.Trim('·'));

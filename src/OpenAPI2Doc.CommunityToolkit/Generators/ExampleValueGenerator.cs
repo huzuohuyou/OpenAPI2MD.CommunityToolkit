@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 namespace OpenApi2Md.CommunityToolkit.Builders
@@ -22,7 +23,7 @@ namespace OpenApi2Md.CommunityToolkit.Builders
 
         private object InitEntity(OpenApiSchema? schema)
         {
-            if (Equals(schema?.Type, "array"))
+            if (Equals(schema?.Type, "array")&& Equals(schema?.Items.Type, "object"))
             {
                 var temp = new List<object>();
 
@@ -80,6 +81,34 @@ namespace OpenApi2Md.CommunityToolkit.Builders
                     bool.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
                     return result;
                 }
+                else if (Equals(schema?.Type, "array"))
+                {
+                    //string result;
+                    //string.TryParse((schema.Example == null ? default : (schema.Example as dynamic).Value)?.ToString(), out result);
+                    if (schema.Example != null && schema.Example.AnyType == AnyType.Array &&
+                        (schema.Example as dynamic).Count > 0)
+                    {
+                        if ((schema.Example as dynamic)[0].PrimitiveType.ToString() == "String")
+                        {
+                            List<string> result=new List<string>();
+                            for (int i = 0; i < (schema.Example as dynamic).Count; i++)
+                            {
+                                result.Add((schema.Example as dynamic)[i].Value);
+                            }
+                            return result;
+                        }else
+                         
+                        {
+                            List<object> result = new List<object>();
+                            for (int i = 0; i < (schema.Example as dynamic).Count; i++)
+                            {
+                                result.Add((schema.Example as dynamic)[i].Value);
+                            }
+                            return result;
+                        }
+                    }
+                        
+                }
                 else if (schema != null && schema.Enum.Any())
                 {
                     return string.Join('|', schema.Enum.ToArray().Select(r => (r as dynamic).Value));
@@ -92,7 +121,8 @@ namespace OpenApi2Md.CommunityToolkit.Builders
         {
             //格式化json字符串
             JsonSerializer serializer = new JsonSerializer();
-            if (string.IsNullOrWhiteSpace(str)) return default;
+            if (string.IsNullOrWhiteSpace(str)) 
+                return default;
             TextReader tr = new StringReader(str);
             JsonTextReader jtr = new JsonTextReader(tr);
             object? obj = serializer.Deserialize(jtr);

@@ -159,14 +159,7 @@ namespace OpenApi2Doc.CommunityToolkit.Builders
                 sb.Append($"\n### {operation?.Summary}{displayDeprecated} \n");
                 sb.Append($"{s} \n");
             });
-            
-           
-          
-            BuildRequestParams();
-            BuildRequestBodies();
-            BuildRequestBodyExample();
-            BuildResponses();
-            BuildResponsesExample();
+
         }
     }
 }

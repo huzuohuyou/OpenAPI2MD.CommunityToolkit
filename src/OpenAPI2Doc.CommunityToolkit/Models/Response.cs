@@ -1,5 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
-using OpenAPI2MD.CommunityToolkit.Generators;
+﻿using System.Text;
+using OpenApi2Md.CommunityToolkit.Builders;
 
 namespace OpenAPI2MD.CommunityToolkit.Models;
 

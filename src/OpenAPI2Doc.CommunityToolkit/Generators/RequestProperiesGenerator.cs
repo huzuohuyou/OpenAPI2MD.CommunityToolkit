@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using OpenAPI2MD.CommunityToolkit.Models;
 
 namespace OpenApi2Md.CommunityToolkit.Builders
 {
@@ -9,13 +9,18 @@ namespace OpenApi2Md.CommunityToolkit.Builders
 
         private string? GetSchemaType(OpenApiSchema? schema)
         {
-            if (schema?.Type == "array" && schema.Items?.Reference != null)
-                return $@"{schema.Type}:{schema.Items?.Reference.Id}";
-            if (schema?.Type == "array" && schema.Items?.Reference == null)
-                return $@"{schema.Type}:{schema.Items?.Type}";
-            if (schema?.Type == "object" && schema.Reference != null)
-                return $@"{schema.Type}:{schema.Reference.Id}";
-            return schema?.Type;
+            return schema.Type;
+            //var t = string.Empty;
+            //if (schema?.Type == "array" && schema.Items?.Reference != null)
+            //    t= $@"{schema.Type}:{schema.Items?.Reference.Id}";
+            //if (schema?.Type == "array" && schema.Items?.Reference == null)
+            //    t = $@"{schema.Type}:{schema.Items?.Type}";
+            //if (schema?.Type == "object" && schema.Reference != null)
+            //    t = $@"{schema.Type}:{schema.Reference.Id}";
+            //t = schema?.Type;
+            //if (t.Contains(":") && !"string|number|integer|array".Contains(t.Split(":")[1]))
+            //    return string.Empty;
+            //return t;
 
         }
         public List<RequestBody>? Schemata { get; set; } = new();
@@ -46,13 +51,20 @@ namespace OpenApi2Md.CommunityToolkit.Builders
             {
                 indentTime++;
                 if (!string.IsNullOrWhiteSpace(schema.Items?.Reference?.Id))
+                {
+                    var t = GetSchemaType(schema);
+                    var p = schema.Items?.Reference?.Id;
+                    if (!"string|number|integer|array".Contains(p ?? ""))
+                        p = "";
                     schematas?.Add(new RequestBody()
                     {
-                        PropertyName = $@"{IndentStr(indentTime)}{schema.Items?.Reference?.Id}",
-                        PropertyType = GetSchemaType(schema),
+                        PropertyName =p,
+                        PropertyType = t,
                         Description = schema.Description,
                         IsRequired = schema.Required != null && schema.Required.Contains(schema.Items?.Reference?.Id) ? "Y" : "",
                     });
+                }
+                    
 
                 indentTime++;
                 schema.Items?.Properties.ToList().ForEach(prop =>
@@ -73,18 +85,23 @@ namespace OpenApi2Md.CommunityToolkit.Builders
             }
             else if (Equals(schema?.Type, "object"))
             {
+                var t = GetSchemaType(schema);
+                var p = schema.Items?.Reference?.Id;
+                if (!"string|number|integer|array".Contains(p ?? ""))
+                    p = "";
                 indentTime++;
                 if (!string.IsNullOrWhiteSpace(schema.Reference?.Id))
                     schematas?.Add(new RequestBody()
                     {
-                        PropertyName = $@"{IndentStr(indentTime)}{schema.Reference.Id}",
-                        PropertyType = GetSchemaType(schema),
+                        PropertyName = p,
+                        PropertyType = t,
                         IsRequired = schema.Required.Contains(schema.Reference.Id) ? "Y" : "",
                     });
                 indentTime++;
                 schema.Properties.ToList().ForEach(prop =>
                 {
                     if (!string.IsNullOrWhiteSpace(prop.Key))
+
                         schematas?.Add(new RequestBody()
                         {
                             PropertyName = $@"{IndentStr(indentTime)}{prop.Key}",

@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Builders\ClientCodeGenerator.cs" />
     <Compile Remove="Builders\ExampleValueGenerator.cs" />
+    <Compile Remove="Builders\PathTableBuilder.cs" />
     <Compile Remove="Builders\RequestProperiesGenerator.cs" />
     <Compile Remove="Builders\ResponseProperiesGenerator.cs" />
     <Compile Remove="Models\Example.cs" />
