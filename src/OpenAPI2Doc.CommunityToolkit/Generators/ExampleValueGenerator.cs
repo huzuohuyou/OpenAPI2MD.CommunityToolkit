@@ -1,16 +1,15 @@
 ﻿using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
-namespace OpenApi2Md.CommunityToolkit.Builders
+namespace OpenApi2Doc.CommunityToolkit.Generators
 {
-    
+
     public class ExampleValueGenerator
     {
         /// <summary>
         /// 递归中断记录器
         /// </summary>
-        private List<string?> ReferenceIds = new();
+        private readonly List<string> ReferenceIds = new();
         public string? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
@@ -23,7 +22,7 @@ namespace OpenApi2Md.CommunityToolkit.Builders
 
         private object InitEntity(OpenApiSchema? schema)
         {
-            if (Equals(schema?.Type, "array")&& Equals(schema?.Items.Type, "object"))
+            if (Equals(schema?.Type, "array")&& Equals(schema.Items.Type, "object"))
             {
                 var temp = new List<object>();
 
@@ -33,7 +32,8 @@ namespace OpenApi2Md.CommunityToolkit.Builders
                     ReferenceIds.Add(schema.Items?.Reference?.Id);
                 return temp;
             }
-            else if (Equals(schema?.Type, "object"))
+
+            if (Equals(schema?.Type, "object"))
             {
                 if (!string.IsNullOrWhiteSpace(schema.Reference?.Id))
                     ReferenceIds.Add(schema.Reference?.Id);
@@ -88,7 +88,7 @@ namespace OpenApi2Md.CommunityToolkit.Builders
                     if (schema.Example != null && schema.Example.AnyType == AnyType.Array &&
                         (schema.Example as dynamic).Count > 0)
                     {
-                        if ((schema.Example as dynamic)[0].PrimitiveType.ToString() == "String")
+                        if ((schema.Example as dynamic)?[0].PrimitiveType.ToString() == "String")
                         {
                             List<string> result=new List<string>();
                             for (int i = 0; i < (schema.Example as dynamic).Count; i++)
@@ -100,9 +100,9 @@ namespace OpenApi2Md.CommunityToolkit.Builders
                          
                         {
                             List<object> result = new List<object>();
-                            for (int i = 0; i < (schema.Example as dynamic).Count; i++)
+                            for (int i = 0; i < (schema.Example as dynamic)?.Count; i++)
                             {
-                                result.Add((schema.Example as dynamic)[i].Value);
+                                result.Add((schema.Example as dynamic)?[i].Value);
                             }
                             return result;
                         }

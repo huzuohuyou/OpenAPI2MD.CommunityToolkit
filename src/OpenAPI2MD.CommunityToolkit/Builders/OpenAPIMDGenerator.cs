@@ -1,4 +1,7 @@
 ﻿using OpenApi2Doc.CommunityToolkit.Builders;
+using OpenApi2Doc.CommunityToolkit.Generators;
+using OpenApi2Doc.CommunityToolkit.Models;
+using MdColor = OpenAPI2MD.CommunityToolkit.Models.MdColor;
 
 namespace OpenApi2Md.CommunityToolkit.Builders;
 

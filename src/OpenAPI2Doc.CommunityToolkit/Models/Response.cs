@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using OpenApi2Md.CommunityToolkit.Builders;
+using OpenApi2Doc.CommunityToolkit.Generators;
 
-namespace OpenAPI2MD.CommunityToolkit.Models;
+namespace OpenApi2Doc.CommunityToolkit.Models;
 
 public class Response
 {

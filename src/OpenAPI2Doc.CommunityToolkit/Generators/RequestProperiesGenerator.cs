@@ -1,6 +1,6 @@
-﻿using OpenAPI2MD.CommunityToolkit.Models;
+﻿using OpenApi2Doc.CommunityToolkit.Models;
 
-namespace OpenApi2Md.CommunityToolkit.Builders
+namespace OpenApi2Doc.CommunityToolkit.Generators
 {
     public class RequestProperiesGenerator
     {
@@ -25,12 +25,12 @@ namespace OpenApi2Md.CommunityToolkit.Builders
         }
         public List<RequestBody>? Schemata { get; set; } = new();
 
-        public List<RequestBody>? Excute(OpenApiSchema? schema)
+        public IEnumerable<RequestBody>? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
                 return default;
             InitEntity(schema, Schemata, times);
-            return Schemata != null && Schemata.Count > 0 ? Schemata : new List<RequestBody>() { new RequestBody() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } };
+            return (Schemata != null && Schemata.Count > 0 ? Schemata : new List<RequestBody>() { new RequestBody() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } }).Where(r=>!string.IsNullOrWhiteSpace(r.PropertyName));
         }
 
         private string IndentStr(int t)

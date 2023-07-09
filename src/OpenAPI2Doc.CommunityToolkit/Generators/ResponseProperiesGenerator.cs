@@ -1,7 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
-using OpenAPI2MD.CommunityToolkit.Models;
+﻿using OpenApi2Doc.CommunityToolkit.Models;
 
-namespace OpenApi2Md.CommunityToolkit.Builders
+namespace OpenApi2Doc.CommunityToolkit.Generators
 {
     public class ResponseProperiesGenerator
     {
@@ -20,12 +19,12 @@ namespace OpenApi2Md.CommunityToolkit.Builders
             return schema?.Type;
 
         }
-        public List<Schema>? Excute(OpenApiSchema? schema)
+        public IEnumerable<Schema>? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
                  return new List<Schema>();
             InitEntity(schema, Schemata, times);
-            return Schemata != null && Schemata.Count>0?Schemata: new List<Schema>() { new Schema() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } };
+            return (Schemata != null && Schemata.Count>0?Schemata: new List<Schema>() { new Schema() { PropertyName = "_", PropertyType = schema.Type, Description = schema.Description } }).Where(r => !string.IsNullOrWhiteSpace(r.PropertyName)).ToArray();
         }
 
         private string IndentStr(int t)

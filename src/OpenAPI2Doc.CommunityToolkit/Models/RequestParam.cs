@@ -1,4 +1,4 @@
-﻿namespace OpenAPI2MD.CommunityToolkit.Models;
+﻿namespace OpenApi2Doc.CommunityToolkit.Models;
 
 public class RequestParam
 {
