@@ -39,9 +39,9 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildTag()
     {
-        if (!CurrentOperation.Tags.FirstOrDefault().Name.Equals(CurrentPathTag))
+        if (!CurrentOperation.Tags.FirstOrDefault()!.Name.Equals(CurrentPathTag))
         {
-            CurrentPathTag = CurrentOperation?.Tags.FirstOrDefault()?.Name;
+            CurrentPathTag = CurrentOperation.Tags.FirstOrDefault()?.Name;
             doc.Append($" \n## {CurrentPathTag} \n");
         }
     }
