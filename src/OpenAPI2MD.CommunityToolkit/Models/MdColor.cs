@@ -1,6 +1,6 @@
 ﻿namespace OpenAPI2MD.CommunityToolkit.Models;
 
-public class MdColor
+public abstract class MdColor
 {
-    public static string bgcolor = "#ddd";
+    public static string Bgcolor = "#ddd";
 }

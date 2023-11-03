@@ -1,4 +1,7 @@
-﻿Console.WriteLine("Hello, World!");
+﻿using OpenApi2Doc.CommunityToolkit.Command;
+using OpenApi2Md.CommunityToolkit.Builders;
+
+Console.WriteLine("Hello, World!");
 
 
 #if DEBUG
@@ -34,6 +37,10 @@ return await rootCommand.InvokeAsync(args);
 
 static async Task GenerateDoc(string fileType,string swagger,string output)
 {
+#if DEBUG
+    fileType = "md";
+    swagger = "http://172.26.172.122:18100/swagger/2.4.0/swagger.json";
+#endif
     if (string.IsNullOrWhiteSpace(fileType))
     {
         Console.WriteLine("请输入生成文件类型；md|word");
@@ -58,16 +65,16 @@ static async Task GenerateDoc(string fileType,string swagger,string output)
             goto output;
     }
     Console.WriteLine($"type:{fileType}\nswagger: {swagger}");
-    var outputFile = "";
     if (Equals(fileType, "md"))
     {
-        outputFile = await new OpenAPI2MD.CommunityToolkit.Generators.OpenApiMdGenerator().Generate(swagger, output);
+        var result = await new OpenApiMdGenerator().Build(swagger, output);
+        Console.WriteLine($"output:{result}!");
     }
     else if (Equals(fileType, "word"))
     {
-        outputFile = await new OpenAPI2Word.CommunityToolkit.Generators.OpenApiWordGenerator().Generate(swagger, output);
+        await new OpenAPI2Word.CommunityToolkit.Generators.OpenApiWordGenerator().Generate(swagger, output);
     }
-    Console.WriteLine($"output:{outputFile}!");
+    
 }
 
 

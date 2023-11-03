@@ -1,4 +1,4 @@
-﻿namespace OpenAPI2MD.CommunityToolkit.Command;
+﻿namespace OpenApi2Doc.CommunityToolkit.Command;
 
 public class CmdRunner
 {

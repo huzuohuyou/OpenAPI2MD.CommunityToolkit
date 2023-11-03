@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Office.Interop.Word;
+﻿using Microsoft.Office.Interop.Word;
 using System.Reflection;
-using System.IO;
-using System.Diagnostics;
 using Document = Microsoft.Office.Interop.Word.Document;
 
 namespace OpenAPI2Word.CommunityToolkit.Extensions

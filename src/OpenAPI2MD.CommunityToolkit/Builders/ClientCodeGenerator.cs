@@ -1,7 +1,7 @@
 ﻿//using NSwag;
 //using NSwag.CodeGeneration.CSharp;
 
-namespace OpenAPI2MD.CommunityToolkit.Generators
+namespace OpenApi2Md.CommunityToolkit.Builders
 {
     public class ClientCodeGenerator
     {
