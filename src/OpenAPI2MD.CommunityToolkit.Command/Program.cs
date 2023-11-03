@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using OpenApi2Doc.CommunityToolkit.Command;
 using OpenApi2Md.CommunityToolkit.Builders;
 
 Console.WriteLine("Hello, World!");
@@ -65,7 +65,6 @@ static async Task GenerateDoc(string fileType,string swagger,string output)
             goto output;
     }
     Console.WriteLine($"type:{fileType}\nswagger: {swagger}");
-    var outputFile = "";
     if (Equals(fileType, "md"))
     {
         var result = await new OpenApiMdGenerator().Build(swagger, output);
@@ -73,7 +72,7 @@ static async Task GenerateDoc(string fileType,string swagger,string output)
     }
     else if (Equals(fileType, "word"))
     {
-        outputFile = await new OpenAPI2Word.CommunityToolkit.Generators.OpenApiWordGenerator().Generate(swagger, output);
+        await new OpenAPI2Word.CommunityToolkit.Generators.OpenApiWordGenerator().Generate(swagger, output);
     }
     
 }

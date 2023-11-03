@@ -61,7 +61,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
     protected override void BuildOperationId()
     {
         doc.Append($@"
-<tr bgcolor=""{MdColor.bgcolor}"">
+<tr bgcolor=""{MdColor.Bgcolor}"">
 <td >OperationId</td>
 <td colspan=""5"" >{CurrentOperation.OperationId}</td>
 </tr>
@@ -143,11 +143,11 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
             return;
         doc.Append($@"
 <tr>
-<td bgcolor=""{MdColor.bgcolor}"">参数名</td>
-<td bgcolor=""{MdColor.bgcolor}"">数据类型</td>
-<td bgcolor=""{MdColor.bgcolor}"">参数类型</td>
-<td bgcolor=""{MdColor.bgcolor}"">必需</td>
-<td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">描述</td>
+<td bgcolor=""{MdColor.Bgcolor}"">参数名</td>
+<td bgcolor=""{MdColor.Bgcolor}"">数据类型</td>
+<td bgcolor=""{MdColor.Bgcolor}"">参数类型</td>
+<td bgcolor=""{MdColor.Bgcolor}"">必需</td>
+<td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">描述</td>
 </tr>");
         requestBodys.ForEach(r =>
         {
@@ -194,9 +194,9 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
         doc.Append($@"
 <tr>
-<td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">状态码</td>
-<td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">描述</td>
-<td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">类型</td>
+<td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">状态码</td>
+<td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">描述</td>
+<td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">类型</td>
 </tr>");
 
         doc.Append($@"<tr>
@@ -210,9 +210,9 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
     {
         doc.Append($@"
 <tr>
-<td bgcolor=""{MdColor.bgcolor}"">返回属性名</td>
-<td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">数据类型</td>
-<td colspan=""3"" bgcolor=""{MdColor.bgcolor}"">说明</td>
+<td bgcolor=""{MdColor.Bgcolor}"">返回属性名</td>
+<td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">数据类型</td>
+<td colspan=""3"" bgcolor=""{MdColor.Bgcolor}"">说明</td>
 </tr>");
         var c = new ResponseProperiesGenerator().Excute(CurrentResponse.Content.FirstOrDefault().Value?.Schema);
         foreach (var s in c)
