@@ -2,5 +2,5 @@
 
 public class MdColor
 {
-    public static string bgcolor = "#ddd";
+    public static string Bgcolor = "#ddd";
 }

@@ -9,7 +9,7 @@ namespace OpenApi2Doc.CommunityToolkit.Generators
         /// <summary>
         /// 递归中断记录器
         /// </summary>
-        private readonly List<string> ReferenceIds = new();
+        private readonly List<string> _referenceIds = new();
         public string? Excute(OpenApiSchema? schema)
         {
             if (Equals(null, schema))
@@ -26,27 +26,27 @@ namespace OpenApi2Doc.CommunityToolkit.Generators
             {
                 var temp = new List<object>();
 
-                if (ReferenceIds.Count(id => id == schema.Items?.Reference?.Id) <= 3)
+                if (_referenceIds.Count(id => id == schema.Items?.Reference?.Id) <= 3)
                     temp.Add(InitEntity(schema.Items));
                 if (  !string.IsNullOrWhiteSpace(schema.Items?.Reference?.Id))
-                    ReferenceIds.Add(schema.Items?.Reference?.Id);
+                    _referenceIds.Add(schema.Items?.Reference?.Id);
                 return temp;
             }
 
             if (Equals(schema?.Type, "object"))
             {
                 if (!string.IsNullOrWhiteSpace(schema.Reference?.Id))
-                    ReferenceIds.Add(schema.Reference?.Id);
+                    _referenceIds.Add(schema.Reference?.Id);
                 var temp = new Dictionary<string, object>();
                 schema.Properties.Keys.ToList().ForEach(r =>
                 {
                     if (schema.Properties.Keys.Contains(r))
                     {
                         if (!string.IsNullOrWhiteSpace(schema.Properties[r].Items?.Reference?.Id))
-                            ReferenceIds.Add(schema.Properties[r]?.Items?.Reference?.Id);
+                            _referenceIds.Add(schema.Properties[r]?.Items?.Reference?.Id);
                         try
                         {
-                            if (ReferenceIds.Where(id => id == schema.Properties[r]?.Reference?.Id).ToList().Count() <= 3)
+                            if (_referenceIds.Where(id => id == schema.Properties[r]?.Reference?.Id).ToList().Count() <= 3)
                                 temp.Add(r, InitEntity(schema.Properties[r]));
                         }
                         catch (Exception e)
