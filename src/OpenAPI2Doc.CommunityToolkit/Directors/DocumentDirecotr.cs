@@ -1,4 +1,4 @@
-﻿using OpenApi2Doc.CommunityToolkit.Builders;
+using OpenApi2Doc.CommunityToolkit.Builders;
 
 namespace OpenApi2Doc.CommunityToolkit.Directors
 {
@@ -7,6 +7,7 @@ namespace OpenApi2Doc.CommunityToolkit.Directors
         private  DocumentBuilder _builder;
 
         public DocumentDirector(DocumentBuilder builder)
+
         {
           _builder = builder;
         }

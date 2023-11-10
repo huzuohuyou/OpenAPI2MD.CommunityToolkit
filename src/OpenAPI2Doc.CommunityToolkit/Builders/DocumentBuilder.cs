@@ -1,4 +1,7 @@
-﻿namespace OpenApi2Doc.CommunityToolkit.Builders
+
+using System.Xml.XPath;
+
+namespace OpenApi2Doc.CommunityToolkit.Builders
 {
     public abstract class DocumentBuilder<T>
     {
@@ -75,12 +78,26 @@
 
         protected abstract T OutputDoc(string savePath = "");
 
-        private async Task BuildApiDocument(string? requestUri, string savePath = "")
-        {
-            var client = new HttpClient();
-            var stream = await client.GetStreamAsync(requestUri);
-            ApiDocument = new OpenApiStreamReader().Read(stream, out _);
-        }
+namespace OpenApi2Doc.CommunityToolkit.Builders
+{
+    public abstract class DocumentBuilder
+    {
+        protected OpenApiDocument ApiDocument;
+
+        public abstract void Reset();
+
+        public abstract Info BuildInfo();
+
+        public abstract Services BuildServices();
+
+        public abstract Title BuildTitle();
+
+        public abstract Toc BuildToc();
+
+        public abstract T GetResult();
+
+
+
 
         public async Task<T> Build(string? requestUri, string savePath = "")
         {
@@ -98,5 +115,6 @@
 
             return OutputDoc(savePath);
         }
+
     }
 }
