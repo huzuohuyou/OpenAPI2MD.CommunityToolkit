@@ -17,9 +17,9 @@ public class Response
         var fieldsResult = string.Empty;
         var fields = new StringBuilder(
 $@"<tr>
-    <td bgcolor=""{MdColor.bgcolor}"">返回属性名</td>
-    <td colspan=""2"" bgcolor=""{MdColor.bgcolor}"">数据类型</td>
-    <td colspan=""3"" bgcolor=""{MdColor.bgcolor}"">说明</td>
+    <td bgcolor=""{MdColor.Bgcolor}"">返回属性名</td>
+    <td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">数据类型</td>
+    <td colspan=""3"" bgcolor=""{MdColor.Bgcolor}"">说明</td>
     
 </tr>");
         Schemas.ForEach(r =>
@@ -36,7 +36,7 @@ $@"<tr>
         
         var responseExample = new StringBuilder(
 $@"<tr>
-    <td colspan=""6"" bgcolor=""{MdColor.bgcolor}"">示例</td>
+    <td colspan=""6"" bgcolor=""{MdColor.Bgcolor}"">示例</td>
 </tr>
 <tr>
 <td colspan=""6"">

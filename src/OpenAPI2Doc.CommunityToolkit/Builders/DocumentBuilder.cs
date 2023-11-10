@@ -1,10 +1,11 @@
+
 using System.Xml.XPath;
 
 namespace OpenApi2Doc.CommunityToolkit.Builders
 {
     public abstract class DocumentBuilder<T>
     {
-        protected T doc;
+        protected T Doc;
 
         protected OpenApiDocument ApiDocument { get; set; }
 
@@ -23,7 +24,6 @@ namespace OpenApi2Doc.CommunityToolkit.Builders
 
         private void BuildPathItem()
         {
-            
             BuildTag();
             BuildSummary();
             BeginBuildPathItem();
@@ -42,8 +42,10 @@ namespace OpenApi2Doc.CommunityToolkit.Builders
                 BuildResponseFields();
                 BuildResponseExample();
             }
+
             AfterBuildPathItem();
         }
+
         protected abstract void BeginBuildPathItem();
         protected abstract void AfterBuildPathItem();
 
@@ -107,10 +109,10 @@ namespace OpenApi2Doc.CommunityToolkit.Builders
             ApiDocument.Paths.ToList().ForEach(r =>
             {
                 CurrentPathItem = r.Value;
-                CurrentOperation=CurrentPathItem.Operations.Values.FirstOrDefault();
+                CurrentOperation = CurrentPathItem.Operations.Values.FirstOrDefault();
                 BuildPathItem();
             });
-           
+
             return OutputDoc(savePath);
         }
 

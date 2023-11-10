@@ -11,30 +11,30 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     public override void Reset()
     {
-        doc.Clear();
+        Doc.Clear();
     }
 
     protected override void InitDoc()
     {
-        doc = new StringBuilder();
+        Doc = new StringBuilder();
     }
 
     protected override void BuildInfo()
     {
 
-        doc.Append($"{ApiDocument.Info.Description} \n");
-        doc.Append($"{ApiDocument.Info?.Contact?.Name} \n");
-        doc.Append($"{ApiDocument.Info?.Contact?.Email} \n");
+        Doc.Append($"{ApiDocument.Info.Description} \n");
+        Doc.Append($"{ApiDocument.Info?.Contact?.Name} \n");
+        Doc.Append($"{ApiDocument.Info?.Contact?.Email} \n");
     }
 
     protected override void BeginBuildPathItem()
     {
-        doc.Append($@"<table>");
+        Doc.Append($@"<table>");
     }
 
     protected override void AfterBuildPathItem()
     {
-        doc.Append($@"</table>");
+        Doc.Append($@"</table>");
     }
 
     protected override void BuildTag()
@@ -42,7 +42,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         if (!CurrentOperation.Tags.FirstOrDefault()!.Name.Equals(CurrentPathTag))
         {
             CurrentPathTag = CurrentOperation.Tags.FirstOrDefault()?.Name;
-            doc.Append($" \n## {CurrentPathTag} \n");
+            Doc.Append($" \n## {CurrentPathTag} \n");
         }
     }
 
@@ -52,7 +52,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         {
             
         }
-        doc.Append($@"
+        Doc.Append($@"
 
 ### {CurrentOperation.Summary}
 ");
@@ -60,7 +60,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildOperationId()
     {
-        doc.Append($@"
+        Doc.Append($@"
 <tr bgcolor=""{MdColor.Bgcolor}"">
 <td >OperationId</td>
 <td colspan=""5"" >{CurrentOperation.OperationId}</td>
@@ -70,7 +70,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildDescription()
     {
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td >接口描述</td>
 <td colspan=""5""  >{CurrentOperation.Description}</td>
@@ -79,7 +79,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildRequestMethod()
     {
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td >请求方式</td>
 <td colspan=""5""  >{CurrentPathItem.Operations.Keys.FirstOrDefault().ToString()}</td>
@@ -88,12 +88,12 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildRequestType()
     {
-        doc.Append($@"");
+        Doc.Append($@"");
     }
 
     protected override void BuildRequestParams()
     {
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td>参数名</td>
 <td>数据类型</td>
@@ -119,7 +119,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
             }
 
             var r = p.Required ? "Y" : "N";
-            doc.Append($@"<tr>
+            Doc.Append($@"<tr>
 <td >{p.Name}</td>
 <td >{p.Schema.Type}</td>
 <td >{p.In.ToString()}</td>
@@ -141,7 +141,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
             requestBodys.AddRange(c);
         if (requestBodys.Count == 0)
             return;
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td bgcolor=""{MdColor.Bgcolor}"">参数名</td>
 <td bgcolor=""{MdColor.Bgcolor}"">数据类型</td>
@@ -151,7 +151,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 </tr>");
         requestBodys.ForEach(r =>
         {
-            doc.Append($@"
+            Doc.Append($@"
 <tr>
 <td >{r.PropertyName}</td>
 <td >{r.PropertyType}</td>
@@ -161,7 +161,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 </tr>"
     );
         });
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td colspan=""6""  >示例</td>
 </tr>
@@ -192,14 +192,14 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
                 type.Append($@":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
         }
 
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">状态码</td>
 <td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">描述</td>
 <td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">类型</td>
 </tr>");
 
-        doc.Append($@"<tr>
+        Doc.Append($@"<tr>
 <td colspan=""2"">{CurrentResponseCode}</td>
 <td colspan=""2"">{CurrentResponse.Description}</td>
 <td colspan=""2"" >{CurrentResponse.Content.FirstOrDefault().Key}</td>
@@ -208,7 +208,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildResponseFields()
     {
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td bgcolor=""{MdColor.Bgcolor}"">返回属性名</td>
 <td colspan=""2"" bgcolor=""{MdColor.Bgcolor}"">数据类型</td>
@@ -217,7 +217,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         var c = new ResponseProperiesGenerator().Excute(CurrentResponse.Content.FirstOrDefault().Value?.Schema);
         foreach (var s in c)
         {
-            doc.Append($@"
+            Doc.Append($@"
 <tr>
 <td >{s.PropertyName}</td>
 <td colspan=""2"">{s.PropertyType}</td>
@@ -230,7 +230,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
     protected override void BuildResponseExample()
     {
         var example = new ExampleValueGenerator().Excute(CurrentResponse.Content.Count > 0 ? CurrentResponse.Content.FirstOrDefault().Value.Schema : default);
-        doc.Append($@"
+        Doc.Append($@"
 <tr>
 <td >示例</td>
 <td colspan=""6""  >
@@ -246,21 +246,21 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildTitle()
     {
-        doc.Append($" # {ApiDocument.Info.Title}({ApiDocument.Info.Version}) \n");
+        Doc.Append($" # {ApiDocument.Info.Title}({ApiDocument.Info.Version}) \n");
     }
 
     protected override void BuildToc()
     {
-        doc.Append($"<!-- @import \"[TOC]\" {{cmd=\"toc\" depthFrom=2 depthTo=3 orderedList=false}} -->\n");
+        Doc.Append($"<!-- @import \"[TOC]\" {{cmd=\"toc\" depthFrom=2 depthTo=3 orderedList=false}} -->\n");
     }
 
     protected override StringBuilder OutputDoc(string savePath = "")
     {
-        var s = doc.ToString();
+        var s = Doc.ToString();
         File.WriteAllText(Path.Combine(savePath, "swagger.md"), s);
         if (File.Exists(Path.Combine(savePath, "swagger.md")))
         {
-            return doc;
+            return Doc;
         }
         return new StringBuilder();
     }

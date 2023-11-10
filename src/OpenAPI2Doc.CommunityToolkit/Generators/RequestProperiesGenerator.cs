@@ -4,26 +4,15 @@ namespace OpenApi2Doc.CommunityToolkit.Generators
 {
     public class RequestProperiesGenerator
     {
-        private string IndentChar = "····";
+        private readonly string _indentChar = "····";
         private int times = 0;
 
         private string? GetSchemaType(OpenApiSchema? schema)
         {
             return schema.Type;
-            //var t = string.Empty;
-            //if (schema?.Type == "array" && schema.Items?.Reference != null)
-            //    t= $@"{schema.Type}:{schema.Items?.Reference.Id}";
-            //if (schema?.Type == "array" && schema.Items?.Reference == null)
-            //    t = $@"{schema.Type}:{schema.Items?.Type}";
-            //if (schema?.Type == "object" && schema.Reference != null)
-            //    t = $@"{schema.Type}:{schema.Reference.Id}";
-            //t = schema?.Type;
-            //if (t.Contains(":") && !"string|number|integer|array".Contains(t.Split(":")[1]))
-            //    return string.Empty;
-            //return t;
-
         }
-        public List<RequestBody>? Schemata { get; set; } = new();
+
+        private List<RequestBody>? Schemata { get; set; } = new();
 
         public IEnumerable<RequestBody>? Excute(OpenApiSchema? schema)
         {
@@ -38,7 +27,7 @@ namespace OpenApi2Doc.CommunityToolkit.Generators
             var temp = string.Empty;
             for (int i = 0; i < t - 1; i++)
             {
-                temp += IndentChar;
+                temp += _indentChar;
             }
             return temp;
         }
