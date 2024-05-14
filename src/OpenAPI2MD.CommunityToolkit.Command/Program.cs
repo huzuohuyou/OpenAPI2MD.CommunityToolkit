@@ -14,7 +14,7 @@ Console.WriteLine("Hello, World!");
 #endif
 
 var fileOption = new Option<string>(
-    aliases:new[] {"-t", "--type" },
+    aliases: new[] { "-t", "--type" },
     description: "The file type to generate from swagger.json .");
 
 var swaggerOption = new Option<string>(
@@ -27,36 +27,38 @@ var outputOption = new Option<string>(
 
 var rootCommand = new RootCommand("Sample app for Generate Markdown，Word from swagger.json")
 {
-    swaggerOption,fileOption,outputOption
+    swaggerOption, fileOption, outputOption
 };
 
 
-rootCommand.SetHandler(async (fileType,swagger,output) => { await GenerateDoc(fileType, swagger,output); }, fileOption, swaggerOption, outputOption);
+rootCommand.SetHandler(async (fileType, swagger, output) => { await GenerateDoc(fileType, swagger, output); },
+    fileOption, swaggerOption, outputOption);
 
 return await rootCommand.InvokeAsync(args);
 
-static async Task GenerateDoc(string fileType,string swagger,string output)
+static async Task GenerateDoc(string fileType, string swagger, string output)
 {
 #if DEBUG
     fileType = "md";
-    swagger = "http://172.26.172.122:18100/swagger/2.4.0/swagger.json";
+    swagger = "http://172.26.172.124:18100/swagger/2.5.2/swagger.json";
 #endif
     if (string.IsNullOrWhiteSpace(fileType))
     {
         Console.WriteLine("请输入生成文件类型；md|word");
         fileType = Console.ReadLine();
     }
+
     if (string.IsNullOrWhiteSpace(swagger))
     {
         Console.WriteLine("请输入swagger.json路径，支持在线地址，本地文件");
         swagger = Console.ReadLine();
     }
-   
+
     if (string.IsNullOrWhiteSpace(output))
     {
-        output= new CmdRunner().PrintDoc("cd");
+        output = new CmdRunner().PrintDoc("cd");
     }
-    else if(!Directory.Exists(output))
+    else if (!Directory.Exists(output))
     {
         output:
         Console.WriteLine("请输入正确的保存路径");
@@ -64,6 +66,7 @@ static async Task GenerateDoc(string fileType,string swagger,string output)
         if (!Directory.Exists(output))
             goto output;
     }
+
     Console.WriteLine($"type:{fileType}\nswagger: {swagger}");
     if (Equals(fileType, "md"))
     {
@@ -74,8 +77,4 @@ static async Task GenerateDoc(string fileType,string swagger,string output)
     {
         await new OpenAPI2Word.CommunityToolkit.Generators.OpenApiWordGenerator().Generate(swagger, output);
     }
-    
 }
-
-
-

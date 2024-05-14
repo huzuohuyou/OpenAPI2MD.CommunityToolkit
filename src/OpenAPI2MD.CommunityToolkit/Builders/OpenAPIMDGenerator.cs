@@ -1,14 +1,14 @@
 ﻿using OpenApi2Doc.CommunityToolkit.Builders;
 using OpenApi2Doc.CommunityToolkit.Generators;
-using OpenApi2Doc.CommunityToolkit.Models;
 using MdColor = OpenAPI2MD.CommunityToolkit.Models.MdColor;
+using RequestBody = OpenApi2Doc.CommunityToolkit.Models.RequestBody;
 
 namespace OpenApi2Md.CommunityToolkit.Builders;
 
 public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 {
 
-
+ 
     public override void Reset()
     {
         Doc.Clear();
@@ -17,6 +17,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
     protected override void InitDoc()
     {
         Doc = new StringBuilder();
+        
     }
 
     protected override void BuildInfo()

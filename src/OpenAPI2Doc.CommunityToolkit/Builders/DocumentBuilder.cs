@@ -1,5 +1,6 @@
 
 using System.Xml.XPath;
+using OpenApi2Doc.CommunityToolkit.Products;
 
 namespace OpenApi2Doc.CommunityToolkit.Builders
 {
@@ -78,30 +79,30 @@ namespace OpenApi2Doc.CommunityToolkit.Builders
 
         protected abstract T OutputDoc(string savePath = "");
 
-namespace OpenApi2Doc.CommunityToolkit.Builders
-{
-    public abstract class DocumentBuilder
-    {
-        protected OpenApiDocument ApiDocument;
-
-        public abstract void Reset();
-
-        public abstract Info BuildInfo();
-
-        public abstract Services BuildServices();
-
-        public abstract Title BuildTitle();
-
-        public abstract Toc BuildToc();
-
-        public abstract T GetResult();
-
-
-
-
         public async Task<T> Build(string? requestUri, string savePath = "")
         {
-            await BuildApiDocument(requestUri, savePath);
+            Found:
+            {
+                if (string.IsNullOrWhiteSpace(requestUri))
+                {
+                    Console.WriteLine("请输入swagger.json的url:");
+                    requestUri = Console.ReadLine();
+                }
+                
+            }
+            Stream stream;
+            var client = new HttpClient();
+            try
+            {
+                stream = await client.GetStreamAsync(requestUri);
+            }
+            catch (Exception e)
+            {
+                goto Found;
+            }
+
+
+            ApiDocument = new OpenApiStreamReader().Read(stream, out _);
             InitDoc();
             BuildTitle();
             BuildToc();
