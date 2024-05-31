@@ -1,5 +1,5 @@
 ## 感谢JetBrains 支持
-![](/docs/jb_beam.png)
+![](jb_beam.png)
 
 [OpenSourceSupport](https://jb.gg/OpenSourceSupport)
 
@@ -46,24 +46,26 @@ dotnet run
 - dotnet install
 
     ``` cs
-    dotnet tool install --global Swagger2Doc --version 1.0.0
+    dotnet tool install --global Swagger2Doc --version 1.0.1
     ```
 - 调用
 
     在目录中打开cmd窗口运行命令
 
-    ![](/docs/Snipaste_2022-10-18_19-07-05.png)
+    ```
+    swagger2doc -t md -s http://localhost:18100/swagger/3.0.0/swagger.json
+    ```
 
 - Swagger2Md + swagger.json 的 url
 
-    ![](/docs/Snipaste_2022-10-18_19-07-39.png)
+    ![](Snipaste_2022-10-18_19-07-39.png)
 
 - 查看
 
 
     打开swagger.json
 
-    ![](/docs/Snipaste_2022-10-18_19-09-19.png)
+    ![](Snipaste_2022-10-18_19-09-19.png)
 <!-- 描述如何使用该项目 -->
 
 ## 如何贡献
