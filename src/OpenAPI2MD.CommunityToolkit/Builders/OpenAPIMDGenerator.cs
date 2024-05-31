@@ -30,7 +30,8 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BeginBuildPathItem()
     {
-        Doc.Append(@"\r\n<table>");
+        Doc.Append(@"
+<table>");
     }
 
     protected override void AfterBuildPathItem()

@@ -86,7 +86,7 @@ sesa669011@se.com
 
 
 ### 用户登录授权
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >Authentication</td>
@@ -265,7 +265,7 @@ sesa669011@se.com
 </tr></table>
 
 ### 检查用户权限
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >HasAnyPrivilege</td>
@@ -385,12 +385,11 @@ false
 
 </td>
 </tr></table> 
-
 ## 2、查询功能接口 
 
 
 ### 获取活动告警列表
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetActiveAlarmsByFilter</td>
@@ -647,7 +646,7 @@ false
 </tr></table>
 
 ### 获取缓存信息
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >Info</td>
@@ -851,7 +850,7 @@ false
 </tr></table>
 
 ### 执行CiCode
-<table style="width:100%">
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >Excute</td>
@@ -991,7 +990,7 @@ false
 </tr></table>
 
 ### 获取报警历史数据
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetAlarmHistoryData</td>
@@ -1266,7 +1265,7 @@ tags与equips不能同时为空</td>
 </tr></table>
 
 ### 获取系统层级
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetHierarchy</td>
@@ -1490,7 +1489,7 @@ TRN：表明该点位有与之关联的历史趋势</td>
 </tr></table>
 
 ### 检查集群状态
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >PingAsync</td>
@@ -1619,7 +1618,7 @@ TRN：表明该点位有与之关联的历史趋势</td>
 </tr></table>
 
 ### 获取PO系统时间
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetCurrentDateTime</td>
@@ -1728,7 +1727,7 @@ TRN：表明该点位有与之关联的历史趋势</td>
 </tr></table>
 
 ### 获取点位基本信息
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetTagsByFilter</td>
@@ -1957,7 +1956,7 @@ AlarmTag的点位名称读取的表属性是NAME</td>
 </tr></table>
 
 ### 获取告警基本信息
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetAlarmsByFilter</td>
@@ -2233,7 +2232,7 @@ AlarmTag的点位名称读取的表属性是NAME</td>
 </tr></table>
 
 ### 获取点位实时数据
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetRealTimeTagDataAsync</td>
@@ -2444,7 +2443,7 @@ AlarmTag的点位名称读取的表属性是NAME</td>
 </tr></table>
 
 ### 获取波形实时数据
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetWaveformDataAsync</td>
@@ -2643,7 +2642,7 @@ AlarmTag的点位名称读取的表属性是NAME</td>
 </tr></table>
 
 ### 获取点位历史数据
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetTagHistoryData</td>
@@ -2984,7 +2983,7 @@ AlarmTag的点位名称读取的表属性是NAME</td>
 </tr></table>
 
 ### 获取点位指标结果
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetTagIndicatorData</td>
@@ -3210,7 +3209,7 @@ MIN,MAX</td>
 
 
 ### 获取系统发生告警
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetDevicesAlarmsByTimeRange</td>
@@ -3515,7 +3514,7 @@ MIN,MAX</td>
 </tr></table>
 
 ### 获取告警关联故障录波
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetWaveformIdByAlarmId</td>
@@ -3795,7 +3794,7 @@ MIN,MAX</td>
 </tr></table>
 
 ### 获取障录波详情
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetSeriesByWaveformId</td>
@@ -4077,7 +4076,7 @@ MIN,MAX</td>
 
 
 ### 点位数据变化订阅
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >RequestTagSubscriptionByCov</td>
@@ -4208,7 +4207,7 @@ PCT：变化百分比
 </tr></table>
 
 ### 点位数据变化推送
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >ConnectCovTagSubscriptionAsync</td>
@@ -4301,7 +4300,7 @@ ws://pso-api-server.com/subscriptions/tags/values/latest-by-cov/1e455915-e4fc-41
 </tr></table>
 
 ### 点位时间间隔订阅
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >RequestTagSubscriptionByInterval</td>
@@ -4431,7 +4430,7 @@ PCT：变化百分比
 </tr></table>
 
 ### 点位时间间隔推送
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >ConnectIntervalTagSubscriptionAsync</td>
@@ -4523,7 +4522,7 @@ ws://pso-api-server.com/subscriptions/tags/values/latest-by-interval/1e455915-e4
 </tr></table>
 
 ### 告警触发订阅
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >RequestEventSubscription</td>
@@ -4621,7 +4620,7 @@ ws://pso-api-server.com/subscriptions/tags/values/latest-by-interval/1e455915-e4
 </tr></table>
 
 ### 告警触发推送
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >EstablishConnectionForEventSubscriptionAsync</td>
@@ -4747,7 +4746,7 @@ ws://pso-api-server.com/subscriptions/events/1e455915-e4fc-419a-8cd8-2cbf6c06b0d
 
 
 ### 控制点位数值
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >TagControlAction</td>
@@ -4926,7 +4925,7 @@ false
 
 
 ### 
-<table>
+\r\n<table>
 <tr bgcolor="#ddd">
 <td >OperationId</td>
 <td colspan="5" >GetCtApiSetting</td>

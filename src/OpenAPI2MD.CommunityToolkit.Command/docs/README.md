@@ -46,15 +46,16 @@ dotnet run
 - 安装2
 
     ``` cs
-    dotnet tool install --global Swagger2Doc --version 1.0.1
+    dotnet tool install --global Swagger2Doc
     ```
 
 - 升级
 
     ``` cs
-    dotnet tool update Swagger2Doc -g --version 1.0.2
+    dotnet tool update Swagger2Doc -g [--version 1.0.3]
     ```
 
+    ![alt text](image.png)
 - 卸载
 
     ``` cs
