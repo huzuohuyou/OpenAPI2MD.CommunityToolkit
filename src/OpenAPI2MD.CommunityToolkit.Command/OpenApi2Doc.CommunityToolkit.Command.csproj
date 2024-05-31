@@ -13,7 +13,7 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Title>Swagger2Doc</Title>
 		<Authors>Hailong.WU</Authors>
 		<PackageProjectUrl>https://gitee.com/galacode/OpenAPI2MD.CommunityToolkit</PackageProjectUrl>

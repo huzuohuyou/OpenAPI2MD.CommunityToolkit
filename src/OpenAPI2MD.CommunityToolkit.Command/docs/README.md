@@ -43,11 +43,25 @@ dotnet run
 
     双击运行[Swagger2Md.msi](https://gitee.com/galacode/OpenAPI2MD.CommunityToolkit/releases/tag/7.5.0)
 
-- dotnet install
+- 安装2
 
     ``` cs
     dotnet tool install --global Swagger2Doc --version 1.0.1
     ```
+
+- 升级
+
+    ``` cs
+    dotnet tool update Swagger2Doc -g --version 1.0.2
+    ```
+
+- 卸载
+
+    ``` cs
+    dotnet tool uninstall Swagger2Doc
+    ```
+
+
 - 调用
 
     在目录中打开cmd窗口运行命令

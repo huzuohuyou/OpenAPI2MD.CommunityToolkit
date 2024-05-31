@@ -30,12 +30,12 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BeginBuildPathItem()
     {
-        Doc.Append($@"<table>");
+        Doc.Append(@"\r\n<table>");
     }
 
     protected override void AfterBuildPathItem()
     {
-        Doc.Append($@"</table>");
+        Doc.Append("</table>");
     }
 
     protected override void BuildTag()
@@ -89,12 +89,12 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildRequestType()
     {
-        Doc.Append($@"");
+        Doc.Append("");
     }
 
     protected override void BuildRequestParams()
     {
-        Doc.Append($@"
+        Doc.Append(@"
 <tr>
 <td>参数名</td>
 <td>数据类型</td>
@@ -188,9 +188,9 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         {
             type = type.Append(CurrentResponse.Content.Count > 0 ? CurrentResponse.Content.FirstOrDefault().Value.Schema.Type : default);
             if (Equals("array", type.ToString()))
-                type.Append($@":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Items?.Reference?.Id}");
+                type.Append($":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Items?.Reference?.Id}");
             if (Equals("object", type.ToString()))
-                type.Append($@":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
+                type.Append($":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
         }
 
         Doc.Append($@"
@@ -252,7 +252,7 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
     protected override void BuildToc()
     {
-        Doc.Append($"<!-- @import \"[TOC]\" {{cmd=\"toc\" depthFrom=2 depthTo=3 orderedList=false}} -->\n");
+        Doc.Append("<!-- @import \"[TOC]\" {cmd=\"toc\" depthFrom=2 depthTo=3 orderedList=false} -->\n");
     }
 
     protected override StringBuilder OutputDoc(string savePath = "")
