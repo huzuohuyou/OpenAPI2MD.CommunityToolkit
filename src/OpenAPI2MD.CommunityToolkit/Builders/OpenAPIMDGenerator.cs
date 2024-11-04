@@ -3,56 +3,53 @@ using OpenApi2Doc.CommunityToolkit.Generators;
 using MdColor = OpenAPI2MD.CommunityToolkit.Models.MdColor;
 using RequestBody = OpenApi2Doc.CommunityToolkit.Models.RequestBody;
 
-namespace OpenApi2Md.CommunityToolkit.Builders;
+namespace OpenAPI2MD.CommunityToolkit.Builders;
 
 public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 {
-
- 
     public override void Reset()
     {
         Doc.Clear();
     }
 
-    protected override void InitDoc()
+    public override void InitDoc()
     {
         Doc = new StringBuilder();
-        
     }
 
-    protected override void BuildInfo()
+    public override void BuildInfo()
     {
-
         Doc.Append($"{ApiDocument.Info.Description} \n");
         Doc.Append($"{ApiDocument.Info?.Contact?.Name} \n");
         Doc.Append($"{ApiDocument.Info?.Contact?.Email} \n");
     }
 
-    protected override void BeginBuildPathItem()
+    public override void BeginBuildPathItem()
     {
         Doc.Append(@"
 <table>");
     }
 
-    protected override void AfterBuildPathItem()
+    public override void AfterBuildPathItem()
     {
         Doc.Append("</table>");
     }
 
-    protected override void BuildTag()
+    public override void BuildTag()
     {
-        if (!CurrentOperation.Tags.FirstOrDefault()!.Name.Equals(CurrentPathTag))
+        var firstTag = CurrentOperation.Tags.FirstOrDefault();
+        if (firstTag != null && !firstTag.Name.Equals(CurrentPathTag))
         {
-            CurrentPathTag = CurrentOperation.Tags.FirstOrDefault()?.Name;
+            CurrentPathTag = firstTag.Name;
             Doc.Append($" \n## {CurrentPathTag} \n");
         }
     }
 
-    protected override void BuildSummary()
+    public override void BuildSummary()
     {
-        if (Equals("获取报警/事件历史数据【此方法以后不在维护请使用alarms/actions/get-history】",CurrentOperation.Summary))
+        if (string.Equals("获取报警/事件历史数据【此方法以后不在维护请使用alarms/actions/get-history】", CurrentOperation.Summary, StringComparison.Ordinal))
         {
-            
+            // Do nothing
         }
         Doc.Append($@"
 
@@ -60,40 +57,40 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 ");
     }
 
-    protected override void BuildOperationId()
+    public override void BuildOperationId()
     {
         Doc.Append($@"
 <tr bgcolor=""{MdColor.Bgcolor}"">
-<td >OperationId</td>
-<td colspan=""5"" >{CurrentOperation.OperationId}</td>
+<td>OperationId</td>
+<td colspan=""5"">{CurrentOperation.OperationId}</td>
 </tr>
 ");
     }
 
-    protected override void BuildDescription()
+    public override void BuildDescription()
     {
         Doc.Append($@"
 <tr>
-<td >接口描述</td>
-<td colspan=""5""  >{CurrentOperation.Description}</td>
+<td>接口描述</td>
+<td colspan=""5"">{CurrentOperation.Description}</td>
 </tr>");
     }
 
-    protected override void BuildRequestMethod()
+    public override void BuildRequestMethod()
     {
         Doc.Append($@"
 <tr>
-<td >请求方式</td>
-<td colspan=""5""  >{CurrentPathItem.Operations.Keys.FirstOrDefault().ToString()}</td>
+<td>请求方式</td>
+<td colspan=""5"">{CurrentPathItem.Operations.Keys.FirstOrDefault()}</td>
 </tr>");
     }
 
-    protected override void BuildRequestType()
+    public override void BuildRequestType()
     {
         Doc.Append("");
     }
 
-    protected override void BuildRequestParams()
+    public override void BuildRequestParams()
     {
         Doc.Append(@"
 <tr>
@@ -122,24 +119,21 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 
             var r = p.Required ? "Y" : "N";
             Doc.Append($@"<tr>
-<td >{p.Name}</td>
-<td >{p.Schema.Type}</td>
-<td >{p.In.ToString()}</td>
-<td >{r}</td>
-<td >{p.Description}</td>
-<td >{va}</td>
+<td>{p.Name}</td>
+<td>{p.Schema.Type}</td>
+<td>{p.In}</td>
+<td>{r}</td>
+<td>{p.Description}</td>
+<td>{va}</td>
 </tr>");
-
         });
-
     }
 
-    protected override void BuildRequestBodies()
+    public override void BuildRequestBodies()
     {
         var requestBodys = new List<RequestBody>();
-        var c = new RequestProperiesGenerator().Excute(CurrentOperation.RequestBody?.Content?.FirstOrDefault()
-        .Value?.Schema);
-        if (!Equals(null, c))
+        var c = new RequestProperiesGenerator().Excute(CurrentOperation.RequestBody?.Content?.FirstOrDefault().Value?.Schema);
+        if (c != null)
             requestBodys.AddRange(c);
         if (requestBodys.Count == 0)
             return;
@@ -155,21 +149,19 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         {
             Doc.Append($@"
 <tr>
-<td >{r.PropertyName}</td>
-<td >{r.PropertyType}</td>
-<td >{r.ParamType}</td>
-<td >{r.IsRequired}</td>
+<td>{r.PropertyName}</td>
+<td>{r.PropertyType}</td>
+<td>{r.ParamType}</td>
+<td>{r.IsRequired}</td>
 <td colspan=""2"">{r.Description}</td>
-</tr>"
-    );
+</tr>");
         });
         Doc.Append($@"
 <tr>
-<td colspan=""6""  >示例</td>
+<td colspan=""6"">示例</td>
 </tr>
 <tr>
-<tr>
-<td colspan=""6""  >
+<td colspan=""6"">
 
 {new ExampleValueGenerator().Excute(CurrentOperation.RequestBody?.Content?.FirstOrDefault().Value?.Schema)}
 
@@ -177,20 +169,20 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 </tr>");
     }
 
-    protected override void BuildRequestBodyExample()
+    public override void BuildRequestBodyExample()
     {
         return;
     }
 
-    protected override void BuildResponse()
+    public override void BuildResponse()
     {
         var type = new StringBuilder();
         if (CurrentResponse.Content.Count > 0)
         {
-            type = type.Append(CurrentResponse.Content.Count > 0 ? CurrentResponse.Content.FirstOrDefault().Value.Schema.Type : default);
-            if (Equals("array", type.ToString()))
+            type.Append(CurrentResponse.Content.FirstOrDefault().Value.Schema.Type);
+            if (type.ToString() == "array")
                 type.Append($":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Items?.Reference?.Id}");
-            if (Equals("object", type.ToString()))
+            if (type.ToString() == "object")
                 type.Append($":{CurrentResponse.Content.FirstOrDefault().Value.Schema?.Reference?.Id}");
         }
 
@@ -204,11 +196,11 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         Doc.Append($@"<tr>
 <td colspan=""2"">{CurrentResponseCode}</td>
 <td colspan=""2"">{CurrentResponse.Description}</td>
-<td colspan=""2"" >{CurrentResponse.Content.FirstOrDefault().Key}</td>
+<td colspan=""2"">{CurrentResponse.Content.FirstOrDefault().Key}</td>
 </tr>");
     }
 
-    protected override void BuildResponseFields()
+    public override void BuildResponseFields()
     {
         Doc.Append($@"
 <tr>
@@ -221,21 +213,20 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         {
             Doc.Append($@"
 <tr>
-<td >{s.PropertyName}</td>
+<td>{s.PropertyName}</td>
 <td colspan=""2"">{s.PropertyType}</td>
-<td colspan=""3"" >{s.Description}</td>
+<td colspan=""3"">{s.Description}</td>
 </tr>");
         }
-
     }
 
-    protected override void BuildResponseExample()
+    public override void BuildResponseExample()
     {
         var example = new ExampleValueGenerator().Excute(CurrentResponse.Content.Count > 0 ? CurrentResponse.Content.FirstOrDefault().Value.Schema : default);
         Doc.Append($@"
 <tr>
-<td >示例</td>
-<td colspan=""6""  >
+<td>示例</td>
+<td colspan=""6"">
 
 {example}
 
@@ -243,20 +234,17 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
 </tr>");
     }
 
-
-
-
-    protected override void BuildTitle()
+    public override void BuildTitle()
     {
         Doc.Append($" # {ApiDocument.Info.Title}({ApiDocument.Info.Version}) \n");
     }
 
-    protected override void BuildToc()
+    public override void BuildToc()
     {
         Doc.Append("<!-- @import \"[TOC]\" {cmd=\"toc\" depthFrom=2 depthTo=3 orderedList=false} -->\n");
     }
 
-    protected override StringBuilder OutputDoc(string savePath = "")
+    public override StringBuilder OutputDoc(string savePath = "")
     {
         var s = Doc.ToString();
         File.WriteAllText(Path.Combine(savePath, "swagger.md"), s);
@@ -266,6 +254,4 @@ public class OpenApiMdGenerator : DocumentBuilder<StringBuilder>
         }
         return new StringBuilder();
     }
-
-
 }

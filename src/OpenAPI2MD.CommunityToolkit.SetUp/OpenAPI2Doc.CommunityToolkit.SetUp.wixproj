@@ -23,8 +23,8 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenAPI2MD.CommunityToolkit.Command\OpenAPI2Doc.CommunityToolkit.Command.csproj">
-      <Name>OpenApi2Doc.CommunityToolkit.Command</Name>
+    <ProjectReference Include="..\OpenAPI2MD.CommunityToolkit.Command\MasterNeverDown.Swagger2DocCommand.csproj">
+      <Name>MasterNeverDown.Swagger2DocCommand</Name>
       <Project>{83e07eb4-cd79-4158-a3cf-9c935dc22031}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>

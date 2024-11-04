@@ -1,5 +1,5 @@
 ﻿using OpenApi2Doc.CommunityToolkit.Command;
-using OpenApi2Md.CommunityToolkit.Builders;
+using OpenAPI2MD.CommunityToolkit.Builders;
 
 Console.WriteLine("Hello, World!");
 

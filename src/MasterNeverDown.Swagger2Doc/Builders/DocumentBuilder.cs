@@ -2,22 +2,22 @@ namespace OpenApi2Doc.CommunityToolkit.Builders;
 
 public abstract class DocumentBuilder<T>
 {
-    protected T Doc;
+    public T Doc;
 
-    protected OpenApiDocument ApiDocument { get; set; }
+    public OpenApiDocument ApiDocument { get; set; }
 
-    protected string CurrentPathTag { get; set; }
-    protected OpenApiPathItem CurrentPathItem { get; set; }
-    protected OpenApiOperation CurrentOperation { get; set; }
+    public string CurrentPathTag { get; set; }
+    public OpenApiPathItem CurrentPathItem { get; set; }
+    public OpenApiOperation CurrentOperation { get; set; }
 
-    protected OpenApiResponse CurrentResponse { get; set; }
-    protected string CurrentResponseCode { get; set; }
+    public OpenApiResponse CurrentResponse { get; set; }
+    public string CurrentResponseCode { get; set; }
 
     public abstract void Reset();
 
-    protected abstract void InitDoc();
+    public abstract void InitDoc();
 
-    protected abstract void BuildInfo();
+    public abstract void BuildInfo();
 
     private void BuildPathItem()
     {
@@ -43,37 +43,37 @@ public abstract class DocumentBuilder<T>
         AfterBuildPathItem();
     }
 
-    protected abstract void BeginBuildPathItem();
-    protected abstract void AfterBuildPathItem();
+    public abstract void BeginBuildPathItem();
+    public abstract void AfterBuildPathItem();
 
-    protected abstract void BuildTag();
+    public abstract void BuildTag();
 
-    protected abstract void BuildSummary();
+    public abstract void BuildSummary();
 
-    protected abstract void BuildOperationId();
+    public abstract void BuildOperationId();
 
-    protected abstract void BuildDescription();
+    public abstract void BuildDescription();
 
-    protected abstract void BuildRequestMethod();
+    public abstract void BuildRequestMethod();
 
-    protected abstract void BuildRequestType();
+    public abstract void BuildRequestType();
 
-    protected abstract void BuildRequestParams();
+    public abstract void BuildRequestParams();
 
-    protected abstract void BuildRequestBodies();
+    public abstract void BuildRequestBodies();
 
-    protected abstract void BuildRequestBodyExample();
+    public abstract void BuildRequestBodyExample();
 
-    protected abstract void BuildResponse();
-    protected abstract void BuildResponseFields();
+    public abstract void BuildResponse();
+    public abstract void BuildResponseFields();
 
-    protected abstract void BuildResponseExample();
+    public abstract void BuildResponseExample();
 
-    protected abstract void BuildTitle();
+    public abstract void BuildTitle();
 
-    protected abstract void BuildToc();
+    public abstract void BuildToc();
 
-    protected abstract T OutputDoc(string savePath = "");
+    public abstract T OutputDoc(string savePath = "");
 
     public async Task<T> Build(string? requestUri, string savePath = "")
     {
